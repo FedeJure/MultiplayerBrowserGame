@@ -6,7 +6,6 @@ var Game = /** @class */ (function () {
     function Game(gameScene, playerRepository) {
         this.playerRepository = playerRepository;
         this.gameScene = gameScene;
-        console.log(this.gameScene);
         // this.gameScene.events.on("create", () => {
         //     gameScene.addPlayers(playerRepository.getActivePlayers())
         // })
