@@ -1,6 +1,6 @@
 import { Socket } from "socket.io";
-import { PlayerRepository } from "./playerRepository";
-import { GameEvents } from "./events/gameEvents";
+import { PlayerRepository } from "../infrastructure/repositories/playerRepository";
+import { GameEvents } from "../infrastructure/events/gameEvents";
 
 export class GameSocketConnectionService {
 

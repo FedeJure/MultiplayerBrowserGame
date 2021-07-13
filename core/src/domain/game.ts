@@ -1,6 +1,6 @@
-import { PlayerRepository } from "../infrastructure/playerRepository";
+import { PlayerRepository } from "../infrastructure/repositories/playerRepository";
 import { GameScene } from "../scenes/GameScene";
-import { createPlayerWith, Player } from "./player";
+import { createPlayerWith } from "./player";
 
 export class Game {
 
@@ -10,7 +10,7 @@ export class Game {
     constructor(gameScene: GameScene,
         playerRepository: PlayerRepository) {
         this.playerRepository = playerRepository
-        this.gameScene = gameScene
+        this.gameScene = gameScene 
         
         // this.gameScene.events.on("create", () => {
         //     gameScene.addPlayers(playerRepository.getActivePlayers())

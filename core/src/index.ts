@@ -1,6 +1,6 @@
 import { Socket } from "socket.io";
 import { Game } from "./domain/game";
-import { InMemoryPlayerRepository } from "./infrastructure/inMemoryPlayerRepository"
+import { InMemoryPlayerRepository } from "./infrastructure/repositories/inMemoryPlayerRepository"
 import { GameScene } from "./scenes/GameScene";
 import { SocketIOEvents } from "./infrastructure/events/socketIoEvents"
 import { ClientConnection } from "./domain/clientConnection"

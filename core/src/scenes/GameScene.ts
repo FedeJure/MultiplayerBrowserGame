@@ -1,6 +1,6 @@
 import { PlayerView } from '../domain/playerView';
 import { Player } from '../domain/player';
-import { PlayerViewRepository } from "../infrastructure/playerViewRepository"
+import { PlayerViewRepository } from "../infrastructure/repositories/playerViewRepository"
 
 
 export class GameScene extends Phaser.Scene {
