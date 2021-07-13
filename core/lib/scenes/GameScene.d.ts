@@ -1,5 +1,5 @@
 import { Player } from '../domain/player';
-import { PlayerViewRepository } from "../infrastructure/playerViewRepository";
+import { PlayerViewRepository } from "../infrastructure/repositories/playerViewRepository";
 export declare class GameScene extends Phaser.Scene {
     playersGroup: Phaser.Physics.Arcade.Group | undefined;
     playerViewRepository: PlayerViewRepository;

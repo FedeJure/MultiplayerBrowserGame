@@ -17,7 +17,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GameScene = void 0;
 var playerView_1 = require("../domain/playerView");
-var playerViewRepository_1 = require("../infrastructure/playerViewRepository");
+var playerViewRepository_1 = require("../infrastructure/repositories/playerViewRepository");
 var GameScene = /** @class */ (function (_super) {
     __extends(GameScene, _super);
     function GameScene() {

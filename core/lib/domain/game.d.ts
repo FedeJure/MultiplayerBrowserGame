@@ -1,4 +1,4 @@
-import { PlayerRepository } from "../infrastructure/playerRepository";
+import { PlayerRepository } from "../infrastructure/repositories/playerRepository";
 import { GameScene } from "../scenes/GameScene";
 export declare class Game {
     playerRepository: PlayerRepository;
