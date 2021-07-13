@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import SocketIo from "socket.io-client"
+import { InitGame } from "../../core/lib/index";
 import './App.css';
 
 function App() {

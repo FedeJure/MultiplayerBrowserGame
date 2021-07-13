@@ -4,8 +4,8 @@ exports.ConnectNewUser = exports.InitGame = void 0;
 var game_1 = require("./domain/game");
 var inMemoryPlayerRepository_1 = require("./infrastructure/inMemoryPlayerRepository");
 var game;
-var InitGame = function (gameScene) {
-    var inMemoryRepository = new inMemoryPlayerRepository_1.InMemoryPlayerRepository(); // TODO: pasar por parametro
+var InitGame = function (gameScene, socket) {
+    var inMemoryRepository = new inMemoryPlayerRepository_1.InMemoryPlayerRepository();
     game = new game_1.Game(gameScene, inMemoryRepository);
 };
 exports.InitGame = InitGame;

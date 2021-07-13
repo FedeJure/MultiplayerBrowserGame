@@ -6,7 +6,6 @@ import { GameScene } from "./scenes/GameScene";
 var game : Game
 
 export const InitGame = (gameScene: GameScene, socket: Socket) => {
-    console.log(socket)
     var inMemoryRepository = new InMemoryPlayerRepository();
     game = new Game(gameScene, inMemoryRepository);
 }
