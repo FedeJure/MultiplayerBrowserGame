@@ -1,0 +1,9 @@
+{
+    "assets": {
+        "images": [
+            {"name": "player", "path": ""},
+            {"name": "background", "path": ""},
+            {"name": "ground", "path": ""}
+        ]
+    }
+}
