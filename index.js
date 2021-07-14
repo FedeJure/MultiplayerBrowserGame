@@ -5,8 +5,8 @@ const server = require('http').createServer(app);
 const { SetupServer } = require("./server/index");
 
 app.use(express.static(__dirname + '/client/build'));
-
 app.get('/', function (_, res) {
+  //Serve client root file
   res.sendFile(__dirname + '/index.html');
 });
 
