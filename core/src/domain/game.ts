@@ -1,49 +1,42 @@
-import { PlayerRepository } from "../infrastructure/repositories/playerRepository";
-import { GameScene } from "../scenes/GameScene";
-import { createPlayerWith } from "./player";
+import { Socket } from "socket.io"
+import { GameEvents } from "../infrastructure/events/gameEvents"
+import { ConnectionsRepository } from "../infrastructure/repositories/connectionsRepository"
+import { PlayerInfoRepository } from "../infrastructure/repositories/playerInfoRepository"
+import { PlayerStateRepository } from "../infrastructure/repositories/playerStateRepository"
+import { GameScene } from "../scenes/GameScene"
+import { ProvidePlayerData } from "../domain/actions/providePlayerData"
+
 
 export class Game {
 
-    playerRepository: PlayerRepository
-    gameScene: GameScene
+    readonly playerRepository: PlayerInfoRepository
+    readonly playerStateRepository: PlayerStateRepository
+    readonly gameScene: GameScene
+    readonly connectionsRepository: ConnectionsRepository
+    readonly socket: Socket
 
     constructor(gameScene: GameScene,
-        playerRepository: PlayerRepository) {
+        playerRepository: PlayerInfoRepository,
+        playerStateRepository: PlayerStateRepository,
+        connectionsRepository: ConnectionsRepository,
+        socket: Socket) {
         this.playerRepository = playerRepository
+        this.playerStateRepository = playerStateRepository
         this.gameScene = gameScene 
-        
-        // this.gameScene.events.on("create", () => {
-        //     gameScene.addPlayers(playerRepository.getActivePlayers())
-        // })
-
-        // io.on("connection", socket => {
-        //     this.addPlayer(socket.id, 0, 30, socket.handshake.query.name);
-        //     socket.emit("connectionSuccess", players[socket.id].getRepresentation());
-      
-        //     chatController.addToChatRoom(socket);
-      
-        //     socket.on("disconnect", () => {
-        //       this.removePlayer(socket.id);
-        //       delete players[socket.id];
-        //       io.emit("disconnect", socket.id);
-        //     });
-      
-        //     socket.on("playerInput", ({ input, state }) => {
-        //       if (players[socket.id]) {
-        //         players[socket.id].input = input;
-        //         players[socket.id].lastState = state;
-        //       }
-      
-        //     });
-      
-        //     globalEventEmitter.addListener("playerDie", playerId => {
-        //       //io.emit("playerDie", playerId);
-        //       players[playerId].resetPlayer();
-        //     });
-        //   });
+        this.connectionsRepository = connectionsRepository
+        this.socket = socket
+        this.listenEvents()
     }
 
-    addPlayer(id: number, name: string) {
-        this.gameScene.addPlayers([createPlayerWith(id, name)])
+    listenEvents() {
+        this.socket.on(GameEvents.PLAYER_CONNECTED, data => {
+            try {
+                const { id } : { id: number } = data
+                const player = ProvidePlayerData(id, this.playerRepository, this.playerStateRepository)
+                this.gameScene.addPlayers([player])
+            } catch (error) {
+                console.log(`[Game event] ${GameEvents.PLAYER_CONNECTED} ERROR: ${error}`)
+            }
+        })
     }
 }

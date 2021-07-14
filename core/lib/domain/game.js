@@ -1,37 +1,29 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Game = void 0;
-var player_1 = require("./player");
+var gameEvents_1 = require("../infrastructure/events/gameEvents");
+var providePlayerData_1 = require("../domain/actions/providePlayerData");
 var Game = /** @class */ (function () {
-    function Game(gameScene, playerRepository) {
+    function Game(gameScene, playerRepository, playerStateRepository, connectionsRepository, socket) {
         this.playerRepository = playerRepository;
+        this.playerStateRepository = playerStateRepository;
         this.gameScene = gameScene;
-        // this.gameScene.events.on("create", () => {
-        //     gameScene.addPlayers(playerRepository.getActivePlayers())
-        // })
-        // io.on("connection", socket => {
-        //     this.addPlayer(socket.id, 0, 30, socket.handshake.query.name);
-        //     socket.emit("connectionSuccess", players[socket.id].getRepresentation());
-        //     chatController.addToChatRoom(socket);
-        //     socket.on("disconnect", () => {
-        //       this.removePlayer(socket.id);
-        //       delete players[socket.id];
-        //       io.emit("disconnect", socket.id);
-        //     });
-        //     socket.on("playerInput", ({ input, state }) => {
-        //       if (players[socket.id]) {
-        //         players[socket.id].input = input;
-        //         players[socket.id].lastState = state;
-        //       }
-        //     });
-        //     globalEventEmitter.addListener("playerDie", playerId => {
-        //       //io.emit("playerDie", playerId);
-        //       players[playerId].resetPlayer();
-        //     });
-        //   });
+        this.connectionsRepository = connectionsRepository;
+        this.socket = socket;
+        this.listenEvents();
     }
-    Game.prototype.addPlayer = function (id, name) {
-        this.gameScene.addPlayers([player_1.createPlayerWith(id, name)]);
+    Game.prototype.listenEvents = function () {
+        var _this = this;
+        this.socket.on(gameEvents_1.GameEvents.PLAYER_CONNECTED, function (data) {
+            try {
+                var id = data.id;
+                var player = providePlayerData_1.ProvidePlayerData(id, _this.playerRepository, _this.playerStateRepository);
+                _this.gameScene.addPlayers([player]);
+            }
+            catch (error) {
+                console.log("[Game event] " + gameEvents_1.GameEvents.PLAYER_CONNECTED + " ERROR: " + error);
+            }
+        });
     };
     return Game;
 }());

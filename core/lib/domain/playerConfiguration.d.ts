@@ -7,4 +7,7 @@ export interface PlayerConfiguration {
     jumpVelocity: number;
     runVelocity: number;
     initialSide: Side;
+    initialX: number;
+    initialY: number;
 }
+export declare const DefaultConfiguration: PlayerConfiguration;

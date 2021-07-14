@@ -1,3 +1,4 @@
+import { RIGHT } from "phaser";
 import { Side } from "./side";
 
 export interface PlayerConfiguration {
@@ -7,5 +8,19 @@ export interface PlayerConfiguration {
     width: number,
     jumpVelocity: number,
     runVelocity: number,
-    initialSide: Side
+    initialSide: Side,
+    initialX: number,
+    initialY: number
+}
+
+export const DefaultConfiguration : PlayerConfiguration = {
+    initialLife: 100,
+    initialJumps: 2,
+    height: 50,
+    width: 30,
+    jumpVelocity: 10,
+    runVelocity: 10,
+    initialSide: RIGHT,
+    initialX: 0,
+    initialY: 0
 }
