@@ -6,6 +6,7 @@ var inMemoryPlayerRepository_1 = require("./infrastructure/repositories/inMemory
 var inMemoryPlayerStateRepository_1 = require("./infrastructure/repositories/inMemoryPlayerStateRepository");
 var socketIoEvents_1 = require("./infrastructure/events/socketIoEvents");
 var connectionsRepository_1 = require("./infrastructure/repositories/connectionsRepository");
+var coreProvider_1 = require("./coreProvider");
 var game;
 var InitGame = function (gameScene, socket) {
     var connectionsRepository = new connectionsRepository_1.ConnectionsRepository();
@@ -24,7 +25,7 @@ var InitGame = function (gameScene, socket) {
     });
     var inMemoryPlayerInfoRepository = new inMemoryPlayerRepository_1.InMemoryPlayerRepository();
     var inMemoryPlayerStateRepository = new inMemoryPlayerStateRepository_1.InMemoryPlayerStateRepository();
-    game = new game_1.Game(gameScene, inMemoryPlayerInfoRepository, inMemoryPlayerStateRepository, connectionsRepository, socket);
+    game = new game_1.Game(gameScene, coreProvider_1.DefaultCoreProviderInstance, socket);
 };
 exports.InitGame = InitGame;
 var ConnectNewUser = function (name) {

@@ -1,38 +1,30 @@
 import { Socket } from "socket.io"
 import { GameEvents } from "../infrastructure/events/gameEvents"
-import { ConnectionsRepository } from "../infrastructure/repositories/connectionsRepository"
-import { PlayerInfoRepository } from "../infrastructure/repositories/playerInfoRepository"
-import { PlayerStateRepository } from "../infrastructure/repositories/playerStateRepository"
 import { GameScene } from "../scenes/GameScene"
 import { ProvidePlayerData } from "../domain/actions/providePlayerData"
+import { CoreProvider } from "../coreProvider";
 
 
 export class Game {
 
-    readonly playerRepository: PlayerInfoRepository
-    readonly playerStateRepository: PlayerStateRepository
     readonly gameScene: GameScene
-    readonly connectionsRepository: ConnectionsRepository
     readonly socket: Socket
+    readonly provider: CoreProvider
 
     constructor(gameScene: GameScene,
-        playerRepository: PlayerInfoRepository,
-        playerStateRepository: PlayerStateRepository,
-        connectionsRepository: ConnectionsRepository,
+        coreProvider: CoreProvider,
         socket: Socket) {
-        this.playerRepository = playerRepository
-        this.playerStateRepository = playerStateRepository
+        this.provider = coreProvider
         this.gameScene = gameScene 
-        this.connectionsRepository = connectionsRepository
         this.socket = socket
         this.listenEvents()
     }
 
     listenEvents() {
-        this.socket.on(GameEvents.PLAYER_CONNECTED, data => {
+        this.socket.on(GameEvents.PLAYER_CONNECTED, (data: any) => {
             try {
                 const { id } : { id: number } = data
-                const player = ProvidePlayerData(id, this.playerRepository, this.playerStateRepository)
+                const player = ProvidePlayerData(id, this.provider.playerInfoRepository, this.provider.playerStateRepository)
                 this.gameScene.addPlayers([player])
             } catch (error) {
                 console.log(`[Game event] ${GameEvents.PLAYER_CONNECTED} ERROR: ${error}`)

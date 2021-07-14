@@ -2,14 +2,15 @@ import { Socket } from "socket.io";
 import { Game } from "./domain/game";
 import { InMemoryPlayerRepository } from "./infrastructure/repositories/inMemoryPlayerRepository"
 import { InMemoryPlayerStateRepository } from "./infrastructure/repositories/inMemoryPlayerStateRepository"
-import { GameScene } from "./scenes/GameScene";
 import { SocketIOEvents } from "./infrastructure/events/socketIoEvents"
 import { ClientConnection } from "./domain/clientConnection"
 import { ConnectionsRepository } from "./infrastructure/repositories/connectionsRepository"
+import { DefaultCoreProviderInstance } from "./coreProvider";
+import { GameScene } from "./view/GameScene";
 
 var game : Game
 
-export const InitGame = (gameScene: GameScene, socket: Socket) => {
+export const InitGame : (gameScene: GameScene, socket: Socket) => void = (gameScene: GameScene, socket: Socket) => {
 
     const connectionsRepository = new ConnectionsRepository() 
 
@@ -30,9 +31,7 @@ export const InitGame = (gameScene: GameScene, socket: Socket) => {
     var inMemoryPlayerInfoRepository = new InMemoryPlayerRepository();
     var inMemoryPlayerStateRepository = new InMemoryPlayerStateRepository();
     game = new Game(gameScene,
-        inMemoryPlayerInfoRepository,
-        inMemoryPlayerStateRepository,
-        connectionsRepository,
+        DefaultCoreProviderInstance,
         socket);
 }
 

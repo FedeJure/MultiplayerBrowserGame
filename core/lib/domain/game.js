@@ -4,11 +4,9 @@ exports.Game = void 0;
 var gameEvents_1 = require("../infrastructure/events/gameEvents");
 var providePlayerData_1 = require("../domain/actions/providePlayerData");
 var Game = /** @class */ (function () {
-    function Game(gameScene, playerRepository, playerStateRepository, connectionsRepository, socket) {
-        this.playerRepository = playerRepository;
-        this.playerStateRepository = playerStateRepository;
+    function Game(gameScene, coreProvider, socket) {
+        this.provider = coreProvider;
         this.gameScene = gameScene;
-        this.connectionsRepository = connectionsRepository;
         this.socket = socket;
         this.listenEvents();
     }
@@ -17,7 +15,7 @@ var Game = /** @class */ (function () {
         this.socket.on(gameEvents_1.GameEvents.PLAYER_CONNECTED, function (data) {
             try {
                 var id = data.id;
-                var player = providePlayerData_1.ProvidePlayerData(id, _this.playerRepository, _this.playerStateRepository);
+                var player = providePlayerData_1.ProvidePlayerData(id, _this.provider.playerInfoRepository, _this.provider.playerStateRepository);
                 _this.gameScene.addPlayers([player]);
             }
             catch (error) {
