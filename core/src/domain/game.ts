@@ -1,6 +1,6 @@
 import { Socket } from "socket.io"
 import { GameEvents } from "../infrastructure/events/gameEvents"
-import { GameScene } from "../scenes/GameScene"
+import { GameScene } from "../view/GameScene"
 import { ProvidePlayerData } from "../domain/actions/providePlayerData"
 import { CoreProvider } from "../coreProvider";
 

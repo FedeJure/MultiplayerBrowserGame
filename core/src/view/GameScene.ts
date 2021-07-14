@@ -1,4 +1,4 @@
-import { PlayerView } from '../domain/playerView';
+import { PlayerView } from './playerView';
 import { Player } from '../domain/player';
 import { PlayerViewRepository } from "../infrastructure/repositories/playerViewRepository"
 
