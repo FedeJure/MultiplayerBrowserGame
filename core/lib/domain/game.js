@@ -4,10 +4,13 @@ exports.Game = void 0;
 var gameEvents_1 = require("../infrastructure/events/gameEvents");
 var providePlayerData_1 = require("../domain/actions/providePlayerData");
 var Game = /** @class */ (function () {
-    function Game(gameScene, coreProvider, socket) {
+    function Game(config, gameScene, coreProvider, socket) {
         this.provider = coreProvider;
         this.gameScene = gameScene;
         this.socket = socket;
+        //Mock player added 
+        this.provider.playerInfoRepository.addPlayer(1, { id: 1, name: "Test Player" });
+        new Phaser.Game(config);
         this.listenEvents();
     }
     Game.prototype.listenEvents = function () {

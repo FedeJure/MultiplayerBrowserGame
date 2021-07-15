@@ -1,4 +1,4 @@
-import { PlayerView } from "../../domain/playerView";
+import { PlayerView } from "../../view/playerView";
 export declare class PlayerViewRepository {
     playerDictionary: Map<string, PlayerView>;
     constructor();

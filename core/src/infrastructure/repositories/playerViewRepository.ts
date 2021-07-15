@@ -1,4 +1,4 @@
-import { PlayerView } from "../../domain/playerView";
+import { PlayerView } from "../../view/playerView";
 
 export class PlayerViewRepository {
 

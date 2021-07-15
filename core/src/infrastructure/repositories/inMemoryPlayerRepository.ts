@@ -8,4 +8,8 @@ export class InMemoryPlayerRepository implements PlayerInfoRepository {
     getPlayer(id: number): PlayerInfo | undefined {
         return this.store.has(id) ? this.store.get(id) : undefined
     }
+
+    addPlayer(id: number, info: PlayerInfo) {
+        this.store.set(id, info)
+    }
 }

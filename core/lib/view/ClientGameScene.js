@@ -15,19 +15,20 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PlayerView = void 0;
-var phaser_1 = require("phaser");
-var PlayerView = /** @class */ (function (_super) {
-    __extends(PlayerView, _super);
-    function PlayerView(scene, player) {
-        var _a, _b, _c;
-        var _this = _super.call(this, scene, player.state.x, player.state.y) || this;
-        _this.player = player;
-        (_a = _this.body.gameObject) === null || _a === void 0 ? void 0 : _a.setDrag(100);
-        (_b = _this.body.gameObject) === null || _b === void 0 ? void 0 : _b.setAngularDrag(100);
-        (_c = _this.body.gameObject) === null || _c === void 0 ? void 0 : _c.setCollideWorldBounds(false);
-        return _this;
+exports.ClientGameScene = void 0;
+var GameScene_1 = require("./GameScene");
+var ClientGameScene = /** @class */ (function (_super) {
+    __extends(ClientGameScene, _super);
+    function ClientGameScene() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
-    return PlayerView;
-}(phaser_1.GameObjects.Container));
-exports.PlayerView = PlayerView;
+    ClientGameScene.prototype.create = function () {
+        _super.prototype.create.call(this);
+        this.setupPlayerImages();
+    };
+    ClientGameScene.prototype.setupPlayerImages = function () {
+        console.log("Setupping player images!");
+    };
+    return ClientGameScene;
+}(GameScene_1.GameScene));
+exports.ClientGameScene = ClientGameScene;

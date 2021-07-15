@@ -1,31 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
-import SocketIo from "socket.io-client"
-import { InitGame } from "../../core/lib/index";
 import './App.css';
+import { Login } from './screens/Login/Login';
+import { Game } from './game/Game';
 
 function App() {
-
-  useEffect(() => {
-    const socket = SocketIo("http://127.0.0.1:8080")
-  }, [])
+  const [logged, setLogged] = useState(false); 
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {!logged ? <Login onLogin={() => setLogged(true)}/> :
+      <Game />}
     </div>
   );
 }

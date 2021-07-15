@@ -7,36 +7,43 @@ import { ClientConnection } from "./domain/clientConnection"
 import { ConnectionsRepository } from "./infrastructure/repositories/connectionsRepository"
 import { DefaultCoreProviderInstance } from "./coreProvider";
 import { GameScene } from "./view/GameScene";
+import { GameConfig } from "./view/gameConfig";
+import { Socket as ClientSocket } from "socket.io-client";
 
-var game : Game
+var game: Game
 
-export const InitGame : (gameScene: GameScene, socket: Socket) => void = (gameScene: GameScene, socket: Socket) => {
+export const InitGame: (gameConfig: GameConfig, gameScene: GameScene, socket: Socket) => void
+    = (gameConfig: GameConfig, gameScene: GameScene, socket: Socket) => {
 
-    const connectionsRepository = new ConnectionsRepository() 
-
-    socket.on(SocketIOEvents.CONNECTION, (client: any) => {
-        //save connection in repository
-        const connection: ClientConnection = {
-            connectionId: client.client.id,
-            connectionTime: new Date()
-        }
-        connectionsRepository.addConnection(connection)
-        console.log(`[Event: ${SocketIOEvents.CONNECTION}] :: with connection id: ${client.client.id}`)
-        client.on(SocketIOEvents.DISCONNECT, () => {
-            connectionsRepository.removeConnection(connection.connectionId)
-            console.log(`[Event: ${SocketIOEvents.DISCONNECT}] :: with connection id: ${client.client.id}`)
+        socket.on(SocketIOEvents.CONNECTION, (client: any) => {
+            //save connection in repository
+            const connection: ClientConnection = {
+                connectionId: client.client.id,
+                connectionTime: new Date()
+            }
+            DefaultCoreProviderInstance.connectionsRepository.addConnection(connection)
+            console.log(`[Event: ${SocketIOEvents.CONNECTION}] :: with connection id: ${client.client.id}`)
+            client.on(SocketIOEvents.DISCONNECT, () => {
+                DefaultCoreProviderInstance.connectionsRepository.removeConnection(connection.connectionId)
+                console.log(`[Event: ${SocketIOEvents.DISCONNECT}] :: with connection id: ${client.client.id}`)
+            })
         })
-    })
+        game = new Game(gameConfig,
+            gameScene,
+            DefaultCoreProviderInstance,
+            socket);
+    }
 
-    var inMemoryPlayerInfoRepository = new InMemoryPlayerRepository();
-    var inMemoryPlayerStateRepository = new InMemoryPlayerStateRepository();
-    game = new Game(gameScene,
-        DefaultCoreProviderInstance,
-        socket);
-}
+export const InitClientGame: (gameConfig: GameConfig, gameScene: GameScene, socket: ClientSocket) => void
+    = (gameConfig: GameConfig, gameScene: GameScene, socket: ClientSocket) => {
+        game = new Game(gameConfig,
+            gameScene,
+            DefaultCoreProviderInstance,
+            socket);
+    }
 
 
 export const ConnectNewUser = (name: String) => {
     if (!game) throw new Error("No game running!");
-    
+
 }
