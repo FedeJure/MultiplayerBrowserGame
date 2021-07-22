@@ -6,8 +6,3 @@ cd core/
 npm-check -ys
 npm run build
 cd ..
-
-cd client/
-npm-check -ys
-npm run build
-cd ..

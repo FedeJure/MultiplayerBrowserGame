@@ -1,6 +1,8 @@
-import { Player } from "./player";
+import { Observable } from "rxjs";
 export interface ClientConnection {
     connectionId: string;
     connectionTime: Date;
-    player?: Player;
+    onPlayerConnection: () => Observable<{
+        playerId: string;
+    }>;
 }

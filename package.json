@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "bash check-dependencies-and-build.bash && node index.js",
-    "build": "cd core/ && npm run build && cd .. && cd client/ && npm run build && cd .."
+    "start": "node index.js",
+    "build": "bash check-dependencies-and-build-core.bash && bash check-dependencies-and-build-client.bash",
+    "build-client": "bash check-dependencies-and-build-client.bash",
+    "build-core": "bash check-dependencies-and-build-core.bash"
   },
   "author": "",
   "license": "ISC",

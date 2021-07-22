@@ -17,6 +17,7 @@ var Game = /** @class */ (function () {
         var _this = this;
         this.socket.on(gameEvents_1.GameEvents.PLAYER_CONNECTED, function (data) {
             try {
+                console.log(data);
                 var id = data.id;
                 var player = providePlayerData_1.ProvidePlayerData(id, _this.provider.playerInfoRepository, _this.provider.playerStateRepository);
                 _this.gameScene.addPlayers([player]);

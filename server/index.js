@@ -5,6 +5,5 @@ const { ServerConfig } = require('../core/lib/view/DefaultGameConfigs')
 
 exports.SetupServer = (server) => {
     const io = SetupSocketIo(server)
-    const scene = new GameScene()
-    InitGame(ServerConfig, scene, io)
+    InitGame(io)
 }

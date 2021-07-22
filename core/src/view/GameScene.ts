@@ -1,19 +1,21 @@
 import { PlayerView } from './playerView';
 import { Player } from '../domain/player';
 import { PlayerViewRepository } from "../infrastructure/repositories/playerViewRepository"
+import { Observable, Subject } from 'rxjs';
 
 
 export class GameScene extends Phaser.Scene {
 
-   playersGroup : Phaser.Physics.Arcade.Group | undefined
-   playerViewRepository : PlayerViewRepository
-   platformsGroup: Phaser.Physics.Arcade.StaticGroup | undefined
+  playersGroup: Phaser.Physics.Arcade.Group | undefined
+  playerViewRepository: PlayerViewRepository
+  platformsGroup: Phaser.Physics.Arcade.StaticGroup | undefined
 
-   
+  protected playersToAdd : Player[];
 
   constructor() {
     super({ key: "gameScene" });
     this.playerViewRepository = new PlayerViewRepository()
+    this.playersToAdd = []
   }
 
   create() {
@@ -23,14 +25,16 @@ export class GameScene extends Phaser.Scene {
     this.initPlayersOverlap()
   }
 
-  addPlayers(players: Array<Player>) {
-    players.forEach(player => {
-        this.addPlayer(player)
-    })
-    
+  update() {
   }
 
-  private addPlayer(player: Player) {
+
+  addPlayers = (players: Array<Player>) => {
+    players.forEach(this.addPlayer)
+  }
+
+
+  private addPlayer = (player: Player) => {
     const playerView = new PlayerView(this, player)
     this.physics.add.existing(playerView);
     this.add.existing(playerView);
@@ -40,19 +44,19 @@ export class GameScene extends Phaser.Scene {
     this.physics.add.collider(playerView, this.platformsGroup);
   }
 
-  removePlayer(playerId: number) {
+  removePlayer = (playerId: number) => {
     this.playerViewRepository.getPlayer(playerId)?.destroy()
     this.playerViewRepository.removePlayer(playerId)
   }
 
-  initPlatforms() {
-      //TODO: refactorear esto para generar platform de archivo de configs
+  initPlatforms = () => {
+    //TODO: refactorear esto para generar platform de archivo de configs
     var platformCount = 7;
     var platformY = 550;
     var lastPlatformX = -200;
     for (var i = 0; i < platformCount; i++) {
       this.platformsGroup?.create(lastPlatformX, platformY, "ground");
-      lastPlatformX += 200* 0.5;
+      lastPlatformX += 200 * 0.5;
     }
     this.platformsGroup?.addMultiple([
       new Phaser.GameObjects.Rectangle(
@@ -68,13 +72,13 @@ export class GameScene extends Phaser.Scene {
     ]);
   }
 
-  onPlayerOverlapsOther(
-      player1: Phaser.Types.Physics.Arcade.GameObjectWithBody,
-        player2: Phaser.Types.Physics.Arcade.GameObjectWithBody) {
-        //TODO: do stuffs
+  onPlayerOverlapsOther = (
+    player1: Phaser.Types.Physics.Arcade.GameObjectWithBody,
+    player2: Phaser.Types.Physics.Arcade.GameObjectWithBody) => {
+    //TODO: do stuffs
   }
 
-  initPlayersOverlap() {
+  initPlayersOverlap = () => {
     if (!this.playersGroup) return;
     this.physics.add.overlap(this.playersGroup, this.playersGroup, this.onPlayerOverlapsOther);
   }

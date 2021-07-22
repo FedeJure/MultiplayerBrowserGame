@@ -1,17 +1,37 @@
 import React , {useEffect, useState} from "react"
-import SocketIo from "socket.io-client"
+import { io } from "socket.io-client"
 import { DefaultEventsMap } from "socket.io-client/build/typed-events";
 import { InitClientGame } from "multiplayer-game-core/lib/index";
 import { ClientConfig } from "multiplayer-game-core/lib/view/DefaultGameConfigs";
-import { GameScene } from "multiplayer-game-core/lib/view/GameScene"
+import { ClientGameScene } from "multiplayer-game-core/lib/view/ClientGameScene"
+import { GameEvents } from "multiplayer-game-core/lib/infrastructure/events/gameEvents"
 
 
 export const Game = () => {
 
     useEffect(() => {
-        const socket= SocketIo("http://127.0.0.1:8080")
-        const scene = new GameScene()
-        InitClientGame(ClientConfig, scene,  socket)
+        const socket = io({
+            auth: {
+                token: "1234"
+            },
+            query: {
+                playerId: "1"
+            },
+            transports: ["websocket","polling"]
+        });
+        
+        socket.on("connect", () => {
+            console.log(socket)            
+            console.log("[Game] :: Successfully connected :D")
+            socket.emit(GameEvents.PLAYER_CONNECTED, {playerId: 1});
+            InitClientGame(socket)    
+            
+        })
+
+        socket.on("disconnect", () => {
+            console.log("Disconnected from server")
+        })
+        
       }, [])
 
     return <div>

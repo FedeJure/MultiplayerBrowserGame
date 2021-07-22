@@ -17,17 +17,44 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ClientGameScene = void 0;
 var GameScene_1 = require("./GameScene");
+var GameSceneConfig = require("./GameSceneConfig.json");
 var ClientGameScene = /** @class */ (function (_super) {
     __extends(ClientGameScene, _super);
     function ClientGameScene() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.create = function () {
+            var background = _this.add.image(1250, 300, "background");
+            background.height = 600;
+            background.scaleY = 2;
+            background.scaleX = 2;
+        };
+        return _this;
+        // addPlayers(players: Array<Player>) {
+        //     super.addPlayers(players)
+        //     players.forEach((player : Player) => {
+        //         console.log(player)
+        //         const view : PlayerView | undefined = this.playerViewRepository.getPlayer(player.playerInfo.id)
+        //         if (view != undefined){
+        //             const sprite = new Phaser.Physics.Arcade.Sprite(this, 0, 0, "player")
+        //             sprite.setOrigin(0.5, 0.5);
+        //             sprite.scaleX = 1;
+        //             sprite.scaleY = 1;
+        //             view.add(sprite)
+        //             this.add.existing(sprite)
+        //             this.cameras.main.startFollow(view);
+        //             this.cameras.main.zoom = 1.1;
+        //         }
+        //     })
+        // }
     }
-    ClientGameScene.prototype.create = function () {
-        _super.prototype.create.call(this);
-        this.setupPlayerImages();
-    };
-    ClientGameScene.prototype.setupPlayerImages = function () {
-        console.log("Setupping player images!");
+    ClientGameScene.prototype.preload = function () {
+        var _this = this;
+        GameSceneConfig.assets.spritesheets.forEach(function (image) {
+            _this.load.spritesheet(image.name, image.path, image);
+        });
+        GameSceneConfig.assets.images.forEach(function (image) {
+            _this.load.image(image.name, image.path);
+        });
     };
     return ClientGameScene;
 }(GameScene_1.GameScene));

@@ -22,10 +22,10 @@ var PlayerView = /** @class */ (function (_super) {
     function PlayerView(scene, player) {
         var _this = _super.call(this, scene, player.state.x, player.state.y) || this;
         _this.player = player;
-        _this.body.gameObject.setDrag(100);
-        _this.body.gameObject.setAngularDrag(100);
-        _this.body.gameObject.setCollideWorldBounds(false);
         return _this;
+        // this.body.gameObject.setDrag(100)
+        // this.body.gameObject.setAngularDrag(100)
+        // this.body.gameObject.setCollideWorldBounds(false)
     }
     return PlayerView;
 }(phaser_1.GameObjects.Container));
