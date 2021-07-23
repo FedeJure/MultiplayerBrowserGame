@@ -1,12 +1,12 @@
 import { Observable, Subject } from "rxjs";
 import { Socket } from "socket.io-client";
 import { ClientConnection } from "../domain/clientConnection";
-import {GameEvents} from "./events/gameEvents"
+import {GameEvents, PlayerConnectedEvent} from "./events/gameEvents"
 import { Player } from "../domain/player";
 
 export class SocketClientConnection implements ClientConnection {
 
-    private socket: Socket;
+    public readonly socket: Socket;
     public readonly connectionId: string;
     public readonly connectionTime: Date;
 
@@ -20,10 +20,10 @@ export class SocketClientConnection implements ClientConnection {
         this.listenEvents();
     }
     listenEvents() {
-        this.socket.on(GameEvents.PLAYER_CONNECTED, (data: any) => {
+        this.socket.on(GameEvents.PLAYER_CONNECTED.name, (data: PlayerConnectedEvent) => {
             try {
-                const { playerId } : { playerId: string } = data
-                this.onPlayerConnectionSubject.next({ playerId })
+                const { playerId } = data
+                this.onPlayerConnectionSubject.next({ playerId: playerId.toString() })
             } catch (error) {
                 console.log(`[Socket Client Connection] :: Error: ${error}`)
             }

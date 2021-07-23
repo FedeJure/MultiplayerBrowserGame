@@ -11,6 +11,8 @@ export class GameScene extends Phaser.Scene {
   platformsGroup: Phaser.Physics.Arcade.StaticGroup | undefined
 
   protected playersToAdd : Player[];
+  
+  private _onUpdate = new Subject<{time: number, delta: number}>() 
 
   constructor() {
     super({ key: "gameScene" });
@@ -25,7 +27,12 @@ export class GameScene extends Phaser.Scene {
     this.initPlayersOverlap()
   }
 
-  update() {
+  update(time: number, delta: number) {
+    this._onUpdate.next({time, delta})
+  }
+
+  get onUpdate() : Observable<{time:number, delta: number}>{
+    return this._onUpdate
   }
 
 

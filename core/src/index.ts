@@ -23,10 +23,8 @@ export const InitGame: (socket: Socket) => void = (socket: Socket) => {
         const config = {...ServerConfig, scene}
         const phaserGame = new Phaser.Game(config)
         const game = new ServerGame(config.scene, DefaultCoreProviderInstance);
-
+    
         socket.on(SocketIOEvents.CONNECTION, (clientSocket: ClientSocket) => {
-            //save connection in repository
-
             const connection = new SocketClientConnection(clientSocket)
 
             DefaultCoreProviderInstance.connectionsRepository.addConnection(connection)

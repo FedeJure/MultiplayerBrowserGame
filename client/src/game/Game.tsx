@@ -23,7 +23,7 @@ export const Game = () => {
         socket.on("connect", () => {
             console.log(socket)            
             console.log("[Game] :: Successfully connected :D")
-            socket.emit(GameEvents.PLAYER_CONNECTED, {playerId: 1});
+            socket.emit(GameEvents.PLAYER_CONNECTED.name, {playerId: 1});
             InitClientGame(socket)    
         })
 
