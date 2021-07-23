@@ -25,7 +25,6 @@ export const Game = () => {
             console.log("[Game] :: Successfully connected :D")
             socket.emit(GameEvents.PLAYER_CONNECTED, {playerId: 1});
             InitClientGame(socket)    
-            
         })
 
         socket.on("disconnect", () => {

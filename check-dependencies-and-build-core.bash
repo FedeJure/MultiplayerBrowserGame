@@ -5,4 +5,5 @@ fi
 cd core/
 npm-check -ys
 npm run build
+npm link
 cd ..
