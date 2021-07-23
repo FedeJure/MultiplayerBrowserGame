@@ -1,10 +1,11 @@
+import { Observable, Subject } from 'rxjs';
+import { Scene, GameObjects } from "phaser"
 import { PlayerView } from './playerView';
 import { Player } from '../domain/player';
 import { PlayerViewRepository } from "../infrastructure/repositories/playerViewRepository"
-import { Observable, Subject } from 'rxjs';
 
 
-export class GameScene extends Phaser.Scene {
+export class GameScene extends Scene {
 
   playersGroup: Phaser.Physics.Arcade.Group | undefined
   playerViewRepository: PlayerViewRepository
@@ -42,13 +43,9 @@ export class GameScene extends Phaser.Scene {
 
 
   private addPlayer = (player: Player) => {
-    const playerView = new PlayerView(this, player)
-    this.physics.add.existing(playerView);
-    this.add.existing(playerView);
-    this.playersGroup?.add(playerView);
-    this.playerViewRepository.addPlayer(playerView, player.playerInfo.id)
+    this.playersGroup?.add(player.playerView);
     if (!this.platformsGroup) return;
-    this.physics.add.collider(playerView, this.platformsGroup);
+    this.physics.add.collider(player.playerView, this.platformsGroup);
   }
 
   removePlayer = (playerId: number) => {
@@ -66,7 +63,7 @@ export class GameScene extends Phaser.Scene {
       lastPlatformX += 200 * 0.5;
     }
     this.platformsGroup?.addMultiple([
-      new Phaser.GameObjects.Rectangle(
+      new GameObjects.Rectangle(
         this,
         -700,
         platformY,
@@ -75,7 +72,7 @@ export class GameScene extends Phaser.Scene {
         0,
         100
       ),
-      new Phaser.GameObjects.Rectangle(this, 2000, platformY, 10, 1000, 0, 10)
+      new GameObjects.Rectangle(this, 2000, platformY, 10, 1000, 0, 10)
     ]);
   }
 

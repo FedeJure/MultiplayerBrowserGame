@@ -1,16 +1,13 @@
-import { GameObjects, Scene } from "phaser"
+import { GameObjects, Physics, Scene } from "phaser"
 import { Player } from "../domain/player";
 import { Position } from "../domain/position";
 
 export class PlayerView extends GameObjects.Container {
-
-    public readonly player: Player
-
-    constructor(scene: Scene, player: Player) {
-        super(scene, player.state.position.x, player.state.position.y)
-        this.player = player
-        // this.body.gameObject.setDrag(100)
-        // this.body.gameObject.setAngularDrag(100)
-        // this.body.gameObject.setCollideWorldBounds(false)
+//TODO: ver de crear interfaces en el dominio con todas las propiedades q se usen de Phaser, para aislar 
+// el core de la dependencia del framework
+    constructor(scene: Scene, x: number, y: number) {
+        super(scene, x, y)
+        scene.physics.add.existing(this)
+        scene.add.existing(this)
     }
 }

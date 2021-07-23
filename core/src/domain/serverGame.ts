@@ -16,8 +16,7 @@ export class ServerGame {
 
     constructor(
         gameScene: GameScene,
-        coreProvider: CoreProvider,
-        socket: Socket) {
+        coreProvider: CoreProvider) {
         this.provider = coreProvider
         this.gameScene = gameScene
         this.connectedPlayers = []
@@ -35,7 +34,7 @@ export class ServerGame {
             })
         
         this.gameScene.onUpdate.subscribe(({time, delta}) => {
-            const data = this.connectedPlayers.map(p => ({id: p.player.playerInfo.id, position: p.player.state.position}))
+            const data = this.connectedPlayers.map(p => ({id: p.player.playerInfo.id, position: p.player.playerView.body.position}))
             const event = GameEvents.PLAYERS_POSITIONS.getEvent(data)
             this.connectedPlayers.forEach(p => {
                 p.con.socket.emit(GameEvents.PLAYERS_POSITIONS.name, event)
@@ -45,7 +44,7 @@ export class ServerGame {
 
     addPlayer(playerId: string, connection: ClientConnection) {
         try {
-            const player = ProvidePlayerData(parseInt(playerId, 10), this.provider.playerInfoRepository, this.provider.playerStateRepository)
+            const player = ProvidePlayerData(parseInt(playerId, 10), this.provider.playerInfoRepository, this.provider.playerStateRepository, this.gameScene)
             this.connectedPlayers.push({con: connection, player})
             this.gameScene.addPlayers([player])
             

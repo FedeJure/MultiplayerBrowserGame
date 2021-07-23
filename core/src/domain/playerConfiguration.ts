@@ -22,5 +22,5 @@ export const DefaultConfiguration : PlayerConfiguration = {
     runVelocity: 10,
     initialSide: RIGHT,
     initialX: 0,
-    initialY: 0
+    initialY: 100
 }

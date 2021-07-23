@@ -22,7 +22,7 @@ export class ClientGame {
     }
     listenEvents() {
         this.socket.on(GameEvents.PLAYERS_POSITIONS.name, (data: PlayersPositionsEvent) => {
-            console.log(data.positions)
+            console.log(data.positions.map(d => d.position.y))
         })
     }
 }

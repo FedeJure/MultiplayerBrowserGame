@@ -9,7 +9,6 @@ export interface CoreProvider {
     readonly connectionsRepository: ConnectionsRepository
     readonly playerInfoRepository: PlayerInfoRepository
     readonly playerStateRepository: PlayerStateRepository
-    readonly playerViewRepository: PlayerViewRepository
 }
 
 
@@ -17,13 +16,11 @@ export class DefaultCoreProvider implements CoreProvider {
     public readonly connectionsRepository: ConnectionsRepository
     public readonly playerInfoRepository: PlayerInfoRepository
     public readonly playerStateRepository: PlayerStateRepository
-    public readonly playerViewRepository: PlayerViewRepository
 
     constructor() {
         this.connectionsRepository = new ConnectionsRepository()
         this.playerInfoRepository = new InMemoryPlayerRepository()
         this.playerStateRepository = new InMemoryPlayerStateRepository()
-        this.playerViewRepository = new PlayerViewRepository();
     }
 }
 
