@@ -7,3 +7,6 @@ npm-check -ys
 npm run build
 npm link
 cd ..
+cd client/
+npm link multiplayer-game-core
+cd ..

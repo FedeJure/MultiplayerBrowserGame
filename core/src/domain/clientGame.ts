@@ -1,28 +1,53 @@
-import { Socket } from "socket.io"
-import { Socket as ClientSocket } from "socket.io-client"
-import { GameEvents, PlayersPositionsEvent } from "../infrastructure/events/gameEvents"
+import { Socket } from "socket.io-client"
+import { GameEvents, InitialGameStateEvent, PlayersPositionsEvent } from "../infrastructure/events/gameEvents"
 import { GameScene } from "../view/GameScene"
-import { ProvidePlayerData } from "../domain/actions/providePlayerData"
+import { ProvidePlayerFromDto } from "../domain/actions/providePlayerFromDto"
 import { CoreProvider } from "../coreProvider";
 import { GameConfig } from "../view/gameConfig";
-
+import { Scene } from "phaser"
+import { ServerRenderDelegator } from "../view/ServerRenderDelegator";
+import { RenderDelegator } from "../view/RenderDelegator";
+import { ClientRenderDelegator } from "../view/ClientRenderDelegator";
 
 export class ClientGame {
 
-    readonly socket: Socket | ClientSocket
+    readonly socket: Socket
     readonly provider: CoreProvider
+    readonly scene: GameScene
+    readonly render: RenderDelegator
 
     constructor(
         coreProvider: CoreProvider,
-        socket: Socket | ClientSocket) {
+        socket: Socket,
+        scene: GameScene) {
         this.provider = coreProvider
         this.socket = socket
+        this.scene = scene
+        this.render = new ClientRenderDelegator()
 
         this.listenEvents()
     }
     listenEvents() {
+        this.scene.onPreload.subscribe(() => {
+            this.scene.load.spritesheet("player", "./assets/player_anims.png", {
+                frameWidth: 50,
+                frameHeight: 37
+            });
+            this.scene.load.image("background", "./assets/background.png");
+            this.scene.load.image("ground", "./assets/simple_platform.png");
+            this.scene.anims.create({
+                key: "idle",
+                frames: this.scene.anims.generateFrameNumbers("player", { start: 0, end: 2 }),
+                frameRate: 5,
+                repeat: -1
+            });
+        })
+        this.socket.on(GameEvents.INITIAL_GAME_STATE.name, (data: InitialGameStateEvent) => {
+            console.log("[Client Game :: Initial Game State Event] ", data)
+            this.scene.addPlayers(data.players.map(dto => ProvidePlayerFromDto(dto, this.scene, this.render)))
+        })
         this.socket.on(GameEvents.PLAYERS_POSITIONS.name, (data: PlayersPositionsEvent) => {
-            console.log(data.positions.map(d => d.position.y))
+            // console.log(data.positions.map(d => d.position.y))
         })
     }
 }

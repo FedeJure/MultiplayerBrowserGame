@@ -1,7 +1,6 @@
 import { ConnectionsRepository } from "./infrastructure/repositories/connectionsRepository";
 import { PlayerInfoRepository } from "./infrastructure/repositories/playerInfoRepository";
 import { PlayerStateRepository } from "./infrastructure/repositories/playerStateRepository";
-import { PlayerViewRepository } from "./infrastructure/repositories/playerViewRepository";
 import { InMemoryPlayerRepository } from "./infrastructure/repositories/inMemoryPlayerRepository";
 import { InMemoryPlayerStateRepository } from "./infrastructure/repositories/inMemoryPlayerStateRepository";
 

@@ -2,23 +2,23 @@ import { Observable, Subject } from 'rxjs';
 import { Scene, GameObjects } from "phaser"
 import { PlayerView } from './playerView';
 import { Player } from '../domain/player';
-import { PlayerViewRepository } from "../infrastructure/repositories/playerViewRepository"
+import { PlayerFacade } from '../domain/playerFacade';
 
 
 export class GameScene extends Scene {
 
   playersGroup: Phaser.Physics.Arcade.Group | undefined
-  playerViewRepository: PlayerViewRepository
   platformsGroup: Phaser.Physics.Arcade.StaticGroup | undefined
 
-  protected playersToAdd : Player[];
-  
-  private _onUpdate = new Subject<{time: number, delta: number}>() 
+  private _onUpdate = new Subject<{ time: number, delta: number }>()
+  private _onPreload = new Subject<void>()
 
   constructor() {
     super({ key: "gameScene" });
-    this.playerViewRepository = new PlayerViewRepository()
-    this.playersToAdd = []
+  }
+
+  preload() {
+    this._onPreload.next()
   }
 
   create() {
@@ -26,31 +26,31 @@ export class GameScene extends Scene {
     this.platformsGroup = this.physics.add.staticGroup();
     this.initPlatforms();
     this.initPlayersOverlap()
+    const background = this.add.image(1250, 300, "background");
+    background.scaleY = 2;
+    background.scaleX = 2;
   }
 
   update(time: number, delta: number) {
-    this._onUpdate.next({time, delta})
+    this._onUpdate.next({ time, delta })
   }
 
-  get onUpdate() : Observable<{time:number, delta: number}>{
+  get onUpdate(): Observable<{ time: number, delta: number }> {
     return this._onUpdate
   }
 
+  get onPreload(): Observable<void> {
+    return this._onPreload
+  }
 
-  addPlayers = (players: Array<Player>) => {
+  addPlayers(players: Array<PlayerFacade>) {
     players.forEach(this.addPlayer)
   }
 
-
-  private addPlayer = (player: Player) => {
-    this.playersGroup?.add(player.playerView);
+  private addPlayer = (player: PlayerFacade) => {
+    this.playersGroup?.add(player.view);
     if (!this.platformsGroup) return;
-    this.physics.add.collider(player.playerView, this.platformsGroup);
-  }
-
-  removePlayer = (playerId: number) => {
-    this.playerViewRepository.getPlayer(playerId)?.destroy()
-    this.playerViewRepository.removePlayer(playerId)
+    this.physics.add.collider(player.view, this.platformsGroup);
   }
 
   initPlatforms = () => {
