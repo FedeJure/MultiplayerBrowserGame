@@ -16,8 +16,8 @@ export interface PlayerConfiguration {
 export const DefaultConfiguration : PlayerConfiguration = {
     initialLife: 100,
     initialJumps: 2,
-    height: 50,
-    width: 30,
+    height: 37,
+    width: 50,
     jumpVelocity: 10,
     runVelocity: 10,
     initialSide: RIGHT,

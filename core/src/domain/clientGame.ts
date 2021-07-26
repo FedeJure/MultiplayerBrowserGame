@@ -27,25 +27,14 @@ export class ClientGame {
         this.localPlayerId = localPlayerId
         this.render = new ClientRenderDelegator()
 
-        this.listenEvents()
-        
-        socket.emit(GameEvents.PLAYER_CONNECTED.name, GameEvents.PLAYER_CONNECTED.getEvent(1));        
-    }
-    listenEvents() {
-        this.scene.onPreload.subscribe(() => {
-            this.scene.load.spritesheet("player", "./assets/player_anims.png", {
-                frameWidth: 50,
-                frameHeight: 37
-            });
-            this.scene.load.image("background", "./assets/background.png");
-            this.scene.load.image("ground", "./assets/simple_platform.png");
-            this.scene.anims.create({
-                key: "idle",
-                frames: this.scene.anims.generateFrameNumbers("player", { start: 0, end: 2 }),
-                frameRate: 5,
-                repeat: -1
-            });
+        scene.onCreate.subscribe(() => {
+            this.listenEvents()
+            socket.emit(GameEvents.PLAYER_CONNECTED.name, GameEvents.PLAYER_CONNECTED.getEvent(1)); 
         })
+    
+    }
+    
+    listenEvents() {
         this.socket.on(GameEvents.INITIAL_GAME_STATE.name, (data: InitialGameStateEvent) => {
             console.log("[Client Game :: Initial Game State Event] ", data)
             const players = data.players.map(dto => ProvidePlayerFromDto(dto, this.scene, this.render))

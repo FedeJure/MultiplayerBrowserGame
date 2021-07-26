@@ -11,7 +11,7 @@ export const ClientConfig : GameConfig = {
         default: 'arcade',
         arcade: {
             debug: true,
-            gravity: { y: 0.5 }
+            gravity: { y: 1000 }
         }
     },
     scene: [GameScene]
@@ -27,7 +27,7 @@ export const ServerConfig : GameConfig = {
         default: 'arcade',
         arcade: {
             debug: false,
-            gravity: { y: 0.5 }
+            gravity: { y: 1000 }
         }
     },
     scene: [GameScene]

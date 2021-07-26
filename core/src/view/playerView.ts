@@ -9,11 +9,12 @@ export class PlayerView extends GameObjects.Container {
 
     readonly render: RenderDelegator
 
-    constructor(scene: Scene, x: number, y: number, renderDelegator: RenderDelegator) {
+    constructor(scene: Scene, x: number, y: number, height: number, width: number, renderDelegator: RenderDelegator) {
         super(scene, x, y)
-        scene.physics.add.existing(this)
-        scene.add.existing(this)
+        this.height = height
+        this.width = width
         this.render = renderDelegator
         this.render.renderPlayer(this)
+        scene.physics.add.existing(this)        
     }
 }

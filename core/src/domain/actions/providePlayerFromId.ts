@@ -23,7 +23,7 @@ export function ProvidePlayerFromId(
                 DefaultConfiguration.initialY, DefaultConfiguration.initialLife,
                 DefaultConfiguration.initialJumps )
         }
-        const view = new PlayerView(scene, playerState.position.x, playerState.position.y, render)
+        const view = new PlayerView(scene, playerState.position.x, playerState.position.y, DefaultConfiguration.height, DefaultConfiguration.width, render)
 
         return new Player(DefaultConfiguration, playerInfo, playerState, view)
 

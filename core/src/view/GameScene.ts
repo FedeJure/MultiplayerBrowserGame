@@ -2,21 +2,16 @@ import { Observable, Subject } from 'rxjs';
 import { Scene, GameObjects } from "phaser"
 import { PlayerFacade } from '../domain/playerFacade';
 
-
 export class GameScene extends Scene {
 
   playersGroup: Phaser.Physics.Arcade.Group | undefined
   platformsGroup: Phaser.Physics.Arcade.StaticGroup | undefined
 
   private _onUpdate = new Subject<{ time: number, delta: number }>()
-  private _onPreload = new Subject<void>()
+  private _onCreate = new Subject<void>()
 
   constructor() {
     super({ key: "gameScene" });
-  }
-
-  preload() {
-    this._onPreload.next()
   }
 
   create() {
@@ -27,6 +22,7 @@ export class GameScene extends Scene {
     const background = this.add.image(1250, 300, "background");
     background.scaleY = 2;
     background.scaleX = 2;
+    this._onCreate.next()    
   }
 
   update(time: number, delta: number) {
@@ -37,20 +33,8 @@ export class GameScene extends Scene {
     return this._onUpdate
   }
 
-  get onPreload(): Observable<void> {
-    this.load.spritesheet("player", "./assets/player_anims.png", {
-      frameWidth: 50,
-      frameHeight: 37
-  });
-  this.load.image("background", "./assets/background.png");
-  this.load.image("ground", "./assets/simple_platform.png");
-  this.anims.create({
-      key: "idle",
-      frames: this.anims.generateFrameNumbers("player", { start: 0, end: 2 }),
-      frameRate: 5,
-      repeat: -1
-  });
-    return this._onPreload
+  get onCreate(): Observable<void> {
+    return this._onCreate
   }
 
   addLocalPlayer(player: PlayerFacade) {
@@ -70,7 +54,7 @@ export class GameScene extends Scene {
   initPlatforms = () => {
     //TODO: refactorear esto para generar platform de archivo de configs
     var platformCount = 7;
-    var platformY = 0;
+    var platformY = 500;
     var lastPlatformX = -200;
     for (var i = 0; i < platformCount; i++) {
       this.platformsGroup?.create(lastPlatformX, platformY, "ground");
@@ -81,7 +65,7 @@ export class GameScene extends Scene {
         this,
         -700,
         platformY,
-        10,
+        500,
         1000,
         0,
         100
