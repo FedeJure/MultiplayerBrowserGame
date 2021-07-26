@@ -2,9 +2,7 @@ import { GameEvents, InitialGameStateEvent } from "../infrastructure/events/game
 import { GameScene } from "../view/GameScene"
 import { ProvidePlayerFromId } from "../domain/actions/providePlayerFromId"
 import { CoreProvider } from "../coreProvider";
-import { GameConfig } from "../view/gameConfig";
 import { ClientConnection } from "./clientConnection";
-import { Socket } from "socket.io";
 import { Player } from "./player";
 import { RenderDelegator } from "../view/RenderDelegator";
 import { ServerRenderDelegator } from "../view/ServerRenderDelegator";
@@ -18,7 +16,7 @@ export class ServerGame {
     readonly provider: CoreProvider
     readonly render: RenderDelegator
 
-    private connectedPlayers: {con: ClientConnection, player: Player, stateDto: PlayerStateDto}[]
+    private connectedPlayers: Map<string, {con: ClientConnection, player: Player, stateDto: PlayerStateDto}>
 
     constructor(
         gameScene: GameScene,
@@ -26,7 +24,7 @@ export class ServerGame {
         this.provider = coreProvider
         this.gameScene = gameScene
         this.render = new ServerRenderDelegator()
-        this.connectedPlayers = []
+        this.connectedPlayers = new Map()
 
         //Mock player added 
         this.listenEvents()
@@ -39,13 +37,18 @@ export class ServerGame {
                 connection.onPlayerConnection()
                     .subscribe(({ playerId }) => {
                         this.addPlayer(playerId, connection)
-                        connection.socket.emit(GameEvents.INITIAL_GAME_STATE.name, 
-                            GameEvents.INITIAL_GAME_STATE.getEvent(this.connectedPlayers.map(c => c.stateDto)))
+                        connection.sendInitialStateEvent(Array.from(this.connectedPlayers.values()).map(c => c.stateDto))
+                        
                     })
             })
         
+        this.provider.connectionsRepository.onDisconnection()
+            .subscribe(connection => {
+
+            })
+        
         this.gameScene.onUpdate.subscribe(({time, delta}) => {
-            const data = this.connectedPlayers.map(p => ({id: p.player.info.id, position: p.player.view.body.position}))
+            const data = Array.from(this.connectedPlayers.values()).map(p => ({id: p.player.info.id, position: p.player.view.body.position}))
             const event = GameEvents.PLAYERS_POSITIONS.getEvent(data)
             this.connectedPlayers.forEach(p => {
                 p.con.socket.emit(GameEvents.PLAYERS_POSITIONS.name, event)
@@ -56,10 +59,10 @@ export class ServerGame {
     addPlayer(playerId: string, connection: ClientConnection) {
         try {
             const player = ProvidePlayerFromId(parseInt(playerId, 10), this.provider.playerInfoRepository, this.provider.playerStateRepository, this.gameScene, this.render)
-            this.connectedPlayers.push({con: connection, player, stateDto: ProvidePlayerStateDto(player)})
+            const state = ProvidePlayerStateDto(player)
+            this.connectedPlayers.set(player.info.id.toString(), {con: connection, player, stateDto: state})
             this.gameScene.addPlayers([player])
-            
-            console.log(`[Game addPlayer] player added to scene with id: ${playerId}`)
+            console.log(`[Game addPlayer] player added to scene with id: ${playerId}`)            
         } catch (error) {
             console.log(`[Game addPlayer] ERROR: ${error}`)
         }

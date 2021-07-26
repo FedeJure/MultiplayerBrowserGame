@@ -2,7 +2,8 @@ import { Observable, Subject } from "rxjs";
 import { Socket } from "socket.io-client";
 import { ClientConnection } from "../domain/clientConnection";
 import {GameEvents, PlayerConnectedEvent} from "./events/gameEvents"
-import { Player } from "../domain/player";
+import { PlayerStateDto } from "./dtos/playerStateDTO";
+import { PlayerInfo } from "../domain/playerInfo";
 
 export class SocketClientConnection implements ClientConnection {
 
@@ -10,7 +11,7 @@ export class SocketClientConnection implements ClientConnection {
     public readonly connectionId: string;
     public readonly connectionTime: Date;
 
-    private onPlayerConnectionSubject = new Subject<{ playerId: string; }>()
+    private onPlayerConnectionSubject = new Subject<{ playerId: string }>()
 
     constructor(socket: Socket) {
         this.connectionId = socket.id
@@ -19,6 +20,7 @@ export class SocketClientConnection implements ClientConnection {
 
         this.listenEvents();
     }
+
     listenEvents() {
         this.socket.on(GameEvents.PLAYER_CONNECTED.name, (data: PlayerConnectedEvent) => {
             try {
@@ -28,6 +30,11 @@ export class SocketClientConnection implements ClientConnection {
                 console.log(`[Socket Client Connection] :: Error: ${error}`)
             }
         })
+    }
+
+    public sendInitialStateEvent(players: PlayerStateDto[]) {
+        this.socket.emit(GameEvents.INITIAL_GAME_STATE.name, 
+            GameEvents.INITIAL_GAME_STATE.getEvent(players))
     }
 
     onPlayerConnection = () => this.onPlayerConnectionSubject

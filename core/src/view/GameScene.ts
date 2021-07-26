@@ -43,6 +43,10 @@ export class GameScene extends Scene {
     return this._onPreload
   }
 
+  addLocalPlayer(player: PlayerFacade) {
+    
+  }
+
   addPlayers(players: Array<PlayerFacade>) {
     players.forEach(this.addPlayer)
   }

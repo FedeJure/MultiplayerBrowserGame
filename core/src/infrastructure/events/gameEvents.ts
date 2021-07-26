@@ -1,4 +1,5 @@
 import { Player } from "../../domain/player";
+import { PlayerInfo } from "../../domain/playerInfo";
 import { PlayerState } from "../../domain/playerState";
 import { Position } from "../../domain/position";
 import { PlayerStateDto } from "../dtos/playerStateDTO";
