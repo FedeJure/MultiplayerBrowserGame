@@ -1,11 +1,6 @@
-import React , {useEffect, useState} from "react"
+import React , {useEffect} from "react"
 import { io } from "socket.io-client"
-import { DefaultEventsMap } from "socket.io-client/build/typed-events";
 import { InitClientGame } from "multiplayer-game-core/lib/index";
-import { ClientConfig } from "multiplayer-game-core/lib/view/DefaultGameConfigs";
-import { ClientGameScene } from "multiplayer-game-core/lib/view/ClientGameScene"
-import { GameEvents } from "multiplayer-game-core/lib/infrastructure/events/gameEvents"
-import { PlayerInfo } from "../../../core/lib/domain/playerInfo";
 
 
 export const Game = () => {

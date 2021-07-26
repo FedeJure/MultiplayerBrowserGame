@@ -1,7 +1,5 @@
 import { Observable, Subject } from 'rxjs';
 import { Scene, GameObjects } from "phaser"
-import { PlayerView } from './playerView';
-import { Player } from '../domain/player';
 import { PlayerFacade } from '../domain/playerFacade';
 
 
@@ -40,6 +38,18 @@ export class GameScene extends Scene {
   }
 
   get onPreload(): Observable<void> {
+    this.load.spritesheet("player", "./assets/player_anims.png", {
+      frameWidth: 50,
+      frameHeight: 37
+  });
+  this.load.image("background", "./assets/background.png");
+  this.load.image("ground", "./assets/simple_platform.png");
+  this.anims.create({
+      key: "idle",
+      frames: this.anims.generateFrameNumbers("player", { start: 0, end: 2 }),
+      frameRate: 5,
+      repeat: -1
+  });
     return this._onPreload
   }
 
@@ -60,7 +70,7 @@ export class GameScene extends Scene {
   initPlatforms = () => {
     //TODO: refactorear esto para generar platform de archivo de configs
     var platformCount = 7;
-    var platformY = 550;
+    var platformY = 0;
     var lastPlatformX = -200;
     for (var i = 0; i < platformCount; i++) {
       this.platformsGroup?.create(lastPlatformX, platformY, "ground");

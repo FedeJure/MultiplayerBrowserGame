@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "build": "bash check-dependencies-and-build-core.bash && bash check-dependencies-and-build-client.bash",
-    "build-client": "bash check-dependencies-and-build-client.bash",
-    "build-core": "bash check-dependencies-and-build-core.bash"
+    "build": "bash check-dependencies-and-build-core.sh && bash check-dependencies-and-build-client.sh",
+    "build-client": "bash check-dependencies-and-build-client.sh",
+    "build-core": "bash check-dependencies-and-build-core.sh"
   },
   "author": "",
   "license": "ISC",

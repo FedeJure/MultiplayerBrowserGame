@@ -3,9 +3,6 @@ import { GameEvents, InitialGameStateEvent, PlayersPositionsEvent } from "../inf
 import { GameScene } from "../view/GameScene"
 import { ProvidePlayerFromDto } from "../domain/actions/providePlayerFromDto"
 import { CoreProvider } from "../coreProvider";
-import { GameConfig } from "../view/gameConfig";
-import { Scene } from "phaser"
-import { ServerRenderDelegator } from "../view/ServerRenderDelegator";
 import { RenderDelegator } from "../view/RenderDelegator";
 import { ClientRenderDelegator } from "../view/ClientRenderDelegator";
 import { PlayerFacade } from "./playerFacade";

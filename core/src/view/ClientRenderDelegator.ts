@@ -11,12 +11,14 @@ export class ClientRenderDelegator implements RenderDelegator {
 
     renderPlayer(player: PlayerView): void {
         const sprite = new Phaser.Physics.Arcade.Sprite(player.scene, player.body.position.x, player.body.position.y, "player")
-        sprite.setOrigin(0.5, 0.5);
+        sprite.setOrigin(player.width/2, player.height/2);
+        sprite.height = player.height
+        sprite.width = player.width
         sprite.scaleX = 1;
         sprite.scaleY = 1;
         player.add(sprite);
         player.scene.add.existing(sprite)        
-        // sprite.anims.play('idle')
+        sprite.anims.play('idle')
     }
 
 }
