@@ -2,13 +2,13 @@ import { PlayerState } from "../../domain/playerState";
 import { PlayerStateRepository } from "./playerStateRepository";
 
 export class InMemoryPlayerStateRepository implements PlayerStateRepository {
-    store: Map<number, PlayerState> = new Map<number, PlayerState>()
+    store: Map<string, PlayerState> = new Map()
 
-    getPlayerState(id: number) : PlayerState | undefined {
+    getPlayerState(id: string) : PlayerState | undefined {
         return this.store.has(id) ? this.store.get(id) : undefined
     }
 
-    setPlayerState(id: number, state: PlayerState): void {
+    setPlayerState(id: string, state: PlayerState): void {
         this.store.set(id, state)
     }
 }

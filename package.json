@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
+    "start-prod": "node index.js",
     "build": "bash build.sh",
     "build-client": "bash check-dependencies-and-build-client.sh",
     "build-core": "bash check-dependencies-and-build-core.sh"

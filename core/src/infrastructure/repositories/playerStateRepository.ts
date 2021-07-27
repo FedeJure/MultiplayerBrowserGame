@@ -1,6 +1,6 @@
 import { PlayerState } from "../../domain/playerState";
 
 export interface PlayerStateRepository {
-    getPlayerState(id: number) :PlayerState | undefined
-    setPlayerState(id:number, state: PlayerState) : void
+    getPlayerState(id: string) :PlayerState | undefined
+    setPlayerState(id:string, state: PlayerState) : void
 }

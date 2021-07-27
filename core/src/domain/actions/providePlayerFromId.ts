@@ -8,7 +8,7 @@ import { RenderDelegator } from "../../view/RenderDelegator";
 import { DefaultConfiguration } from "../playerConfiguration";
 
 export function ProvidePlayerFromId(
-    playerId: number,
+    playerId: string,
     playerInfoRepository: PlayerInfoRepository,
     playerStateRepository: PlayerStateRepository,
     scene: GameScene,

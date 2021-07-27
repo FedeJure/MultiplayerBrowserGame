@@ -37,7 +37,7 @@ export class ServerGame {
                 connection.onPlayerConnection()
                     .subscribe(({ playerId }) => {
                         try {
-                            const player = ProvidePlayerFromId(parseInt(playerId, 10), this.provider.playerInfoRepository, this.provider.playerStateRepository, this.gameScene, this.render)
+                            const player = ProvidePlayerFromId(playerId, this.provider.playerInfoRepository, this.provider.playerStateRepository, this.gameScene, this.render)
                             const state = ProvidePlayerStateDto(player)
                             this.gameScene.addPlayers([player])
                             connection.sendInitialStateEvent(Array.from(this.connectedPlayers.values()).map(c => c.stateDto))
