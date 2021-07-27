@@ -6,7 +6,7 @@ import { InitClientGame } from "multiplayer-game-core/lib/index";
 export const Game = () => {
 
     useEffect(() => {
-        const socket = io({
+        const socket = io("ws://127.0.0.1:8080", {
             auth: {
                 token: "1234"
             },
