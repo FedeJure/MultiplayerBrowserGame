@@ -13,7 +13,6 @@ export function ProvidePlayerFromId(
     playerStateRepository: PlayerStateRepository,
     scene: GameScene,
     render: RenderDelegator) : Player {
-
         const playerInfo = playerInfoRepository.getPlayer(playerId)
         if (playerInfo === undefined) throw new Error(`Player with ID: ${playerId} not found`)
         var playerState = playerStateRepository.getPlayerState(playerId)
