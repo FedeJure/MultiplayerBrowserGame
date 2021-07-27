@@ -13,6 +13,11 @@ export class SocketServerConnection implements ServerConnection {
 
     constructor(socket: Socket) {
         this.socket = socket
+
+        socket.on(GameEvents.INITIAL_GAME_STATE.name, (data: InitialGameStateEvent) => this._onInitialGameState.next(data))
+        socket.on(GameEvents.NEW_PLAYER_CONNECTED.name, (data: NewPlayerConnectedEvent) => this._onNewPlayerConnected.next(data))
+        socket.on(GameEvents.PLAYERS_POSITIONS.name, (data: PlayersPositionsEvent) => this._onPlayersPositions.next(data))
+        
     }
     get onInitialGameState(): Observable<InitialGameStateEvent> {
         return this._onInitialGameState

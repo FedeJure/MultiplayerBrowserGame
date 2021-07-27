@@ -45,6 +45,7 @@ export class GameScene extends Scene {
     this.playersGroup?.add(player.view);
     if (!this.platformsGroup) return;
     this.physics.add.collider(player.view, this.platformsGroup);
+    
   }
 
   initPlatforms = () => {

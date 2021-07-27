@@ -8,6 +8,7 @@ import { PlayerRenderDelegator } from "../view/ClientRenderDelegator";
 import { PlayerFacade } from "../domain/playerFacade";
 import { PlayerStateDto } from "../infrastructure/dtos/playerStateDTO";
 import { ServerConnection } from "../domain/serverConnection";
+import { ValidatePosition } from "../domain/actions/validatePosition";
 
 export class ClientGame {
 
@@ -46,12 +47,14 @@ export class ClientGame {
                 this.connectedPlayers.set(player.info.id.toString(), player)
                 return player
             })
-            this.localPlayer = players.find(p => p.info.id == this.localPlayerId)
+            this.localPlayer = players.find(p => p.info.id === this.localPlayerId)
             this.connectedPlayers.delete(this.localPlayerId.toString())
             this.scene.addPlayers(players)
             if (this.localPlayer) this.render.renderLocalPlayer(this.localPlayer.view)
         })
         this.connection.onPlayersPositions.subscribe(data => {
+            const localConnection = data.positions.find(p => p.id == this.localPlayerId)
+            if (localConnection && this.localPlayer) ValidatePosition(this.localPlayer, localConnection.position)
             data.positions.forEach(p => this.connectedPlayers.get(p.id)?.view.setPosition(p.position.x, p.position.y))
         })
 
