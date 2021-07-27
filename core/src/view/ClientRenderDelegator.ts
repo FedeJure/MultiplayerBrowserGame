@@ -2,7 +2,7 @@ import { PlayerView } from "./playerView";
 import { RenderDelegator } from "./RenderDelegator";
 
 
-export class ClientRenderDelegator implements RenderDelegator {
+export class PlayerRenderDelegator implements RenderDelegator {
     renderLocalPlayer(player: PlayerView): void {
         player.scene.cameras.main.startFollow(player)
     }

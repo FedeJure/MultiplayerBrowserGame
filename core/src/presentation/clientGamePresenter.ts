@@ -4,8 +4,8 @@ import { GameScene } from "../view/GameScene"
 import { ProvidePlayerFromDto } from "../domain/actions/providePlayerFromDto"
 import { CoreProvider } from "../coreProvider";
 import { RenderDelegator } from "../view/RenderDelegator";
-import { ClientRenderDelegator } from "../view/ClientRenderDelegator";
-import { PlayerFacade } from "./playerFacade";
+import { PlayerRenderDelegator } from "../view/ClientRenderDelegator";
+import { PlayerFacade } from "../domain/playerFacade";
 import { PlayerStateDto } from "../infrastructure/dtos/playerStateDTO";
 
 export class ClientGame {
@@ -27,7 +27,7 @@ export class ClientGame {
         this.socket = socket
         this.scene = scene
         this.localPlayerId = localPlayerId
-        this.render = new ClientRenderDelegator()
+        this.render = new PlayerRenderDelegator()
         this.connectedPlayers = new Map()
 
         scene.onCreate.subscribe(() => {

@@ -1,9 +1,9 @@
 import { Server, Socket } from "socket.io";
-import { ServerGame } from "./domain/serverGame";
+import { ServerGame } from "./presentation/serverGamePresenter";
 import { SocketIOEvents } from "./infrastructure/events/socketIoEvents"
 import { DefaultCoreProviderInstance } from "./coreProvider";
 import { GameScene } from "./view/GameScene";
-import { ClientGame } from "./domain/clientGame";
+import { ClientGame } from "./presentation/clientGamePresenter";
 import { Socket as ClientSocket } from "socket.io-client";
 import { SocketClientConnection } from "./infrastructure/socketClientConnection";
 import { ClientConfig, ServerConfig } from "./view/DefaultGameConfigs";

@@ -2,11 +2,11 @@ import { GameEvents } from "../infrastructure/events/gameEvents"
 import { GameScene } from "../view/GameScene"
 import { ProvidePlayerFromId } from "../domain/actions/providePlayerFromId"
 import { CoreProvider } from "../coreProvider";
-import { ClientConnection } from "./clientConnection";
-import { Player } from "./player";
+import { ClientConnection } from "../domain/clientConnection";
+import { Player } from "../domain/player";
 import { RenderDelegator } from "../view/RenderDelegator";
 import { ServerRenderDelegator } from "../view/ServerRenderDelegator";
-import { ProvidePlayerStateDto } from "./actions/providePlayerStateDto";
+import { ProvidePlayerStateDto } from "../domain/actions/providePlayerStateDto";
 import { PlayerStateDto } from "../infrastructure/dtos/playerStateDTO";
 
 
