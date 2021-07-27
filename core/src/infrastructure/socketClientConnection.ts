@@ -3,6 +3,7 @@ import { Socket } from "socket.io-client";
 import { ClientConnection } from "../domain/clientConnection";
 import {GameEvents, PlayerConnectedEvent} from "./events/gameEvents"
 import { PlayerStateDto } from "./dtos/playerStateDTO";
+import { PlayerPositionsDTO } from "./dtos/playerPositionsDTO";
 
 export class SocketClientConnection implements ClientConnection {
 
@@ -19,6 +20,10 @@ export class SocketClientConnection implements ClientConnection {
 
         this.listenEvents();
     }
+    sendPlayerPositions(positions: PlayerPositionsDTO[]): void {
+        this.socket.emit(GameEvents.PLAYERS_POSITIONS.name, GameEvents.PLAYERS_POSITIONS.getEvent(positions))
+    }
+    
     sendNewPlayerConnected(state: PlayerStateDto): void {
         this.socket.emit(GameEvents.NEW_PLAYER_CONNECTED.name, 
             GameEvents.NEW_PLAYER_CONNECTED.getEvent(state))

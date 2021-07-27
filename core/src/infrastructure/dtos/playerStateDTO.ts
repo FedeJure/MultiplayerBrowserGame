@@ -1,5 +1,5 @@
 export interface PlayerStateDto {
-    id: number,
+    id: string,
     position: { x: number, y: number},
     velocity: { x: number, y: number},
     name: string

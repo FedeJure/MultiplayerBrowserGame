@@ -18,7 +18,7 @@ export const Game = () => {
         
         socket.on("connect", () => {
             console.log("[Game] :: Successfully connected :D")
-            InitClientGame(socket, 1)    
+            InitClientGame(socket, "1")    
         })
 
         socket.on("disconnect", () => {

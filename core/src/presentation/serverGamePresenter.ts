@@ -56,17 +56,11 @@ export class ServerGame {
             })
         
         this.gameScene.onUpdate.subscribe(({time, delta}) => {
-            const data = Array.from(this.connectedPlayers.values()).map(p => ({id: p.player.info.id, position: p.player.view.body.position}))
-            const event = GameEvents.PLAYERS_POSITIONS.getEvent(data)
+            const data = Array.from(this.connectedPlayers.values()).map(p => ({id: p.player.info.id.toString(), position: p.player.view.body.position}))
             this.connectedPlayers.forEach(p => {
-                p.con.socket.emit(GameEvents.PLAYERS_POSITIONS.name, event)
+                p.con.sendPlayerPositions(data)
             })
         })
     }
-
-    addPlayer(playerId: string, connection: ClientConnection) {
-
-    }
-
 
 }

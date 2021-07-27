@@ -14,12 +14,12 @@ export class ClientGame {
     readonly provider: CoreProvider
     readonly scene: GameScene
     readonly render: RenderDelegator
-    readonly localPlayerId: number
+    readonly localPlayerId: string
     localPlayer: PlayerFacade | undefined
-    connectedPlayers: Map<number, PlayerFacade>
+    connectedPlayers: Map<string, PlayerFacade>
 
     constructor(
-        localPlayerId: number,
+        localPlayerId: string,
         coreProvider: CoreProvider,
         socket: Socket,
         scene: GameScene) {
@@ -42,11 +42,11 @@ export class ClientGame {
             console.log("[Client Game :: Initial Game State Event] ", data)
             const players = data.players.map(dto => {
                 const player = ProvidePlayerFromDto(dto, this.scene, this.render)
-                this.connectedPlayers.set(player.info.id, player)
+                this.connectedPlayers.set(player.info.id.toString(), player)
                 return player
             })
             this.localPlayer = players.find(p => p.info.id == this.localPlayerId)
-            this.connectedPlayers.delete(this.localPlayerId)
+            this.connectedPlayers.delete(this.localPlayerId.toString())
             this.scene.addPlayers(players)
             if (this.localPlayer) this.render.renderLocalPlayer(this.localPlayer.view)
         })
