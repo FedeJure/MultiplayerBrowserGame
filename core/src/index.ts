@@ -9,6 +9,7 @@ import { SocketClientConnection } from "./infrastructure/socketClientConnection"
 import { ClientConfig, ServerConfig } from "./view/DefaultGameConfigs";
 import { PlayerState } from "./domain/playerState";
 import { LoadScene } from "./view/LoadScene";
+import { SocketServerConnection } from "./infrastructure/socketServerConnection";
 
 export const InitGame: (socket: Socket) => void = (socket: Socket) => {
 
@@ -39,5 +40,5 @@ export const InitClientGame = (socket: ClientSocket, localPlayerId: string) => {
         const scene = new GameScene()
         const config = {...ClientConfig, scene: [new LoadScene(), scene]}
         const phaserGame = new Phaser.Game(config)
-        const game = new ClientGame(localPlayerId, DefaultCoreProviderInstance, socket, scene);
+        const game = new ClientGame(localPlayerId, DefaultCoreProviderInstance, new SocketServerConnection(socket), scene);
     }

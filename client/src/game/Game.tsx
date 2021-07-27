@@ -1,9 +1,11 @@
-import React , {useEffect} from "react"
+import React , {useEffect, useState} from "react"
 import { io } from "socket.io-client"
 import { InitClientGame } from "multiplayer-game-core/lib/index";
 
 
 export const Game = () => {
+
+    const [connected, setConnected] = useState(false)
 
     useEffect(() => {
         const socket = io("ws://127.0.0.1:8080", {
@@ -18,16 +20,18 @@ export const Game = () => {
         
         socket.on("connect", () => {
             console.log("[Game] :: Successfully connected :D")
+            setConnected(true)            
             InitClientGame(socket, "1")    
         })
 
         socket.on("disconnect", () => {
             console.log("Disconnected from server")
+            setConnected(false)
         })
         
       }, [])
 
     return <div>
-        <div id="gameContainer"></div>
+        {connected && <div id="gameContainer"></div>}
     </div>
 }
