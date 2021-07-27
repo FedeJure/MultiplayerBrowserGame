@@ -14,8 +14,4 @@ export class LoadScene extends Phaser.Scene {
         this.load.image("ground", "/assets/simple_platform.png");
         this.load.on('complete', () => this.scene.start("gameScene"));
 	}
-
-	create() {
-	}
-
 }

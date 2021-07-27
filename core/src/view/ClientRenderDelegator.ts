@@ -17,7 +17,7 @@ export class ClientRenderDelegator implements RenderDelegator {
         sprite.scaleY = 1;
         player.add(sprite);
         player.scene.add.existing(player)
-        sprite.play("idle")
+        sprite.anims.play("idle")
     }
 
     createAnimations(player: PlayerView) {

@@ -7,7 +7,8 @@ import { PlayerStateDto } from "../dtos/playerStateDTO";
 export const GameEvents: {
     PLAYER_CONNECTED: { name: string, getEvent: (playerId: number) => PlayerConnectedEvent },
     PLAYERS_POSITIONS: { name: string, getEvent: (positions: { id: number, position: Position }[]) => PlayersPositionsEvent },
-    INITIAL_GAME_STATE: { name: string, getEvent: (players: PlayerStateDto[]) => InitialGameStateEvent}
+    INITIAL_GAME_STATE: { name: string, getEvent: (players: PlayerStateDto[]) => InitialGameStateEvent},
+    NEW_PLAYER_CONNECTED: { name: string, getEvent: (player: PlayerStateDto) => NewPlayerConnectedEvent}
 } = {
     PLAYER_CONNECTED: {
         name: "player_connected", getEvent: (playerId) => ({ playerId, time: new Date()})
@@ -17,6 +18,9 @@ export const GameEvents: {
     },
     INITIAL_GAME_STATE: {
         name: "initial_game_state", getEvent: (players) => ({players, time: new Date()})
+    },
+    NEW_PLAYER_CONNECTED: {
+        name: "new_player_connected", getEvent: (player) => ({player, time: new Date()})
     }
 }
 
@@ -34,4 +38,8 @@ export interface PlayersPositionsEvent extends BaseEvent {
 
 export interface InitialGameStateEvent extends BaseEvent {
     players: PlayerStateDto[]
+}
+
+export interface NewPlayerConnectedEvent extends BaseEvent {
+    player: PlayerStateDto
 }

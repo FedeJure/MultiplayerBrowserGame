@@ -4,6 +4,7 @@ import { PlayerStateDto } from "../infrastructure/dtos/playerStateDTO"
 import { PlayerInfo } from "./playerInfo"
 
 export interface ClientConnection {
+    sendNewPlayerConnected(state: PlayerStateDto): void
     socket: Socket
     connectionId: string,
     connectionTime: Date,

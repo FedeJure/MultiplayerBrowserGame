@@ -36,9 +36,17 @@ export class ServerGame {
                 
                 connection.onPlayerConnection()
                     .subscribe(({ playerId }) => {
-                        this.addPlayer(playerId, connection)
-                        connection.sendInitialStateEvent(Array.from(this.connectedPlayers.values()).map(c => c.stateDto))
-                        
+                        try {
+                            const player = ProvidePlayerFromId(parseInt(playerId, 10), this.provider.playerInfoRepository, this.provider.playerStateRepository, this.gameScene, this.render)
+                            const state = ProvidePlayerStateDto(player)
+                            this.gameScene.addPlayers([player])
+                            connection.sendInitialStateEvent(Array.from(this.connectedPlayers.values()).map(c => c.stateDto))
+                            this.connectedPlayers.forEach(p => p.con.sendNewPlayerConnected(state))
+                            this.connectedPlayers.set(player.info.id.toString(), {con: connection, player, stateDto: state})                            
+                            console.log(`[Game addPlayer] player added to scene with id: ${playerId}`)            
+                        } catch (error) {
+                            console.log(`[Game addPlayer] ERROR: ${error}`)
+                        }
                     })
             })
         
@@ -57,15 +65,7 @@ export class ServerGame {
     }
 
     addPlayer(playerId: string, connection: ClientConnection) {
-        try {
-            const player = ProvidePlayerFromId(parseInt(playerId, 10), this.provider.playerInfoRepository, this.provider.playerStateRepository, this.gameScene, this.render)
-            const state = ProvidePlayerStateDto(player)
-            this.connectedPlayers.set(player.info.id.toString(), {con: connection, player, stateDto: state})
-            this.gameScene.addPlayers([player])
-            console.log(`[Game addPlayer] player added to scene with id: ${playerId}`)            
-        } catch (error) {
-            console.log(`[Game addPlayer] ERROR: ${error}`)
-        }
+
     }
 
 

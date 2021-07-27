@@ -37,10 +37,6 @@ export class GameScene extends Scene {
     return this._onCreate
   }
 
-  addLocalPlayer(player: PlayerFacade) {
-    
-  }
-
   addPlayers(players: Array<PlayerFacade>) {
     players.forEach(this.addPlayer)
   }
@@ -65,7 +61,7 @@ export class GameScene extends Scene {
         this,
         -700,
         platformY,
-        500,
+        10,
         1000,
         0,
         100

@@ -1,9 +1,8 @@
-import { Observable, Subject } from "rxjs";
+import { Subject } from "rxjs";
 import { Socket } from "socket.io-client";
 import { ClientConnection } from "../domain/clientConnection";
 import {GameEvents, PlayerConnectedEvent} from "./events/gameEvents"
 import { PlayerStateDto } from "./dtos/playerStateDTO";
-import { PlayerInfo } from "../domain/playerInfo";
 
 export class SocketClientConnection implements ClientConnection {
 
@@ -19,6 +18,10 @@ export class SocketClientConnection implements ClientConnection {
         this.socket = socket
 
         this.listenEvents();
+    }
+    sendNewPlayerConnected(state: PlayerStateDto): void {
+        this.socket.emit(GameEvents.NEW_PLAYER_CONNECTED.name, 
+            GameEvents.NEW_PLAYER_CONNECTED.getEvent(state))
     }
 
     listenEvents() {

@@ -6,6 +6,7 @@ import { CoreProvider } from "../coreProvider";
 import { RenderDelegator } from "../view/RenderDelegator";
 import { ClientRenderDelegator } from "../view/ClientRenderDelegator";
 import { PlayerFacade } from "./playerFacade";
+import { PlayerStateDto } from "../infrastructure/dtos/playerStateDTO";
 
 export class ClientGame {
 
@@ -15,6 +16,7 @@ export class ClientGame {
     readonly render: RenderDelegator
     readonly localPlayerId: number
     localPlayer: PlayerFacade | undefined
+    connectedPlayers: Map<number, PlayerFacade>
 
     constructor(
         localPlayerId: number,
@@ -26,6 +28,7 @@ export class ClientGame {
         this.scene = scene
         this.localPlayerId = localPlayerId
         this.render = new ClientRenderDelegator()
+        this.connectedPlayers = new Map()
 
         scene.onCreate.subscribe(() => {
             this.listenEvents()
@@ -37,13 +40,23 @@ export class ClientGame {
     listenEvents() {
         this.socket.on(GameEvents.INITIAL_GAME_STATE.name, (data: InitialGameStateEvent) => {
             console.log("[Client Game :: Initial Game State Event] ", data)
-            const players = data.players.map(dto => ProvidePlayerFromDto(dto, this.scene, this.render))
+            const players = data.players.map(dto => {
+                const player = ProvidePlayerFromDto(dto, this.scene, this.render)
+                this.connectedPlayers.set(player.info.id, player)
+                return player
+            })
             this.localPlayer = players.find(p => p.info.id == this.localPlayerId)
+            this.connectedPlayers.delete(this.localPlayerId)
             this.scene.addPlayers(players)
             if (this.localPlayer) this.render.renderLocalPlayer(this.localPlayer.view)
         })
         this.socket.on(GameEvents.PLAYERS_POSITIONS.name, (data: PlayersPositionsEvent) => {
-            // console.log(data.positions.map(d => d.position.y))
+            data.positions.forEach(p => this.connectedPlayers.get(p.id)?.view.setPosition(p.position.x, p.position.y))
+        })
+
+        this.socket.on(GameEvents.NEW_PLAYER_CONNECTED.name, (dto: PlayerStateDto) => {
+            const player = ProvidePlayerFromDto(dto, this.scene, this.render)
+            this.scene.addPlayers([player])
         })
     }
 }
