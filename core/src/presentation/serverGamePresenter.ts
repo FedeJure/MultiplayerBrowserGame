@@ -17,7 +17,9 @@ export class ServerGame {
     readonly provider: CoreProvider
     readonly render: RenderDelegator
     readonly room: RoomConnection
+
     private connectedPlayers: Map<string, {con: ClientConnection, player: Player, stateDto: PlayerStateDto}>
+    private playerConnections: Map<string, string>
 
     constructor(
         gameScene: GameScene,
@@ -28,6 +30,7 @@ export class ServerGame {
         this.room = room
         this.render = new ServerRenderDelegator()
         this.connectedPlayers = new Map()
+        this.playerConnections = new Map()
 
         //Mock player added 
         this.listenEvents()
@@ -42,7 +45,8 @@ export class ServerGame {
                             const player = ProvidePlayerFromId(playerId, this.provider.playerInfoRepository, this.provider.playerStateRepository, this.gameScene, this.render)
                             const state = ProvidePlayerStateDto(player)
                             this.room.emit(GameEvents.NEW_PLAYER_CONNECTED.name, GameEvents.NEW_PLAYER_CONNECTED.getEvent(state))
-                            this.connectedPlayers.set(player.info.id.toString(), {con: connection, player, stateDto: state})  
+                            this.connectedPlayers.set(playerId, {con: connection, player, stateDto: state})
+                            this.playerConnections.set(connection.connectionId, playerId)
                             connection.sendInitialStateEvent(Array.from(this.connectedPlayers.values()).map(c => c.stateDto))                                                      
                             console.log(`[Game addPlayer] player added to scene with id: ${playerId}`)            
                         } catch (error) {
@@ -53,7 +57,8 @@ export class ServerGame {
         
         this.provider.connectionsRepository.onDisconnection()
             .subscribe(connection => {
-
+                const playerId = this.playerConnections.get(connection.connectionId)
+                if (playerId) this.room.emit(GameEvents.PLAYER_DISCONNECTED.name, GameEvents.PLAYER_DISCONNECTED.getEvent(playerId))
             })
         
         this.gameScene.onUpdate.subscribe(({time, delta}) => {

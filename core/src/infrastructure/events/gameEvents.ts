@@ -9,7 +9,8 @@ export const GameEvents: {
     PLAYER_CONNECTED: { name: string, getEvent: (playerId: string) => PlayerConnectedEvent },
     PLAYERS_POSITIONS: { name: string, getEvent: (positions: PlayerPositionsDTO[]) => PlayersPositionsEvent },
     INITIAL_GAME_STATE: { name: string, getEvent: (players: PlayerStateDto[]) => InitialGameStateEvent},
-    NEW_PLAYER_CONNECTED: { name: string, getEvent: (player: PlayerStateDto) => NewPlayerConnectedEvent}
+    NEW_PLAYER_CONNECTED: { name: string, getEvent: (player: PlayerStateDto) => NewPlayerConnectedEvent},
+    PLAYER_DISCONNECTED: { name: string, getEvent: (playerId: string) => PlayerDisconnectedEvent}
 } = {
     PLAYER_CONNECTED: {
         name: "player_connected", getEvent: (playerId) => ({ playerId, time: new Date()})
@@ -22,6 +23,9 @@ export const GameEvents: {
     },
     NEW_PLAYER_CONNECTED: {
         name: "new_player_connected", getEvent: (player) => ({player, time: new Date()})
+    },
+    PLAYER_DISCONNECTED: {
+        name: "player_disconnected", getEvent: (playerId) => ({playerId, time: new Date()})
     }
 }
 
@@ -43,4 +47,8 @@ export interface InitialGameStateEvent extends BaseEvent {
 
 export interface NewPlayerConnectedEvent extends BaseEvent {
     player: PlayerStateDto
+}
+
+export interface PlayerDisconnectedEvent extends BaseEvent {
+    playerId: string
 }

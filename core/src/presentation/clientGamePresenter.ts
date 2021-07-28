@@ -40,6 +40,7 @@ export class ClientGame {
     }
     
     listenEvents() {
+        
         this.connection.onInitialGameState.subscribe(data => {
             console.log("[Client Game :: Initial Game State Event] ", data)
             const players = data.players.map(dto => {
@@ -48,11 +49,11 @@ export class ClientGame {
                 return player
             })
             this.localPlayer = players.find(p => p.info.id === this.localPlayerId)
-            console.log("aaaaaa", this.localPlayerId, this.localPlayer)
             
             this.connectedPlayers.delete(this.localPlayerId.toString())
             if (this.localPlayer) this.render.renderLocalPlayer(this.localPlayer.view)
         })
+
         this.connection.onPlayersPositions.subscribe(data => {
             const localConnection = data.positions.find(p => p.id == this.localPlayerId)
             if (localConnection && this.localPlayer) ValidatePosition(this.localPlayer, localConnection.position)
@@ -60,8 +61,16 @@ export class ClientGame {
         })
 
         this.connection.onNewPlayerConnected.subscribe(data => {
-            if (data.player.id === this.localPlayerId) return
+            if (data.player.id === this.localPlayerId || this.connectedPlayers.has(data.player.id)) return
             const player = ProvidePlayerFromDto(data.player, this.scene, this.render)
+            this.connectedPlayers.set(player.info.id.toString(), player)
+        })
+
+        this.connection.onPlayerDisconnected.subscribe(data => {
+            const player = this.connectedPlayers.get(data.playerId)
+            if (!player) return
+            player.view.destroy()
+            this.connectedPlayers.delete(data.playerId)
         })
     }
 }
