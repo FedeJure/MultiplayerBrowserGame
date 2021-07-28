@@ -49,7 +49,6 @@ export class ClientGame {
             })
             this.localPlayer = players.find(p => p.info.id === this.localPlayerId)
             this.connectedPlayers.delete(this.localPlayerId.toString())
-            this.scene.addPlayers(players)
             if (this.localPlayer) this.render.renderLocalPlayer(this.localPlayer.view)
         })
         this.connection.onPlayersPositions.subscribe(data => {
@@ -60,7 +59,6 @@ export class ClientGame {
 
         this.connection.onNewPlayerConnected.subscribe(data => {
             const player = ProvidePlayerFromDto(data.player, this.scene, this.render)
-            this.scene.addPlayers([player])
         })
     }
 }

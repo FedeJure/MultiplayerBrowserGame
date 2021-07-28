@@ -4,9 +4,6 @@ import { PlayerFacade } from '../domain/playerFacade';
 
 export class GameScene extends Scene {
 
-  playersGroup: Phaser.Physics.Arcade.Group | undefined
-  platformsGroup: Phaser.Physics.Arcade.StaticGroup | undefined
-
   private _onUpdate = new Subject<{ time: number, delta: number }>()
   private _onCreate = new Subject<void>()
 
@@ -15,8 +12,6 @@ export class GameScene extends Scene {
   }
 
   create() {
-    // this.playersGroup = this.physics.add.group();
-    // this.platformsGroup = this.physics.add.staticGroup();
     this.initPlatforms();
     this.initPlayersOverlap()
     const background = this.add.image(1250, 300, "background");
@@ -37,17 +32,6 @@ export class GameScene extends Scene {
     return this._onCreate
   }
 
-  addPlayers(players: Array<PlayerFacade>) {
-    players.forEach(this.addPlayer)
-  }
-
-  private addPlayer = (player: PlayerFacade) => {
-    this.playersGroup?.add(player.view);
-    if (!this.platformsGroup) return;
-    this.physics.add.collider(player.view, this.platformsGroup);
-    
-  }
-
   initPlatforms = () => {
     //TODO: refactorear esto para generar platform de archivo de configs
     var platformCount = 7;
@@ -62,7 +46,6 @@ export class GameScene extends Scene {
       ground.setScale(100,1)
       this.matter.world.add(ground)
       lastPlatformX += 200 * 0.5;
-      console.log(ground)
     }
     // this.platformsGroup?.addMultiple([
     //   new GameObjects.Rectangle(
