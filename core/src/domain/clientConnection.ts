@@ -10,4 +10,5 @@ export interface ClientConnection {
     onPlayerConnection(): Observable<{ playerId: string }>
     sendInitialStateEvent(players: PlayerStateDto[]): void
     sendPlayerPositions(positions: PlayerPositionsDTO[]): void
+    join(roomName: string): void
 }

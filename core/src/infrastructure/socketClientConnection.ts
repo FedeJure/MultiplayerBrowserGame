@@ -1,5 +1,5 @@
 import { Subject } from "rxjs";
-import { Socket } from "socket.io-client";
+import { Socket } from "socket.io";
 import { ClientConnection } from "../domain/clientConnection";
 import {GameEvents, PlayerConnectedEvent} from "./events/gameEvents"
 import { PlayerStateDto } from "./dtos/playerStateDTO";
@@ -20,6 +20,11 @@ export class SocketClientConnection implements ClientConnection {
 
         this.listenEvents();
     }
+
+    join(roomName: string): void {
+        this.socket.join(roomName)
+    }
+    
     sendPlayerPositions(positions: PlayerPositionsDTO[]): void {
         this.socket.emit(GameEvents.PLAYERS_POSITIONS.name, GameEvents.PLAYERS_POSITIONS.getEvent(positions))
     }

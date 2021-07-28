@@ -8,6 +8,7 @@ import { RenderDelegator } from "../view/RenderDelegator";
 import { ServerRenderDelegator } from "../view/ServerRenderDelegator";
 import { ProvidePlayerStateDto } from "../domain/actions/providePlayerStateDto";
 import { PlayerStateDto } from "../infrastructure/dtos/playerStateDTO";
+import { RoomConnection } from "../domain/roomConnection";
 
 
 export class ServerGame {
@@ -15,14 +16,16 @@ export class ServerGame {
     readonly gameScene: GameScene
     readonly provider: CoreProvider
     readonly render: RenderDelegator
-
+    readonly room: RoomConnection
     private connectedPlayers: Map<string, {con: ClientConnection, player: Player, stateDto: PlayerStateDto}>
 
     constructor(
         gameScene: GameScene,
-        coreProvider: CoreProvider) {
+        coreProvider: CoreProvider,
+        room: RoomConnection) {
         this.provider = coreProvider
         this.gameScene = gameScene
+        this.room = room
         this.render = new ServerRenderDelegator()
         this.connectedPlayers = new Map()
 
@@ -40,6 +43,8 @@ export class ServerGame {
                             const player = ProvidePlayerFromId(playerId, this.provider.playerInfoRepository, this.provider.playerStateRepository, this.gameScene, this.render)
                             const state = ProvidePlayerStateDto(player)
                             this.connectedPlayers.forEach(p => p.con.sendNewPlayerConnected(state))
+                            const event = GameEvents.NEW_PLAYER_CONNECTED.getEvent(state)
+                            this.room.emit(GameEvents.NEW_PLAYER_CONNECTED.name, event)
                             this.connectedPlayers.set(player.info.id.toString(), {con: connection, player, stateDto: state})  
                             connection.sendInitialStateEvent(Array.from(this.connectedPlayers.values()).map(c => c.stateDto))                                                      
                             console.log(`[Game addPlayer] player added to scene with id: ${playerId}`)            

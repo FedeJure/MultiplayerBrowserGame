@@ -10,6 +10,8 @@ import { ClientConfig, ServerConfig } from "./view/DefaultGameConfigs";
 import { PlayerState } from "./domain/playerState";
 import { LoadScene } from "./view/LoadScene";
 import { SocketServerConnection } from "./infrastructure/socketServerConnection";
+import { SocketRoomConnection } from "./infrastructure/socketRoomConnection";
+import { ClientConnection } from "./domain/clientConnection";
 
 export const InitGame: (socket: Socket) => void = (socket: Socket) => {
 
@@ -22,12 +24,12 @@ export const InitGame: (socket: Socket) => void = (socket: Socket) => {
 
         DefaultCoreProviderInstance.playerInfoRepository.addPlayer("2", { id: "2", name: "Test Player 2" })
         DefaultCoreProviderInstance.playerStateRepository.setPlayerState("2", new PlayerState(0, 0, 100, 2))
-
-        const game = new ServerGame(scene, DefaultCoreProviderInstance);
+        const room = new SocketRoomConnection(socket, "main")
+        const game = new ServerGame(scene, DefaultCoreProviderInstance, room);
     
-        socket.on(SocketIOEvents.CONNECTION, (clientSocket: ClientSocket) => {
+        socket.on(SocketIOEvents.CONNECTION, (clientSocket: Socket) => {
             const connection = new SocketClientConnection(clientSocket)
-
+            room.join(connection)
             DefaultCoreProviderInstance.connectionsRepository.addConnection(connection)
             console.log(`[Event: ${SocketIOEvents.CONNECTION}] :: with connection id: ${clientSocket.id}`)
 
