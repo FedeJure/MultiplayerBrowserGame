@@ -16,10 +16,13 @@ export const InitGame: (socket: Socket) => void = (socket: Socket) => {
         const scene = new GameScene()
         const config = {...ServerConfig, scene: scene}
         const phaserGame = new Phaser.Game(config)
-        console.log(phaserGame.config)
         
-        DefaultCoreProviderInstance.playerInfoRepository.addPlayer("1", { id: "1", name: "Test Player" })
-        DefaultCoreProviderInstance.playerStateRepository.setPlayerState("1", new PlayerState(25, 0, 100, 2))
+        DefaultCoreProviderInstance.playerInfoRepository.addPlayer("1", { id: "1", name: "Test Player 1" })
+        DefaultCoreProviderInstance.playerStateRepository.setPlayerState("1", new PlayerState(0, 0, 100, 2))
+
+        DefaultCoreProviderInstance.playerInfoRepository.addPlayer("2", { id: "2", name: "Test Player 2" })
+        DefaultCoreProviderInstance.playerStateRepository.setPlayerState("2", new PlayerState(0, 0, 100, 2))
+
         const game = new ServerGame(scene, DefaultCoreProviderInstance);
     
         socket.on(SocketIOEvents.CONNECTION, (clientSocket: ClientSocket) => {
@@ -42,6 +45,5 @@ export const InitClientGame = (socket: ClientSocket, localPlayerId: string) => {
         const scene = new GameScene()
         const config = {...ClientConfig, scene: [new LoadScene(), scene]}
         const phaserGame = new Phaser.Game(config)
-        console.log(phaserGame.config)
         const game = new ClientGame(localPlayerId, DefaultCoreProviderInstance, new SocketServerConnection(socket), scene);
     }

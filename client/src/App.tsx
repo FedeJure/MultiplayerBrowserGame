@@ -6,11 +6,15 @@ import { Game } from './game/Game';
 
 function App() {
   const [logged, setLogged] = useState(false); 
+  const [playerId, setPlayerId] = useState<string | undefined>(undefined)
 
   return (
     <div className="App">
-      {!logged ? <Login onLogin={() => setLogged(true)}/> :
-      <Game />}
+      {!logged ? <Login onLogin={(loggedPlayerId) => {
+        setLogged(true)
+        setPlayerId(loggedPlayerId)
+      }}/> :
+      <Game playerId={playerId || ""}/>}
     </div>
   );
 }

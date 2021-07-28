@@ -3,7 +3,7 @@ import { io } from "socket.io-client"
 import { InitClientGame } from "multiplayer-game-core/lib/index";
 
 
-export const Game = () => {
+export const Game = ({playerId}: {playerId: string}) => {
 
     const [connected, setConnected] = useState(false)
 

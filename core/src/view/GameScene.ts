@@ -13,7 +13,6 @@ export class GameScene extends Scene {
 
   create() {
     this.initPlatforms();
-    this.initPlayersOverlap()
     const background = this.add.image(1250, 300, "background");
     background.scaleY = 2;
     background.scaleX = 2;
@@ -59,17 +58,6 @@ export class GameScene extends Scene {
     //   ),
     //   new GameObjects.Rectangle(this, 2000, platformY, 10, 1000, 0, 10)
     // ]);
-  }
-
-  onPlayerOverlapsOther = (
-    player1: Phaser.Types.Physics.Matter.MatterBody,
-    player2: Phaser.Types.Physics.Matter.MatterBody) => {
-    //TODO: do stuffs
-  }
-
-  initPlayersOverlap = () => {
-    if (!this.playersGroup) return;
-    this.physics.add.overlap(this.playersGroup, this.playersGroup, this.onPlayerOverlapsOther);
   }
 
 }
