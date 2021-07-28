@@ -11,6 +11,11 @@ app.get('/', function (_, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/login', function (_, res) {
+  //Serve client root file
+  res.sendFile(__dirname + '/index.html');
+});
+
 SetupServer(server)
 server.listen(8080, () => {
   console.log("[Server] :: Successfully started")

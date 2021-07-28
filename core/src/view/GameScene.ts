@@ -1,5 +1,5 @@
 import { Observable, Subject } from 'rxjs';
-import { Scene, GameObjects } from "phaser"
+import { Scene, GameObjects, Physics } from "phaser"
 import { PlayerFacade } from '../domain/playerFacade';
 
 export class GameScene extends Scene {
@@ -15,8 +15,8 @@ export class GameScene extends Scene {
   }
 
   create() {
-    this.playersGroup = this.physics.add.group();
-    this.platformsGroup = this.physics.add.staticGroup();
+    // this.playersGroup = this.physics.add.group();
+    // this.platformsGroup = this.physics.add.staticGroup();
     this.initPlatforms();
     this.initPlayersOverlap()
     const background = this.add.image(1250, 300, "background");
@@ -54,26 +54,33 @@ export class GameScene extends Scene {
     var platformY = 500;
     var lastPlatformX = -200;
     for (var i = 0; i < platformCount; i++) {
-      this.platformsGroup?.create(lastPlatformX, platformY, "ground");
+      // this.platformsGroup?.create(lastPlatformX, platformY, "ground");
+      const ground = new Physics.Matter.Image(this.matter.world,lastPlatformX, platformY, "ground")
+      ground.setBounce(0)
+      ground.setStatic(true)
+      ground.setOrigin(0.5,0.5)
+      ground.setScale(100,1)
+      this.matter.world.add(ground)
       lastPlatformX += 200 * 0.5;
+      console.log(ground)
     }
-    this.platformsGroup?.addMultiple([
-      new GameObjects.Rectangle(
-        this,
-        -700,
-        platformY,
-        10,
-        1000,
-        0,
-        100
-      ),
-      new GameObjects.Rectangle(this, 2000, platformY, 10, 1000, 0, 10)
-    ]);
+    // this.platformsGroup?.addMultiple([
+    //   new GameObjects.Rectangle(
+    //     this,
+    //     -700,
+    //     platformY,
+    //     10,
+    //     1000,
+    //     0,
+    //     100
+    //   ),
+    //   new GameObjects.Rectangle(this, 2000, platformY, 10, 1000, 0, 10)
+    // ]);
   }
 
   onPlayerOverlapsOther = (
-    player1: Phaser.Types.Physics.Arcade.GameObjectWithBody,
-    player2: Phaser.Types.Physics.Arcade.GameObjectWithBody) => {
+    player1: Phaser.Types.Physics.Matter.MatterBody,
+    player2: Phaser.Types.Physics.Matter.MatterBody) => {
     //TODO: do stuffs
   }
 

@@ -8,10 +8,16 @@ export const ClientConfig : GameConfig = {
     height: 600,
     autoFocus: false,
     physics: {
-        default: 'arcade',
-        arcade: {
-            debug: true,
-            gravity: { y: 1000 }
+        default: 'matter',
+        matter: {
+            enableSleeping: true,
+            gravity: {
+                y: 1
+            },
+            debug: {
+                showBody: true,
+                showStaticBody: true
+            }
         }
     },
     scene: [GameScene]
@@ -22,12 +28,18 @@ export const ServerConfig : GameConfig = {
     parent: "gameContainer",
     width: 800,
     height: 600,
-    autoFocus: false,
+    autoFocus: true,
     physics: {
-        default: 'arcade',
-        arcade: {
-            debug: false,
-            gravity: { y: 1000 }
+        default: 'matter',
+        matter: {
+            enableSleeping: false,
+            gravity: {
+                y: 1
+            },
+            debug: {
+                showBody: false,
+                showStaticBody: false
+            }
         }
     },
     scene: [GameScene]

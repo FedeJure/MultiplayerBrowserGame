@@ -5,7 +5,7 @@ export function ProvidePlayerStateDto(player: Player) : PlayerStateDto {
     return {
         id: player.info.id,
         name: player.info.name,
-        position: player.view.body.position,
+        position: { x: player.view.x, y: player.view.y },
         velocity: player.view.body.velocity,
         life: player.state.life
     }
