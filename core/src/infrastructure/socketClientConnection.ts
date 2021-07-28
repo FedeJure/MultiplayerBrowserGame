@@ -24,15 +24,6 @@ export class SocketClientConnection implements ClientConnection {
     join(roomName: string): void {
         this.socket.join(roomName)
     }
-    
-    sendPlayerPositions(positions: PlayerPositionsDTO[]): void {
-        this.socket.emit(GameEvents.PLAYERS_POSITIONS.name, GameEvents.PLAYERS_POSITIONS.getEvent(positions))
-    }
-    
-    sendNewPlayerConnected(state: PlayerStateDto): void {
-        this.socket.emit(GameEvents.NEW_PLAYER_CONNECTED.name, 
-            GameEvents.NEW_PLAYER_CONNECTED.getEvent(state))
-    }
 
     listenEvents() {
         this.socket.on(GameEvents.PLAYER_CONNECTED.name, (data: PlayerConnectedEvent) => {

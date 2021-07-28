@@ -36,15 +36,12 @@ export class ServerGame {
     listenEvents() {
         this.provider.connectionsRepository.onNewConnection()
             .subscribe(connection => {
-                
                 connection.onPlayerConnection()
                     .subscribe(({ playerId }) => {
                         try {
                             const player = ProvidePlayerFromId(playerId, this.provider.playerInfoRepository, this.provider.playerStateRepository, this.gameScene, this.render)
                             const state = ProvidePlayerStateDto(player)
-                            this.connectedPlayers.forEach(p => p.con.sendNewPlayerConnected(state))
-                            const event = GameEvents.NEW_PLAYER_CONNECTED.getEvent(state)
-                            this.room.emit(GameEvents.NEW_PLAYER_CONNECTED.name, event)
+                            this.room.emit(GameEvents.NEW_PLAYER_CONNECTED.name, GameEvents.NEW_PLAYER_CONNECTED.getEvent(state))
                             this.connectedPlayers.set(player.info.id.toString(), {con: connection, player, stateDto: state})  
                             connection.sendInitialStateEvent(Array.from(this.connectedPlayers.values()).map(c => c.stateDto))                                                      
                             console.log(`[Game addPlayer] player added to scene with id: ${playerId}`)            
@@ -61,9 +58,7 @@ export class ServerGame {
         
         this.gameScene.onUpdate.subscribe(({time, delta}) => {
             const data = Array.from(this.connectedPlayers.values()).map(p => ({id: p.player.info.id.toString(), position: p.player.view.body.position}))
-            this.connectedPlayers.forEach(p => {
-                p.con.sendPlayerPositions(data)
-            })
+            this.room.emit(GameEvents.PLAYERS_POSITIONS.name, GameEvents.PLAYERS_POSITIONS.getEvent(data))
         })
     }
 

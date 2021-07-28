@@ -48,6 +48,8 @@ export class ClientGame {
                 return player
             })
             this.localPlayer = players.find(p => p.info.id === this.localPlayerId)
+            console.log("aaaaaa", this.localPlayerId, this.localPlayer)
+            
             this.connectedPlayers.delete(this.localPlayerId.toString())
             if (this.localPlayer) this.render.renderLocalPlayer(this.localPlayer.view)
         })
@@ -58,6 +60,7 @@ export class ClientGame {
         })
 
         this.connection.onNewPlayerConnected.subscribe(data => {
+            if (data.player.id === this.localPlayerId) return
             const player = ProvidePlayerFromDto(data.player, this.scene, this.render)
         })
     }

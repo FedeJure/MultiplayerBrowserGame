@@ -14,7 +14,7 @@ function App() {
         setLogged(true)
         setPlayerId(loggedPlayerId)
       }}/> :
-      <Game playerId={playerId || ""}/>}
+      playerId && <Game playerId={playerId}/>}
     </div>
   );
 }

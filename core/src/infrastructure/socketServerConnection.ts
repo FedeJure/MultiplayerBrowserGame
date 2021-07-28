@@ -32,6 +32,6 @@ export class SocketServerConnection implements ServerConnection {
     }
 
     emitStartNewConnection(playerId: string): void {
-        this.socket.emit(GameEvents.PLAYER_CONNECTED.name, GameEvents.PLAYER_CONNECTED.getEvent("1")); 
+        this.socket.emit(GameEvents.PLAYER_CONNECTED.name, GameEvents.PLAYER_CONNECTED.getEvent(playerId)); 
     }
 }

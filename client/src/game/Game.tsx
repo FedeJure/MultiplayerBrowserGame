@@ -13,15 +13,15 @@ export const Game = ({playerId}: {playerId: string}) => {
                 token: "1234"
             },
             query: {
-                playerId: "1"
+                playerId
             },
             transports: ["websocket","polling"]
         });
         
         socket.on("connect", () => {
             console.log("[Game] :: Successfully connected :D")
-            setConnected(true)            
-            InitClientGame(socket, "1")    
+            setConnected(true)  
+            InitClientGame(socket, playerId)    
         })
 
         socket.on("disconnect", () => {
