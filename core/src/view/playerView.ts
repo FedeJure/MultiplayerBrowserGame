@@ -9,9 +9,9 @@ export class PlayerView extends Physics.Matter.Sprite {
 
     constructor(scene: Scene, x: number, y: number, height: number, width: number, renderDelegator: RenderDelegator) {
         super(scene.matter.world, x, y, "")
-        scene.matter.world.add(this)  
         this.setBounce(0)
         this.render = renderDelegator
         this.render.renderPlayer(this)
+        scene.matter.world.add(this)
     }
 }

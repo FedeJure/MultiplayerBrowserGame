@@ -43,6 +43,7 @@ export class ClientGame {
             Log(this, "Initial Game State Event", data)
             const players = data.players.map(dto => {
                 const player = ProvidePlayerFromDto(dto, this.scene, this.render)
+                Log(this,player)
                 this.connectedPlayers.set(player.info.id.toString(), player)
                 return player
             })
@@ -65,6 +66,7 @@ export class ClientGame {
         })
 
         this.connection.onPlayerDisconnected.subscribe(data => {
+            Log(this, `Player disconnected: ${data}`)
             const player = this.connectedPlayers.get(data.playerId)
             if (!player) return
             player.view.destroy()

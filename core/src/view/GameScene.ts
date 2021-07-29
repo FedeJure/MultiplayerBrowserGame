@@ -41,7 +41,7 @@ export class GameScene extends Scene {
       ground.setSize(200,50)
       ground.setStatic(true)
       ground.setOrigin(1,1)
-      ground.setScale(1,1)
+      ground.setScale(100,1)
       ground.setBounce(0)
       this.matter.world.add(ground)
       lastPlatformX += 200 * 0.5;
