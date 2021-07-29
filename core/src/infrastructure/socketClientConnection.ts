@@ -4,6 +4,7 @@ import { ClientConnection } from "../domain/clientConnection";
 import {GameEvents, PlayerConnectedEvent} from "./events/gameEvents"
 import { PlayerStateDto } from "./dtos/playerStateDTO";
 import { PlayerPositionsDTO } from "./dtos/playerPositionsDTO";
+import { Log } from "./Logger";
 
 export class SocketClientConnection implements ClientConnection {
 
@@ -31,7 +32,7 @@ export class SocketClientConnection implements ClientConnection {
                 const { playerId } = data
                 this.onPlayerConnectionSubject.next({ playerId: playerId.toString() })
             } catch (error) {
-                console.log(`[Socket Client Connection] :: Error: ${error}`)
+                Log(this,`[Socket Client Connection] :: Error: ${error}`)
             }
         })
     }

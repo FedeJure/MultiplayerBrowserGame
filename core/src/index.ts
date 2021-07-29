@@ -11,7 +11,7 @@ import { PlayerState } from "./domain/playerState";
 import { LoadScene } from "./view/LoadScene";
 import { SocketServerConnection } from "./infrastructure/socketServerConnection";
 import { SocketRoomConnection } from "./infrastructure/socketRoomConnection";
-import { ClientConnection } from "./domain/clientConnection";
+import { Log } from "./infrastructure/Logger";
 
 export const InitGame: (socket: Socket) => void = (socket: Socket) => {
 
@@ -31,11 +31,11 @@ export const InitGame: (socket: Socket) => void = (socket: Socket) => {
             const connection = new SocketClientConnection(clientSocket)
             room.join(connection)
             DefaultCoreProviderInstance.connectionsRepository.addConnection(connection)
-            console.log(`[Event: ${SocketIOEvents.CONNECTION}] :: with connection id: ${clientSocket.id}`)
+            Log("InitServerGame",`[Event: ${SocketIOEvents.CONNECTION}] :: with connection id: ${clientSocket.id}`)
 
             clientSocket.on(SocketIOEvents.DISCONNECT, () => {
                 DefaultCoreProviderInstance.connectionsRepository.removeConnection(connection.connectionId)
-                console.log(`[Event: ${SocketIOEvents.DISCONNECT}] :: with connection id: ${clientSocket.id}`)
+                Log("InitServerGame",`[Event: ${SocketIOEvents.DISCONNECT}] :: with connection id: ${clientSocket.id}`)
             })
 
         })

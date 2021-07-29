@@ -33,31 +33,19 @@ export class GameScene extends Scene {
 
   initPlatforms = () => {
     //TODO: refactorear esto para generar platform de archivo de configs
-    var platformCount = 7;
+    var platformCount = 1;
     var platformY = 500;
     var lastPlatformX = -200;
     for (var i = 0; i < platformCount; i++) {
-      // this.platformsGroup?.create(lastPlatformX, platformY, "ground");
       const ground = new Physics.Matter.Image(this.matter.world,lastPlatformX, platformY, "ground")
-      ground.setBounce(0)
+      ground.setSize(200,50)
       ground.setStatic(true)
-      ground.setOrigin(0.5,0.5)
-      ground.setScale(100,1)
+      ground.setOrigin(1,1)
+      ground.setScale(1,1)
+      ground.setBounce(0)
       this.matter.world.add(ground)
       lastPlatformX += 200 * 0.5;
     }
-    // this.platformsGroup?.addMultiple([
-    //   new GameObjects.Rectangle(
-    //     this,
-    //     -700,
-    //     platformY,
-    //     10,
-    //     1000,
-    //     0,
-    //     100
-    //   ),
-    //   new GameObjects.Rectangle(this, 2000, platformY, 10, 1000, 0, 10)
-    // ]);
   }
 
 }

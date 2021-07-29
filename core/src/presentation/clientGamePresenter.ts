@@ -1,12 +1,9 @@
-import { Socket } from "socket.io-client"
-import { GameEvents, InitialGameStateEvent, PlayersPositionsEvent } from "../infrastructure/events/gameEvents"
 import { GameScene } from "../view/GameScene"
 import { ProvidePlayerFromDto } from "../domain/actions/providePlayerFromDto"
 import { CoreProvider } from "../coreProvider";
 import { RenderDelegator } from "../view/RenderDelegator";
 import { PlayerRenderDelegator } from "../view/ClientRenderDelegator";
 import { PlayerFacade } from "../domain/playerFacade";
-import { PlayerStateDto } from "../infrastructure/dtos/playerStateDTO";
 import { ServerConnection } from "../domain/serverConnection";
 import { ValidatePosition } from "../domain/actions/validatePosition";
 import { Log } from "../infrastructure/Logger";
@@ -43,7 +40,6 @@ export class ClientGame {
     listenEvents() {
 
         this.connection.onInitialGameState.subscribe(data => {
-            // console.log("[Client Game :: ] ", data)
             Log(this, "Initial Game State Event", data)
             const players = data.players.map(dto => {
                 const player = ProvidePlayerFromDto(dto, this.scene, this.render)

@@ -51,7 +51,7 @@ export class ServerGame {
                             connection.sendInitialStateEvent(Array.from(this.connectedPlayers.values()).map(c => c.stateDto))                                                      
                             Log(this,`[Game addPlayer] player added to scene with id: ${playerId}`)            
                         } catch (error) {
-                            console.log(`[Game addPlayer] ERROR: ${error}`)
+                            Log(this,`[Game addPlayer] ERROR: ${error}`)
                         }
                     })
             })

@@ -1,6 +1,4 @@
-import { GameObjects, Physics, Scene } from "phaser"
-import { Player } from "../domain/player";
-import { Position } from "../domain/position";
+import { Physics, Scene, Types } from "phaser"
 import { RenderDelegator } from "./RenderDelegator";
 
 export class PlayerView extends Physics.Matter.Sprite {
@@ -11,10 +9,9 @@ export class PlayerView extends Physics.Matter.Sprite {
 
     constructor(scene: Scene, x: number, y: number, height: number, width: number, renderDelegator: RenderDelegator) {
         super(scene.matter.world, x, y, "")
-        this.setBounce(0)
         scene.matter.world.add(this)  
+        this.setBounce(0)
         this.render = renderDelegator
         this.render.renderPlayer(this)
-      
     }
 }
