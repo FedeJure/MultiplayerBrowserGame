@@ -12,7 +12,6 @@ export class PlayerRenderDelegator implements RenderDelegator {
         player.setTexture("player_anim")
         player.anims.play("idle")
         player.scene.add.existing(player)
-        console.log(player)
     }
 
     createAnimations(player: PlayerView) {

@@ -5,7 +5,7 @@ import { RenderDelegator } from "../view/RenderDelegator";
 import { PlayerRenderDelegator } from "../view/ClientRenderDelegator";
 import { PlayerFacade } from "../domain/playerFacade";
 import { ServerConnection } from "../domain/serverConnection";
-import { ValidatePosition } from "../domain/actions/validatePosition";
+import { ValidateState } from "../domain/actions/validatePosition";
 import { Log } from "../infrastructure/Logger";
 
 export class ClientGame {
@@ -55,8 +55,11 @@ export class ClientGame {
 
         this.connection.onPlayersPositions.subscribe(data => {
             const localConnection = data.positions.find(p => p.id == this.localPlayerId)
-            if (localConnection && this.localPlayer) ValidatePosition(this.localPlayer, localConnection.position)
-            data.positions.forEach(p => this.connectedPlayers.get(p.id)?.view.setPosition(p.position.x, p.position.y))
+            if (localConnection && this.localPlayer) ValidateState(this.localPlayer, localConnection)
+            data.positions.forEach(p =>{
+                const player = this.connectedPlayers.get(p.id)
+                if (player) ValidateState(player, p)
+            })
         })
 
         this.connection.onNewPlayerConnected.subscribe(data => {
@@ -66,7 +69,6 @@ export class ClientGame {
         })
 
         this.connection.onPlayerDisconnected.subscribe(data => {
-            Log(this, `Player disconnected: ${data}`)
             const player = this.connectedPlayers.get(data.playerId)
             if (!player) return
             player.view.destroy()

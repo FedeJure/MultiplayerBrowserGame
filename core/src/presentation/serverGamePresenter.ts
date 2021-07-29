@@ -59,11 +59,16 @@ export class ServerGame {
         this.provider.connectionsRepository.onDisconnection()
             .subscribe(connection => {
                 const playerId = this.playerConnections.get(connection.connectionId)
-                if (playerId) this.room.emit(GameEvents.PLAYER_DISCONNECTED.name, GameEvents.PLAYER_DISCONNECTED.getEvent(playerId))
+                if (playerId) {
+                    this.room.emit(GameEvents.PLAYER_DISCONNECTED.name, GameEvents.PLAYER_DISCONNECTED.getEvent(playerId))
+                    this.connectedPlayers.get(playerId)?.player?.destroy()
+                    this.connectedPlayers.delete(playerId)
+                }
+                this.playerConnections.delete(connection.connectionId)
             })
         
         this.gameScene.onUpdate.subscribe(({time, delta}) => {
-            const data = Array.from(this.connectedPlayers.values()).map(p => ({id: p.player.info.id.toString(), position: p.player.view.body.position}))
+            const data = Array.from(this.connectedPlayers.values()).map(p => (ProvidePlayerStateDto(p.player)))
             this.room.emit(GameEvents.PLAYERS_POSITIONS.name, GameEvents.PLAYERS_POSITIONS.getEvent(data))
         })
     }

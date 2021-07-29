@@ -3,7 +3,6 @@ import { Socket } from "socket.io";
 import { ClientConnection } from "../domain/clientConnection";
 import {GameEvents, PlayerConnectedEvent} from "./events/gameEvents"
 import { PlayerStateDto } from "./dtos/playerStateDTO";
-import { PlayerPositionsDTO } from "./dtos/playerPositionsDTO";
 import { Log } from "./Logger";
 
 export class SocketClientConnection implements ClientConnection {

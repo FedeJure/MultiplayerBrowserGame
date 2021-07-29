@@ -1,7 +1,7 @@
-import { Observable, Subject } from "rxjs";
+import { Subject } from "rxjs";
 import { Socket } from "socket.io-client";
 import { ServerConnection } from "../domain/serverConnection";
-import { GameEvents, InitialGameStateEvent, NewPlayerConnectedEvent, PlayerDisconnectedEvent, PlayersPositionsEvent } from "./events/gameEvents";
+import { GameEvents, InitialGameStateEvent, NewPlayerConnectedEvent, PlayerDisconnectedEvent, PlayersStatesEvent } from "./events/gameEvents";
 
 export class SocketServerConnection implements ServerConnection {
 
@@ -9,7 +9,7 @@ export class SocketServerConnection implements ServerConnection {
 
     private readonly _onInitialGameState = new Subject<InitialGameStateEvent>()
     private readonly _onNewPlayerConnected = new Subject<NewPlayerConnectedEvent>()
-    private readonly _onPlayersPositions = new Subject<PlayersPositionsEvent>()
+    private readonly _onPlayersPositions = new Subject<PlayersStatesEvent>()
     private readonly _onPlayerDisconnected = new Subject<PlayerDisconnectedEvent>();
 
     constructor(socket: Socket) {
@@ -17,7 +17,7 @@ export class SocketServerConnection implements ServerConnection {
 
         socket.on(GameEvents.INITIAL_GAME_STATE.name, (data: InitialGameStateEvent) => this._onInitialGameState.next(data))
         socket.on(GameEvents.NEW_PLAYER_CONNECTED.name, (data: NewPlayerConnectedEvent) => this._onNewPlayerConnected.next(data))
-        socket.on(GameEvents.PLAYERS_POSITIONS.name, (data: PlayersPositionsEvent) => this._onPlayersPositions.next(data))
+        socket.on(GameEvents.PLAYERS_POSITIONS.name, (data: PlayersStatesEvent) => this._onPlayersPositions.next(data))
         socket.on(GameEvents.PLAYER_DISCONNECTED.name, (data: PlayerDisconnectedEvent) => this._onPlayerDisconnected.next(data))
         
     }

@@ -23,7 +23,7 @@ export const InitGame: (socket: Socket) => void = (socket: Socket) => {
         DefaultCoreProviderInstance.playerStateRepository.setPlayerState("1", new PlayerState(0, 0, 100, 2))
 
         DefaultCoreProviderInstance.playerInfoRepository.addPlayer("2", { id: "2", name: "Test Player 2" })
-        DefaultCoreProviderInstance.playerStateRepository.setPlayerState("2", new PlayerState(40, 0, 100, 2))
+        DefaultCoreProviderInstance.playerStateRepository.setPlayerState("2", new PlayerState(-50, 0, 100, 2))
         const room = new SocketRoomConnection(socket, "main")
         const game = new ServerGame(scene, DefaultCoreProviderInstance, room);
     

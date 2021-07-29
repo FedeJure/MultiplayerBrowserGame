@@ -20,4 +20,8 @@ export class Player implements PlayerFacade {
         this.state = playerState
         this.view = playerView
     }
+
+    destroy() {
+        this.view.destroy()
+    }
 }

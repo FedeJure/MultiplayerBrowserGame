@@ -37,7 +37,7 @@ export class GameScene extends Scene {
     var platformY = 500;
     var lastPlatformX = -200;
     for (var i = 0; i < platformCount; i++) {
-      const ground = new Physics.Matter.Image(this.matter.world,lastPlatformX, platformY, "ground")
+      const ground = new Physics.Matter.Image(this.matter.world,lastPlatformX, platformY, "")
       ground.setSize(200,50)
       ground.setStatic(true)
       ground.setOrigin(1,1)

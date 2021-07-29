@@ -1,11 +1,8 @@
 import { Observable } from "rxjs";
-import { Socket } from "socket.io-client";
-import { InitialGameStateEvent, NewPlayerConnectedEvent, PlayerDisconnectedEvent, PlayersPositionsEvent } from "../infrastructure/events/gameEvents";
-import { PlayerFacade } from "./playerFacade";
-
+import { InitialGameStateEvent, NewPlayerConnectedEvent, PlayerDisconnectedEvent, PlayersStatesEvent } from "../infrastructure/events/gameEvents";
 export interface ServerConnection {
     onNewPlayerConnected: Observable<NewPlayerConnectedEvent>
-    onPlayersPositions: Observable<PlayersPositionsEvent>
+    onPlayersPositions: Observable<PlayersStatesEvent>
     onInitialGameState: Observable<InitialGameStateEvent>
     onPlayerDisconnected: Observable<PlayerDisconnectedEvent>
     emitStartNewConnection(playerId: string): void 
