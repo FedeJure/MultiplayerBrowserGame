@@ -1,5 +1,5 @@
 import { PlayerStateDto } from "../../infrastructure/dtos/playerStateDTO";
-import { GameScene } from "../../view/GameScene";
+import { GameScene } from "../../view/scenes/GameScene";
 import { PlayerView } from "../../view/playerView";
 import { RenderDelegator } from "../../view/RenderDelegator";
 import { DefaultConfiguration } from "../playerConfiguration";

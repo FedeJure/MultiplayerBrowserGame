@@ -3,6 +3,3 @@ export function Log(classType: { constructor: {name: string}} | string, ...args:
     const name = classType.constructor ? classType.constructor.name : classType
     console.log(`${d.toUTCString()} -- [${name}] ::`, ...args)
 }
-
-
-

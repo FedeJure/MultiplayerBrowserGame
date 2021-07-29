@@ -2,6 +2,7 @@ import { Subject } from "rxjs";
 import { Socket } from "socket.io-client";
 import { ServerConnection } from "../domain/serverConnection";
 import { GameEvents, InitialGameStateEvent, NewPlayerConnectedEvent, PlayerDisconnectedEvent, PlayersStatesEvent } from "./events/gameEvents";
+import { SocketIOEvents } from "./events/socketIoEvents";
 
 export class SocketServerConnection implements ServerConnection {
 
@@ -11,14 +12,22 @@ export class SocketServerConnection implements ServerConnection {
     private readonly _onNewPlayerConnected = new Subject<NewPlayerConnectedEvent>()
     private readonly _onPlayersPositions = new Subject<PlayersStatesEvent>()
     private readonly _onPlayerDisconnected = new Subject<PlayerDisconnectedEvent>();
+    private readonly _onPing = new Subject<number>(); 
 
     constructor(socket: Socket) {
         this.socket = socket
 
-        socket.on(GameEvents.INITIAL_GAME_STATE.name, (data: InitialGameStateEvent) => this._onInitialGameState.next(data))
-        socket.on(GameEvents.NEW_PLAYER_CONNECTED.name, (data: NewPlayerConnectedEvent) => this._onNewPlayerConnected.next(data))
-        socket.on(GameEvents.PLAYERS_POSITIONS.name, (data: PlayersStatesEvent) => this._onPlayersPositions.next(data))
-        socket.on(GameEvents.PLAYER_DISCONNECTED.name, (data: PlayerDisconnectedEvent) => this._onPlayerDisconnected.next(data))
+        socket.on(GameEvents.INITIAL_GAME_STATE.name, data => this._onInitialGameState.next(data))
+        socket.on(GameEvents.NEW_PLAYER_CONNECTED.name, data => this._onNewPlayerConnected.next(data))
+        socket.on(GameEvents.PLAYERS_POSITIONS.name, data => this._onPlayersPositions.next(data))
+        socket.on(GameEvents.PLAYER_DISCONNECTED.name, data => this._onPlayerDisconnected.next(data))
+
+        var startTime = Date.now()
+        socket.on(SocketIOEvents.PONG, data => this._onPing.next(Date.now() - startTime))
+        setInterval(() => {
+            startTime = Date.now()
+            socket.emit(SocketIOEvents.PING)
+        }, 2000)
         
     }
     get onInitialGameState() {
@@ -35,6 +44,10 @@ export class SocketServerConnection implements ServerConnection {
 
     get onPlayerDisconnected() {
         return this._onPlayerDisconnected
+    }
+
+    get onPing() {
+        return this._onPing
     }
 
     emitStartNewConnection(playerId: string): void {

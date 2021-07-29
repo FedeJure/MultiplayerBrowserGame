@@ -2,16 +2,17 @@ import { Server, Socket } from "socket.io";
 import { ServerGame } from "./presentation/serverGamePresenter";
 import { SocketIOEvents } from "./infrastructure/events/socketIoEvents"
 import { DefaultCoreProviderInstance } from "./coreProvider";
-import { GameScene } from "./view/GameScene";
+import { GameScene } from "./view/scenes/GameScene";
 import { ClientGame } from "./presentation/clientGamePresenter";
 import { Socket as ClientSocket } from "socket.io-client";
 import { SocketClientConnection } from "./infrastructure/socketClientConnection";
 import { ClientConfig, ServerConfig } from "./view/DefaultGameConfigs";
 import { PlayerState } from "./domain/playerState";
-import { LoadScene } from "./view/LoadScene";
+import { LoadScene } from "./view/scenes/LoadScene";
 import { SocketServerConnection } from "./infrastructure/socketServerConnection";
 import { SocketRoomConnection } from "./infrastructure/socketRoomConnection";
 import { Log } from "./infrastructure/Logger";
+import { GameplayHud } from "./view/scenes/GameplayHud";
 
 export const InitGame: (socket: Socket) => void = (socket: Socket) => {
 
@@ -45,7 +46,8 @@ export const InitGame: (socket: Socket) => void = (socket: Socket) => {
 
 export const InitClientGame = (socket: ClientSocket, localPlayerId: string) => {
         const scene = new GameScene()
-        const config = {...ClientConfig, scene: [new LoadScene(), scene]}
+        const connectionWithServer = new SocketServerConnection(socket)
+        const config = {...ClientConfig, scene: [new LoadScene(), scene, new GameplayHud(connectionWithServer)]}
         const phaserGame = new Phaser.Game(config)
-        const game = new ClientGame(localPlayerId, DefaultCoreProviderInstance, new SocketServerConnection(socket), scene);
+        const game = new ClientGame(localPlayerId, DefaultCoreProviderInstance, connectionWithServer, scene);
     }

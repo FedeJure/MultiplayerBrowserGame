@@ -4,6 +4,7 @@ import { ClientConnection } from "../domain/clientConnection";
 import {GameEvents, PlayerConnectedEvent} from "./events/gameEvents"
 import { PlayerStateDto } from "./dtos/playerStateDTO";
 import { Log } from "./Logger";
+import { SocketIOEvents } from "./events/socketIoEvents";
 
 export class SocketClientConnection implements ClientConnection {
 
@@ -26,6 +27,9 @@ export class SocketClientConnection implements ClientConnection {
     }
 
     listenEvents() {
+        this.socket.on(SocketIOEvents.PING, () => {
+            this.socket.emit(SocketIOEvents.PONG)
+        })
         this.socket.on(GameEvents.PLAYER_CONNECTED.name, (data: PlayerConnectedEvent) => {
             try {
                 const { playerId } = data

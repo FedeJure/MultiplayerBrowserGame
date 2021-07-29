@@ -2,7 +2,7 @@ import { Player } from "../../domain/player";
 import { PlayerState } from "../../domain/playerState";
 import { PlayerInfoRepository } from "../../infrastructure/repositories/playerInfoRepository"
 import { PlayerStateRepository } from "../../infrastructure/repositories/playerStateRepository";
-import { GameScene } from "../../view/GameScene";
+import { GameScene } from "../../view/scenes/GameScene";
 import { PlayerView } from "../../view/playerView";
 import { RenderDelegator } from "../../view/RenderDelegator";
 import { DefaultConfiguration } from "../playerConfiguration";

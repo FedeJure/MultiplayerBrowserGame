@@ -5,5 +5,6 @@ export interface ServerConnection {
     onPlayersPositions: Observable<PlayersStatesEvent>
     onInitialGameState: Observable<InitialGameStateEvent>
     onPlayerDisconnected: Observable<PlayerDisconnectedEvent>
+    onPing: Observable<number>
     emitStartNewConnection(playerId: string): void 
 }

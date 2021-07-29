@@ -21,6 +21,6 @@ export class PlayerView extends Physics.Matter.Sprite {
 
     destroy() {
         super.destroy()
-        this.scene.matter.world.remove(this)
+        this.scene?.matter.world.remove(this)
     }
 }

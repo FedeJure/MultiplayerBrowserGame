@@ -1,4 +1,4 @@
-import { GameScene } from "../view/GameScene"
+import { GameScene } from "../view/scenes/GameScene"
 import { ProvidePlayerFromDto } from "../domain/actions/providePlayerFromDto"
 import { CoreProvider } from "../coreProvider";
 import { RenderDelegator } from "../view/RenderDelegator";

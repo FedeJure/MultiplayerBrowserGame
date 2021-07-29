@@ -1,4 +1,4 @@
-import { GameScene } from "./GameScene";
+import { GameScene } from "./scenes/GameScene";
 import { PlayerView } from "./playerView";
 import { RenderDelegator } from "./RenderDelegator"
 

@@ -4,6 +4,6 @@ const { InitGame } = require("../core/lib/index")
 const { ServerConfig } = require('../core/lib/view/DefaultGameConfigs')
 
 exports.SetupServer = (server) => {
-    const io = SetupSocketIo(server)
+    const io = SetupSocketIo(server, {pingInterval: 5000})
     InitGame(io)
 }

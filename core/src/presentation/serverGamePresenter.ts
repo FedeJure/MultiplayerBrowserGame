@@ -1,5 +1,5 @@
 import { GameEvents } from "../infrastructure/events/gameEvents"
-import { GameScene } from "../view/GameScene"
+import { GameScene } from "../view/scenes/GameScene"
 import { ProvidePlayerFromId } from "../domain/actions/providePlayerFromId"
 import { CoreProvider } from "../coreProvider";
 import { ClientConnection } from "../domain/clientConnection";

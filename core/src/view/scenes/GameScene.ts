@@ -1,6 +1,6 @@
 import { Observable, Subject } from 'rxjs';
 import { Scene, GameObjects, Physics } from "phaser"
-import { PlayerFacade } from '../domain/playerFacade';
+import { PlayerFacade } from '../../domain/playerFacade';
 
 export class GameScene extends Scene {
 
@@ -12,6 +12,7 @@ export class GameScene extends Scene {
   }
 
   create() {
+    this.scene.launch("hud")
     this.initPlatforms();
     const background = this.add.image(1250, 300, "background");
     background.scaleY = 2;
