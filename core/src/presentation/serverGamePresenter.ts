@@ -9,6 +9,7 @@ import { ServerRenderDelegator } from "../view/ServerRenderDelegator";
 import { ProvidePlayerStateDto } from "../domain/actions/providePlayerStateDto";
 import { PlayerStateDto } from "../infrastructure/dtos/playerStateDTO";
 import { RoomConnection } from "../domain/roomConnection";
+import { Log } from "../infrastructure/Logger";
 
 
 export class ServerGame {
@@ -48,7 +49,7 @@ export class ServerGame {
                             this.connectedPlayers.set(playerId, {con: connection, player, stateDto: state})
                             this.playerConnections.set(connection.connectionId, playerId)
                             connection.sendInitialStateEvent(Array.from(this.connectedPlayers.values()).map(c => c.stateDto))                                                      
-                            console.log(`[Game addPlayer] player added to scene with id: ${playerId}`)            
+                            Log(this,`[Game addPlayer] player added to scene with id: ${playerId}`)            
                         } catch (error) {
                             console.log(`[Game addPlayer] ERROR: ${error}`)
                         }

@@ -9,6 +9,7 @@ import { PlayerFacade } from "../domain/playerFacade";
 import { PlayerStateDto } from "../infrastructure/dtos/playerStateDTO";
 import { ServerConnection } from "../domain/serverConnection";
 import { ValidatePosition } from "../domain/actions/validatePosition";
+import { Log } from "../infrastructure/Logger";
 
 export class ClientGame {
 
@@ -40,9 +41,10 @@ export class ClientGame {
     }
     
     listenEvents() {
-        
+
         this.connection.onInitialGameState.subscribe(data => {
-            console.log("[Client Game :: Initial Game State Event] ", data)
+            // console.log("[Client Game :: ] ", data)
+            Log(this, "Initial Game State Event", data)
             const players = data.players.map(dto => {
                 const player = ProvidePlayerFromDto(dto, this.scene, this.render)
                 this.connectedPlayers.set(player.info.id.toString(), player)
