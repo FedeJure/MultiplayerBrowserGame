@@ -6,6 +6,7 @@ export class LocalPlayerPresenter extends ClientPlayerPresenter {
 
     constructor(player: PlayerView) {
         super(player) 
+        this.renderLocalPlayer()
     }
 
     renderLocalPlayer(): void {

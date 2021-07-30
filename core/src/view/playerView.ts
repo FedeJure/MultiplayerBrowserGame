@@ -11,6 +11,7 @@ export class PlayerView extends Physics.Matter.Sprite {
 
     constructor(scene: Scene, x: number, y: number, height: number, width: number, local: boolean = false) {
         super(scene.matter.world, x, y, "")
+        Provider.presenterProvider.forPlayer(this, local)
         this.height = height
         this.width = width
         this.setBounce(0)

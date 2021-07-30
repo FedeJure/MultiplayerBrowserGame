@@ -1,7 +1,7 @@
 import { GameEvents } from "../infrastructure/events/gameEvents"
 import { GameScene } from "../view/scenes/GameScene"
 import { ProvidePlayerFromId } from "../domain/actions/providePlayerFromId"
-import { CoreProvider } from "../coreProvider";
+import { Provider } from "../coreProvider";
 import { ClientConnection } from "../domain/clientConnection";
 import { Player } from "../domain/player";
 import { ProvidePlayerStateDto } from "../domain/actions/providePlayerStateDto";
@@ -13,7 +13,6 @@ import { Log } from "../infrastructure/Logger";
 export class ServerGame {
 
     readonly gameScene: GameScene
-    readonly provider: CoreProvider
     readonly room: RoomConnection
 
     private connectedPlayers: Map<string, {con: ClientConnection, player: Player, stateDto: PlayerStateDto}>
@@ -21,9 +20,7 @@ export class ServerGame {
 
     constructor(
         gameScene: GameScene,
-        coreProvider: CoreProvider,
         room: RoomConnection) {
-        this.provider = coreProvider
         this.gameScene = gameScene
         this.room = room
         this.connectedPlayers = new Map()
@@ -33,12 +30,12 @@ export class ServerGame {
     }
 
     listenEvents() {
-        this.provider.connectionsRepository.onNewConnection()
+        Provider.connectionsRepository.onNewConnection()
             .subscribe(connection => {
                 connection.onPlayerConnection()
                     .subscribe(({ playerId }) => {
                         try {
-                            const player = ProvidePlayerFromId(playerId, this.provider.playerInfoRepository, this.provider.playerStateRepository, this.gameScene)
+                            const player = ProvidePlayerFromId(playerId, this.gameScene)
                             const state = ProvidePlayerStateDto(player)
                             this.gameScene.addToLifecycle(player.view)
                             this.room.emit(GameEvents.NEW_PLAYER_CONNECTED.name, GameEvents.NEW_PLAYER_CONNECTED.getEvent(state))
@@ -52,7 +49,7 @@ export class ServerGame {
                     })
             })
         
-        this.provider.connectionsRepository.onDisconnection()
+        Provider.connectionsRepository.onDisconnection()
             .subscribe(connection => {
                 const playerId = this.playerConnections.get(connection.connectionId)
                 if (playerId) {

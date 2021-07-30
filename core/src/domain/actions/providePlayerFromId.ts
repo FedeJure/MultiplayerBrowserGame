@@ -5,15 +5,14 @@ import { PlayerStateRepository } from "../../infrastructure/repositories/playerS
 import { GameScene } from "../../view/scenes/GameScene";
 import { PlayerView } from "../../view/playerView";
 import { DefaultConfiguration } from "../playerConfiguration";
+import { Provider } from "../../coreProvider";
 
 export function ProvidePlayerFromId(
     playerId: string,
-    playerInfoRepository: PlayerInfoRepository,
-    playerStateRepository: PlayerStateRepository,
     scene: GameScene) : Player {
-        const playerInfo = playerInfoRepository.getPlayer(playerId)
+        const playerInfo = Provider.playerInfoRepository.getPlayer(playerId)
         if (playerInfo === undefined) throw new Error(`Player with ID: ${playerId} not found`)
-        var playerState = playerStateRepository.getPlayerState(playerId)
+        var playerState = Provider.playerStateRepository.getPlayerState(playerId)
         if (playerState === undefined) {
             playerState = new PlayerState( 
                 DefaultConfiguration.initialX,

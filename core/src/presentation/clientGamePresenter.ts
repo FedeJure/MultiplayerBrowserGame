@@ -1,6 +1,5 @@
 import { GameScene } from "../view/scenes/GameScene"
 import { ProvidePlayerFromDto } from "../domain/actions/providePlayerFromDto"
-import { CoreProvider } from "../coreProvider";
 import { PlayerFacade } from "../domain/playerFacade";
 import { ServerConnection } from "../domain/serverConnection";
 import { ValidateState } from "../domain/actions/validatePosition";
@@ -9,17 +8,14 @@ import { Log } from "../infrastructure/Logger";
 export class ClientGamePresenter {
 
     readonly connection: ServerConnection
-    readonly provider: CoreProvider
     readonly scene: GameScene
     readonly localPlayerId: string
     connectedPlayers: Map<string, PlayerFacade>
 
     constructor(
         localPlayerId: string,
-        coreProvider: CoreProvider,
         connection: ServerConnection,
         scene: GameScene) {
-        this.provider = coreProvider
         this.connection = connection
         this.scene = scene
         this.localPlayerId = localPlayerId
