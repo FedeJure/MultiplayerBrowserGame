@@ -2,22 +2,33 @@ import {Input} from "phaser";
 import { PlayerInput } from "../../domain/playerInput";
 
 export class PlayerKeyBoardInput implements PlayerInput {
-    input: PlayerInput
+    readonly input: {
+        up: Input.Keyboard.Key,
+        down: Input.Keyboard.Key,
+        left: Input.Keyboard.Key,
+        right: Input.Keyboard.Key,
+        jump: Input.Keyboard.Key,
+    }
 
-    constructor(phaserInput: Input.InputPlugin) {
-        phaserInput.keyboard.addKeys({
+    constructor(phaserInput: Input.Keyboard.KeyboardPlugin) {
+        this.input = phaserInput.addKeys({
             up: Input.Keyboard.KeyCodes.W,
             down: Input.Keyboard.KeyCodes.S,
             left: Input.Keyboard.KeyCodes.A,
             right: Input.Keyboard.KeyCodes.D,
             jump: Input.Keyboard.KeyCodes.SPACE,
-        })
-        this.input = phaserInput as unknown as PlayerInput
+        }) as {
+            up: Input.Keyboard.Key,
+            down: Input.Keyboard.Key,
+            left: Input.Keyboard.Key,
+            right: Input.Keyboard.Key,
+            jump: Input.Keyboard.Key,
+        }
     }
 
-    get up() { return this.input.up };
-    get down() { return this.input.down };
-    get left() { return this.input.left };
-    get right() { return this.input.right };
-    get jump() { return this.input.jump };
+    get up() { return this.input.up.isDown };
+    get down() { return this.input.down.isDown };
+    get left() { return this.input.left.isDown };
+    get right() { return this.input.right.isDown };
+    get jump() { return this.input.jump.isDown };
 }

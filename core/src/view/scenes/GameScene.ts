@@ -43,7 +43,7 @@ export class GameScene extends Scene {
     return this._onCreate
   }
 
-  initPlatforms = () => {
+  private initPlatforms = () => {
     //TODO: refactorear esto para generar platform de archivo de configs
     var platformCount = 1;
     var platformY = 500;

@@ -1,8 +1,10 @@
+import { PlayerInput } from "../domain/playerInput"
 import { PlayerView } from "../view/playerView"
 
 export class ClientPlayerPresenter  {
 
     protected view: PlayerView
+    
 
     constructor(player: PlayerView) {
         this.view = player

@@ -21,7 +21,7 @@ import { ServerPresenterProvider } from "./infrastructure/serverPresenterProvide
 
 export const InitGame: (socket: Socket) => void = (socket: Socket) => {
 
-    Provider.Init(
+    Provider.ServierInit(
         new ConnectionsRepository(),
         new InMemoryPlayerRepository(),
         new InMemoryPlayerStateRepository(),
@@ -40,7 +40,6 @@ export const InitGame: (socket: Socket) => void = (socket: Socket) => {
 
     const room = new SocketRoomConnection(socket, "main")
     const game = new ServerGame(scene, room);
-
     socket.on(SocketIOEvents.CONNECTION, (clientSocket: Socket) => {
         const connection = new SocketClientConnection(clientSocket)
         room.join(connection)
@@ -53,18 +52,13 @@ export const InitGame: (socket: Socket) => void = (socket: Socket) => {
         })
 
     })
-
-
 }
 
 export const InitClientGame = (socket: ClientSocket, localPlayerId: string) => {
-    Provider.Init(
-        new ConnectionsRepository(),
-        new InMemoryPlayerRepository(),
-        new InMemoryPlayerStateRepository(),
+    Provider.ClientInit(
         new ClientPresenterProvider()
     )
-    const scene = new GameScene()
+    const scene = new GameScene()    
     const connectionWithServer = new SocketServerConnection(socket)
     const config = { ...ClientConfig, scene: [new LoadScene(), scene, new GameplayHud(connectionWithServer)] }
     const phaserGame = new Phaser.Game(config)

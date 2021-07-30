@@ -26,7 +26,9 @@ export class ServerGame {
         this.connectedPlayers = new Map()
         this.playerConnections = new Map()
 
-        this.listenEvents()
+        this.gameScene.onCreate.subscribe(() => {
+            this.listenEvents()
+        })
     }
 
     listenEvents() {

@@ -4,6 +4,7 @@ import { PlayerFacade } from "../domain/playerFacade";
 import { ServerConnection } from "../domain/serverConnection";
 import { ValidateState } from "../domain/actions/validatePosition";
 import { Log } from "../infrastructure/Logger";
+import { PlayerKeyBoardInput } from "../infrastructure/input/playerKeyboardInput";
 
 export class ClientGamePresenter {
 
@@ -20,7 +21,6 @@ export class ClientGamePresenter {
         this.scene = scene
         this.localPlayerId = localPlayerId
         this.connectedPlayers = new Map()
-
         scene.onCreate.subscribe(() => {
             this.listenEvents()
             connection.emitStartNewConnection(localPlayerId)
@@ -33,7 +33,7 @@ export class ClientGamePresenter {
             Log(this, "Initial Game State Event", data)
             const players = data.players.map(dto => {
                 var player: PlayerFacade
-                if (dto.id === this.localPlayerId) player = ProvidePlayerFromDto(dto, this.scene, true)
+                if (dto.id === this.localPlayerId) player = ProvidePlayerFromDto(dto, this.scene, true,new PlayerKeyBoardInput(this.scene.input.keyboard))
                 else player = ProvidePlayerFromDto(dto, this.scene)
                 this.scene.addToLifecycle(player.view)
                 this.connectedPlayers.set(player.info.id.toString(), player)
