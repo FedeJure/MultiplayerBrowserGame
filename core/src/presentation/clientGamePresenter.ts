@@ -1,21 +1,17 @@
 import { GameScene } from "../view/scenes/GameScene"
 import { ProvidePlayerFromDto } from "../domain/actions/providePlayerFromDto"
 import { CoreProvider } from "../coreProvider";
-import { RenderDelegator } from "../view/RenderDelegator";
-import { PlayerRenderDelegator } from "../view/ClientRenderDelegator";
 import { PlayerFacade } from "../domain/playerFacade";
 import { ServerConnection } from "../domain/serverConnection";
 import { ValidateState } from "../domain/actions/validatePosition";
 import { Log } from "../infrastructure/Logger";
 
-export class ClientGame {
+export class ClientGamePresenter {
 
     readonly connection: ServerConnection
     readonly provider: CoreProvider
     readonly scene: GameScene
-    readonly render: RenderDelegator
     readonly localPlayerId: string
-    localPlayer: PlayerFacade | undefined
     connectedPlayers: Map<string, PlayerFacade>
 
     constructor(
@@ -27,14 +23,12 @@ export class ClientGame {
         this.connection = connection
         this.scene = scene
         this.localPlayerId = localPlayerId
-        this.render = new PlayerRenderDelegator()
         this.connectedPlayers = new Map()
 
         scene.onCreate.subscribe(() => {
             this.listenEvents()
             connection.emitStartNewConnection(localPlayerId)
         })
-    
     }
     
     listenEvents() {
@@ -42,15 +36,13 @@ export class ClientGame {
         this.connection.onInitialGameState.subscribe(data => {
             Log(this, "Initial Game State Event", data)
             const players = data.players.map(dto => {
-                const player = ProvidePlayerFromDto(dto, this.scene, this.render)
-                Log(this,player)
+                var player: PlayerFacade
+                if (dto.id === this.localPlayerId) player = ProvidePlayerFromDto(dto, this.scene, true)
+                else player = ProvidePlayerFromDto(dto, this.scene)
+                this.scene.addToLifecycle(player.view)
                 this.connectedPlayers.set(player.info.id.toString(), player)
                 return player
-            })
-            this.localPlayer = players.find(p => p.info.id === this.localPlayerId)
-            
-            this.connectedPlayers.delete(this.localPlayerId.toString())
-            if (this.localPlayer) this.render.renderLocalPlayer(this.localPlayer.view)
+            })           
         })
 
         this.connection.onPlayersPositions.subscribe(data => {
@@ -64,15 +56,19 @@ export class ClientGame {
 
         this.connection.onNewPlayerConnected.subscribe(data => {
             if (data.player.id === this.localPlayerId || this.connectedPlayers.has(data.player.id)) return
-            const player = ProvidePlayerFromDto(data.player, this.scene, this.render)
+            const player = ProvidePlayerFromDto(data.player, this.scene)
+            this.scene.addToLifecycle(player.view)
             this.connectedPlayers.set(player.info.id.toString(), player)
         })
 
         this.connection.onPlayerDisconnected.subscribe(data => {
             const player = this.connectedPlayers.get(data.playerId)
             if (!player) return
+            this.scene.removeFromLifecycle(player.view)
             player.view.destroy()
             this.connectedPlayers.delete(data.playerId)
         })
     }
+
+    private get localPlayer() { return this.connectedPlayers.get(this.localPlayerId) }
 }

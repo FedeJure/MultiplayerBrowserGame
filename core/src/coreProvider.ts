@@ -3,7 +3,7 @@ import { PlayerInfoRepository } from "./infrastructure/repositories/playerInfoRe
 import { PlayerStateRepository } from "./infrastructure/repositories/playerStateRepository";
 import { InMemoryPlayerRepository } from "./infrastructure/repositories/inMemoryPlayerRepository";
 import { InMemoryPlayerStateRepository } from "./infrastructure/repositories/inMemoryPlayerStateRepository";
-
+import { PresenterProvider } from "./presentation/presenterProvider"
 export interface CoreProvider {
     readonly connectionsRepository: ConnectionsRepository
     readonly playerInfoRepository: PlayerInfoRepository
@@ -21,6 +21,23 @@ export class DefaultCoreProvider implements CoreProvider {
         this.playerInfoRepository = new InMemoryPlayerRepository()
         this.playerStateRepository = new InMemoryPlayerStateRepository()
     }
+}
+
+export class Provider {
+    private static connectionsRepository: ConnectionsRepository
+    private static playerInfoRepository: PlayerInfoRepository
+    private static playerStateRepository: PlayerStateRepository
+    private static presenterProvider: PresenterProvider
+
+    public static Init(connections: ConnectionsRepository,
+        playerInfos: PlayerInfoRepository,
+        playerStates: PlayerStateRepository,
+        presenterProvider: PresenterProvider) {
+            Provider.connectionsRepository = connections
+            Provider.playerInfoRepository = playerInfos
+            Provider.playerStateRepository = playerStates
+            Provider.presenterProvider = presenterProvider
+        }
 }
 
 export const DefaultCoreProviderInstance = new DefaultCoreProvider();

@@ -7,12 +7,15 @@ export class GameScene extends Scene {
   private _onUpdate = new Subject<{ time: number, delta: number }>()
   private _onCreate = new Subject<void>()
 
+  private _lifeCycleObjects : Phaser.GameObjects.Group | undefined
+
   constructor() {
     super({ key: "gameScene" });
   }
 
   create() {
     this.scene.launch("hud")
+    this._lifeCycleObjects = this.add.group({ runChildUpdate: true} )
     this.initPlatforms();
     const background = this.add.image(1250, 300, "background");
     background.scaleY = 2;
@@ -22,6 +25,14 @@ export class GameScene extends Scene {
 
   update(time: number, delta: number) {
     this._onUpdate.next({ time, delta })
+  }
+
+  addToLifecycle(object: Phaser.GameObjects.GameObject) {
+    this._lifeCycleObjects?.add(object)
+  }
+
+  removeFromLifecycle(object: Phaser.GameObjects.GameObject) {
+    this._lifeCycleObjects?.remove(object)
   }
 
   get onUpdate(): Observable<{ time: number, delta: number }> {

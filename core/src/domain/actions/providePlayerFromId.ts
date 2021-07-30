@@ -4,15 +4,13 @@ import { PlayerInfoRepository } from "../../infrastructure/repositories/playerIn
 import { PlayerStateRepository } from "../../infrastructure/repositories/playerStateRepository";
 import { GameScene } from "../../view/scenes/GameScene";
 import { PlayerView } from "../../view/playerView";
-import { RenderDelegator } from "../../view/RenderDelegator";
 import { DefaultConfiguration } from "../playerConfiguration";
 
 export function ProvidePlayerFromId(
     playerId: string,
     playerInfoRepository: PlayerInfoRepository,
     playerStateRepository: PlayerStateRepository,
-    scene: GameScene,
-    render: RenderDelegator) : Player {
+    scene: GameScene) : Player {
         const playerInfo = playerInfoRepository.getPlayer(playerId)
         if (playerInfo === undefined) throw new Error(`Player with ID: ${playerId} not found`)
         var playerState = playerStateRepository.getPlayerState(playerId)
@@ -22,7 +20,7 @@ export function ProvidePlayerFromId(
                 DefaultConfiguration.initialY, DefaultConfiguration.initialLife,
                 DefaultConfiguration.initialJumps )
         }
-        const view = new PlayerView(scene, playerState.position.x, playerState.position.y, DefaultConfiguration.height, DefaultConfiguration.width, render)
+        const view = new PlayerView(scene, playerState.position.x, playerState.position.y, DefaultConfiguration.height, DefaultConfiguration.width)
 
         return new Player(DefaultConfiguration, playerInfo, playerState, view)
 
