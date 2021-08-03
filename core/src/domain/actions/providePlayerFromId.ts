@@ -1,18 +1,16 @@
 import { Player } from "../../domain/player";
 import { PlayerState } from "../../domain/playerState";
-import { PlayerInfoRepository } from "../../infrastructure/repositories/playerInfoRepository"
-import { PlayerStateRepository } from "../../infrastructure/repositories/playerStateRepository";
 import { GameScene } from "../../view/scenes/GameScene";
 import { PlayerView } from "../../view/playerView";
 import { DefaultConfiguration } from "../playerConfiguration";
-import { Provider } from "../../coreProvider";
+import { ServerProvider } from "../../serverProvider";
 
 export function ProvidePlayerFromId(
     playerId: string,
     scene: GameScene) : Player {
-        const playerInfo = Provider.playerInfoRepository.getPlayer(playerId)
+        const playerInfo = ServerProvider.playerInfoRepository.getPlayer(playerId)
         if (playerInfo === undefined) throw new Error(`Player with ID: ${playerId} not found`)
-        var playerState = Provider.playerStateRepository.getPlayerState(playerId)
+        var playerState = ServerProvider.playerStateRepository.getPlayerState(playerId)
         if (playerState === undefined) {
             playerState = new PlayerState( 
                 DefaultConfiguration.initialX,
@@ -20,7 +18,7 @@ export function ProvidePlayerFromId(
                 DefaultConfiguration.initialJumps )
         }
         const view = new PlayerView(scene, playerState.position.x, playerState.position.y, DefaultConfiguration.height, DefaultConfiguration.width)
-
+        ServerProvider.presenterProvider.forPlayer(view, false)
         return new Player(DefaultConfiguration, playerInfo, playerState, view)
 
 }

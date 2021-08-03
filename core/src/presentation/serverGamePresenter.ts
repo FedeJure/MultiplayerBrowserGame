@@ -1,7 +1,7 @@
 import { GameEvents } from "../infrastructure/events/gameEvents"
 import { GameScene } from "../view/scenes/GameScene"
 import { ProvidePlayerFromId } from "../domain/actions/providePlayerFromId"
-import { Provider } from "../coreProvider";
+import { ServerProvider } from "../serverProvider";
 import { ClientConnection } from "../domain/clientConnection";
 import { Player } from "../domain/player";
 import { ProvidePlayerStateDto } from "../domain/actions/providePlayerStateDto";
@@ -32,7 +32,7 @@ export class ServerGame {
     }
 
     listenEvents() {
-        Provider.connectionsRepository.onNewConnection()
+        ServerProvider.connectionsRepository.onNewConnection()
             .subscribe(connection => {
                 connection.onPlayerConnection()
                     .subscribe(({ playerId }) => {
@@ -51,7 +51,7 @@ export class ServerGame {
                     })
             })
         
-        Provider.connectionsRepository.onDisconnection()
+        ServerProvider.connectionsRepository.onDisconnection()
             .subscribe(connection => {
                 const playerId = this.playerConnections.get(connection.connectionId)
                 if (playerId) {
