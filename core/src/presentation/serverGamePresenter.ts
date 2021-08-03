@@ -37,7 +37,7 @@ export class ServerGame {
                 connection.onPlayerConnection()
                     .subscribe(({ playerId }) => {
                         try {
-                            const player = ProvidePlayerFromId(playerId, this.gameScene)
+                            const player = ProvidePlayerFromId(playerId, this.gameScene, connection)
                             const state = ProvidePlayerStateDto(player)
                             this.gameScene.addToLifecycle(player.view)
                             this.room.emit(GameEvents.NEW_PLAYER_CONNECTED.name, GameEvents.NEW_PLAYER_CONNECTED.getEvent(state))

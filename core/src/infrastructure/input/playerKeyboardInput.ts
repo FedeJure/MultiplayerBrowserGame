@@ -1,5 +1,6 @@
 import {Input} from "phaser";
 import { PlayerInput } from "../../domain/playerInput";
+import { PlayerInputDto } from "../dtos/playerInputDto";
 
 export class PlayerKeyBoardInput implements PlayerInput {
     readonly input: {
@@ -23,6 +24,15 @@ export class PlayerKeyBoardInput implements PlayerInput {
             left: Input.Keyboard.Key,
             right: Input.Keyboard.Key,
             jump: Input.Keyboard.Key,
+        }
+    }
+    toDto(): PlayerInputDto {
+        return {
+            up: this.up,
+            down: this.down,
+            left: this.left,
+            right: this.right,
+            jump: this.jump
         }
     }
 

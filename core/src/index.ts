@@ -59,7 +59,8 @@ export const InitClientGame = (socket: ClientSocket, localPlayerId: string) => {
     const connectionWithServer = new SocketServerConnection(socket)    
     ClientProvider.Init(
         new ClientPresenterProvider(),
-        connectionWithServer
+        connectionWithServer,
+        localPlayerId
     )
     const scene = new GameScene()    
     const config = { ...ClientConfig, scene: [new LoadScene(), scene, new GameplayHud(connectionWithServer)] }

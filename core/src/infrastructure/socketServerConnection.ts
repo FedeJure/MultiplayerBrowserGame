@@ -1,6 +1,9 @@
+import { Game } from "phaser";
 import { Subject } from "rxjs";
 import { Socket } from "socket.io-client";
+import { PlayerInput } from "../domain/playerInput";
 import { ServerConnection } from "../domain/serverConnection";
+import { PlayerInputDto } from "./dtos/playerInputDto";
 import { GameEvents, InitialGameStateEvent, NewPlayerConnectedEvent, PlayerDisconnectedEvent, PlayersStatesEvent } from "./events/gameEvents";
 import { SocketIOEvents } from "./events/socketIoEvents";
 
@@ -30,6 +33,7 @@ export class SocketServerConnection implements ServerConnection {
         }, 2000)
         
     }
+
     get onInitialGameState() {
         return this._onInitialGameState
     }
@@ -52,5 +56,9 @@ export class SocketServerConnection implements ServerConnection {
 
     emitStartNewConnection(playerId: string): void {
         this.socket.emit(GameEvents.PLAYER_CONNECTED.name, GameEvents.PLAYER_CONNECTED.getEvent(playerId)); 
+    }
+
+    emitInput(playerId: string, input: PlayerInputDto): void {
+        this.socket.emit(GameEvents.PLAYER_INPUT.name, GameEvents.PLAYER_INPUT.getEvent(playerId, input))
     }
 }

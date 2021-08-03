@@ -1,10 +1,11 @@
-import { Subject } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { Socket } from "socket.io";
 import { ClientConnection } from "../domain/clientConnection";
-import {GameEvents, PlayerConnectedEvent} from "./events/gameEvents"
+import {GameEvents, PlayerConnectedEvent, PlayerInputEvent} from "./events/gameEvents"
 import { PlayerStateDto } from "./dtos/playerStateDTO";
 import { Log } from "./Logger";
 import { SocketIOEvents } from "./events/socketIoEvents";
+import { PlayerInputDto } from "./dtos/playerInputDto";
 
 export class SocketClientConnection implements ClientConnection {
 
@@ -13,6 +14,7 @@ export class SocketClientConnection implements ClientConnection {
     public readonly connectionTime: Date;
 
     private onPlayerConnectionSubject = new Subject<{ playerId: string }>()
+    private onInputSubject = new Subject<{playerId: string, input: PlayerInputDto}>()
 
     constructor(socket: Socket) {
         this.connectionId = socket.id
@@ -20,6 +22,10 @@ export class SocketClientConnection implements ClientConnection {
         this.socket = socket
 
         this.listenEvents();
+    }
+
+    onInput(): Observable<{playerId: string, input: PlayerInputDto}> {
+        return this.onInputSubject
     }
 
     join(roomName: string): void {
@@ -37,6 +43,9 @@ export class SocketClientConnection implements ClientConnection {
             } catch (error) {
                 Log(this,`[Socket Client Connection] :: Error: ${error}`)
             }
+        })
+        this.socket.on(GameEvents.PLAYER_INPUT.name, (dto: PlayerInputEvent) => {
+            this.onInputSubject.next({playerId: dto.playerId, input: dto.input})
         })
     }
 
