@@ -28,6 +28,7 @@ export class PlayerView extends Physics.Matter.Sprite {
     }
 
     update(time: number, delta: number) {
+        this.setAngle(0) //Prevents to gameobject rotate due Matter physics. Cant find another solution at the moment
         this._onUpdate.next({time, delta})
     }
 

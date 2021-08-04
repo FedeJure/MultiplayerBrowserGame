@@ -6,12 +6,12 @@ import { PlayerFacade } from "../playerFacade";
 import { PlayerInfo } from "../playerInfo";
 import { ClientProvider } from "../../clientProvider";
 
-export function ProvideClientPlayer(dto: PlayerStateDto, scene: GameScene): PlayerFacade {
-    const view = new PlayerView(scene, dto.position.x, dto.position.y, DefaultConfiguration.height, DefaultConfiguration.width)
+export function ProvideClientPlayer(state: PlayerStateDto, scene: GameScene): PlayerFacade {
+    const view = new PlayerView(scene, state.position.x, state.position.y, DefaultConfiguration.height, DefaultConfiguration.width)
     const info : PlayerInfo = {
-        name: dto.name,
-        id: dto.id
+        name: state.name,
+        id: state.id
     }
     ClientProvider.presenterProvider.forPlayer(view)
-    return { view, info }
+    return { view, info, state }
 }

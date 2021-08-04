@@ -7,6 +7,9 @@ export function ProvidePlayerStateDto(player: Player) : PlayerStateDto {
         name: player.info.name,
         position: { x: player.view.x, y: player.view.y },
         velocity: player.view.body.velocity,
-        life: player.state.life
+        life: player.state.life,
+        jumpsAvailable: player.state.jumpsAvailable,
+        inInertia: player.state.inInertia,
+        canMove: player.state.canMove
     }
 }

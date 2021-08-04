@@ -1,8 +1,8 @@
 import { PlayerConfiguration } from "./playerConfiguration";
-import { PlayerState } from "./playerState";
 import { PlayerInfo } from "./playerInfo";
 import { PlayerView } from "../view/playerView";
 import { PlayerFacade } from "./playerFacade";
+import { PlayerState } from "./playerState";
 
 
 export class Player implements PlayerFacade {

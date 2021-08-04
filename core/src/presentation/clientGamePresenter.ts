@@ -43,8 +43,6 @@ export class ClientGamePresenter {
         })
 
         this.connection.onPlayersPositions.subscribe(data => {
-            const localConnection = data.positions.find(p => p.id == this.localPlayerId)
-            if (localConnection && this.localPlayer) ValidateState(this.localPlayer, localConnection)
             data.positions.forEach(p =>{
                 const player = this.connectedPlayers.get(p.id)
                 if (player) ValidateState(player, p)

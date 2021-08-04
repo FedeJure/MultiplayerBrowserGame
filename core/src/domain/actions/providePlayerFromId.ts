@@ -17,7 +17,8 @@ export function ProvidePlayerFromId(
         if (playerState === undefined) {
             playerState = new PlayerState( 
                 DefaultConfiguration.initialX,
-                DefaultConfiguration.initialY, DefaultConfiguration.initialLife,
+                DefaultConfiguration.initialY, 
+                DefaultConfiguration.initialLife,
                 DefaultConfiguration.initialJumps )
         }
         const view = new PlayerView(scene, playerState.position.x, playerState.position.y, DefaultConfiguration.height, DefaultConfiguration.width)
