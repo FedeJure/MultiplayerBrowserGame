@@ -1,11 +1,11 @@
-import { PlayerInput } from "../domain/playerInput";
+import { PlayerInput } from "../domain/player/playerInput";
 import { PresenterProvider } from "../presentation/presenterProvider";
 import { ServerPlayerPresenter } from "../presentation/serverPlayerPresenter";
-import { PlayerView } from "../view/playerView";
+import { PhaserPlayerView } from "../view/playerView";
 import { GameScene } from "../view/scenes/GameScene";
 
 export class ServerPresenterProvider {
-    forPlayer(view: PlayerView, input: PlayerInput): void {
+    forPlayer(view: PhaserPlayerView, input: PlayerInput): void {
         new ServerPlayerPresenter(view, input)
     }
 }

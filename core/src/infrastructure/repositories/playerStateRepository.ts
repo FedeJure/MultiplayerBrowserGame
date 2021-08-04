@@ -1,4 +1,4 @@
-import { PlayerState } from "../../domain/playerState";
+import { PlayerState } from "../../domain/player/playerState";
 
 export interface PlayerStateRepository {
     getPlayerState(id: string) :PlayerState | undefined

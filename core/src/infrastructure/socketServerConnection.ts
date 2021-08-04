@@ -1,7 +1,5 @@
-import { Game } from "phaser";
 import { Subject } from "rxjs";
 import { Socket } from "socket.io-client";
-import { PlayerInput } from "../domain/playerInput";
 import { ServerConnection } from "../domain/serverConnection";
 import { PlayerInputDto } from "./dtos/playerInputDto";
 import { GameEvents, InitialGameStateEvent, NewPlayerConnectedEvent, PlayerDisconnectedEvent, PlayersStatesEvent } from "./events/gameEvents";

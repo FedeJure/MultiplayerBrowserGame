@@ -8,7 +8,6 @@ import { ClientGamePresenter } from "./presentation/clientGamePresenter";
 import { Socket as ClientSocket } from "socket.io-client";
 import { SocketClientConnection } from "./infrastructure/socketClientConnection";
 import { ClientConfig, ServerConfig } from "./view/DefaultGameConfigs";
-import { PlayerState } from "./domain/playerState";
 import { LoadScene } from "./view/scenes/LoadScene";
 import { SocketServerConnection } from "./infrastructure/socketServerConnection";
 import { SocketRoomConnection } from "./infrastructure/socketRoomConnection";
@@ -19,6 +18,7 @@ import { InMemoryPlayerRepository } from "./infrastructure/repositories/inMemory
 import { InMemoryPlayerStateRepository } from "./infrastructure/repositories/inMemoryPlayerStateRepository";
 import { ClientPresenterProvider } from "./infrastructure/clientPresenterProvider"
 import { ServerPresenterProvider } from "./infrastructure/serverPresenterProvider"
+import { PlayerState } from "./domain/player/playerState";
 
 export const InitGame: (socket: Socket) => void = (socket: Socket) => {
 

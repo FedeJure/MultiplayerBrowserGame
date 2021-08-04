@@ -1,8 +1,8 @@
 import { Log } from "../../infrastructure/Logger";
-import { PlayerView } from "../../view/playerView";
-import { PlayerInput } from "../playerInput";
+import { PhaserPlayerView } from "../../view/playerView";
+import { PlayerInput } from "../player/playerInput";
 
-export function resolvePlaterMovementWithInputs(input: PlayerInput, view: PlayerView, deltaTime: number): { x: number, y: number } {
+export function resolvePlaterMovementWithInputs(input: PlayerInput, view: PhaserPlayerView, deltaTime: number): { x: number, y: number } {
     var newVelocity: { x: number, y: number } = view.body.velocity
     var velocity = 1
     var maxRunVelocity = 10

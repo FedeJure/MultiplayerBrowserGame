@@ -1,6 +1,6 @@
 import { filter } from "rxjs";
 import { ClientConnection } from "../../domain/clientConnection";
-import { PlayerInput } from "../../domain/playerInput";
+import { PlayerInput } from "../../domain/player/playerInput";
 import { PlayerInputDto } from "../dtos/playerInputDto";
 
 export class PlayerSocketInput implements PlayerInput {

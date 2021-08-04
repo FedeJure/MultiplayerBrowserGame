@@ -3,11 +3,11 @@ import { GameScene } from "../view/scenes/GameScene"
 import { ProvidePlayerFromId } from "../domain/actions/providePlayerFromId"
 import { ServerProvider } from "../serverProvider";
 import { ClientConnection } from "../domain/clientConnection";
-import { Player } from "../domain/player";
 import { ProvidePlayerStateDto } from "../domain/actions/providePlayerStateDto";
 import { PlayerStateDto } from "../infrastructure/dtos/playerStateDTO";
 import { RoomConnection } from "../domain/roomConnection";
 import { Log } from "../infrastructure/Logger";
+import { Player } from "../domain/player/player";
 
 
 export class ServerGame {

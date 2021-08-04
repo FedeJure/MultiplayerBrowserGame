@@ -1,8 +1,8 @@
-import { Player } from "../../domain/player";
-import { PlayerState } from "../../domain/playerState";
+import { Player } from "../../domain/player/player";
+import { PlayerState } from "../../domain/player/playerState";
 import { GameScene } from "../../view/scenes/GameScene";
-import { PlayerView } from "../../view/playerView";
-import { DefaultConfiguration } from "../playerConfiguration";
+import { PhaserPlayerView } from "../../view/playerView";
+import { DefaultConfiguration } from "../player/playerConfiguration";
 import { ServerProvider } from "../../serverProvider";
 import { ClientConnection } from "../clientConnection";
 import { PlayerSocketInput } from "../../infrastructure/input/playerSocketInput";
@@ -21,7 +21,7 @@ export function ProvidePlayerFromId(
                 DefaultConfiguration.initialLife,
                 DefaultConfiguration.initialJumps )
         }
-        const view = new PlayerView(scene, playerState.position.x, playerState.position.y, DefaultConfiguration.height, DefaultConfiguration.width)
+        const view = new PhaserPlayerView(scene, playerState.position.x, playerState.position.y, DefaultConfiguration.height, DefaultConfiguration.width)
         ServerProvider.presenterProvider.forPlayer(view, new PlayerSocketInput(playerId, connection))
         return new Player(DefaultConfiguration, playerInfo, playerState, view)
 

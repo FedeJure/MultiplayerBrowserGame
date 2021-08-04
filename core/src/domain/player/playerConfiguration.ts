@@ -1,5 +1,5 @@
 import { RIGHT } from "phaser";
-import { Side } from "./side";
+import { Side } from "../side";
 
 export interface PlayerConfiguration {
     initialLife: number

@@ -1,9 +1,9 @@
 import { ClientProvider } from "../clientProvider";
 import { resolvePlaterMovementWithInputs } from "../domain/actions/resolvePlayerMovementWithInput";
-import { PlayerInput } from "../domain/playerInput";
+import { PlayerInput } from "../domain/player/playerInput";
 import { ServerConnection } from "../domain/serverConnection";
 import { PlayerInputDto } from "../infrastructure/dtos/playerInputDto";
-import { PlayerView } from "../view/playerView";
+import { PhaserPlayerView } from "../view/playerView";
 import { ClientPlayerPresenter } from "./clientPlayerPresenter";
 
 
@@ -14,7 +14,7 @@ export class LocalPlayerPresenter extends ClientPlayerPresenter {
     private lastInputSended: string = ""
     private currentInput: PlayerInputDto | undefined
 
-    constructor(player: PlayerView, input: PlayerInput, connection: ServerConnection) {
+    constructor(player: PhaserPlayerView, input: PlayerInput, connection: ServerConnection) {
         super(player)
         this.input = input
         this.connection = connection
@@ -31,12 +31,13 @@ export class LocalPlayerPresenter extends ClientPlayerPresenter {
     }
 
     update({ time, delta }: { time: number, delta: number }) {
-        this.currentInput = this.input.toDto()
+        const currentInput = this.input.toDto()
+        this.currentInput = currentInput
         if (this.inputHasChange()) {
-            this.connection.emitInput(ClientProvider.localPlayerId, this.currentInput)
+            this.connection.emitInput(ClientProvider.localPlayerId, currentInput)
             const newVelocity = resolvePlaterMovementWithInputs(this.input, this.view, delta)
             this.view.setVelocity(newVelocity.x, newVelocity.y)
-            this.lastInputSended = JSON.stringify(this.currentInput)
+            this.lastInputSended = JSON.stringify(currentInput)
         }
     }
 

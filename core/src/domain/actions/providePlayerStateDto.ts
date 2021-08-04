@@ -1,5 +1,5 @@
 import { PlayerStateDto } from "../../infrastructure/dtos/playerStateDTO";
-import { Player } from "../player";
+import { Player } from "../player/player";
 
 export function ProvidePlayerStateDto(player: Player) : PlayerStateDto {
     return {

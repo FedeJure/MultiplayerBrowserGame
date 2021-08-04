@@ -1,6 +1,5 @@
 import { Observable, Subject } from 'rxjs';
 import { Scene, GameObjects, Physics } from "phaser"
-import { PlayerFacade } from '../../domain/playerFacade';
 
 export class GameScene extends Scene {
 

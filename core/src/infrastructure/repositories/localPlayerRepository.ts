@@ -1,4 +1,4 @@
-import { PlayerFacade } from "../../domain/playerFacade";
+import { PlayerFacade } from "../../view/playerFacade"
 
 export class LocalPlayerRepository {
     private _player: PlayerFacade | undefined

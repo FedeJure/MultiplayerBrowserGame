@@ -1,13 +1,13 @@
 import { PlayerStateDto } from "../../infrastructure/dtos/playerStateDTO";
 import { GameScene } from "../../view/scenes/GameScene";
-import { PlayerView } from "../../view/playerView";
-import { DefaultConfiguration } from "../playerConfiguration";
-import { PlayerFacade } from "../playerFacade";
-import { PlayerInfo } from "../playerInfo";
+import { PhaserPlayerView } from "../../view/playerView";
+import { DefaultConfiguration } from "../player/playerConfiguration";
+import { PlayerInfo } from "../player/playerInfo";
 import { ClientProvider } from "../../clientProvider";
+import { PlayerFacade } from "../../view/playerFacade";
 
 export function ProvideClientPlayer(state: PlayerStateDto, scene: GameScene): PlayerFacade {
-    const view = new PlayerView(scene, state.position.x, state.position.y, DefaultConfiguration.height, DefaultConfiguration.width)
+    const view = new PhaserPlayerView(scene, state.position.x, state.position.y, DefaultConfiguration.height, DefaultConfiguration.width)
     const info : PlayerInfo = {
         name: state.name,
         id: state.id

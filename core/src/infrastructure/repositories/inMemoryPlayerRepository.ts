@@ -1,4 +1,4 @@
-import { PlayerInfo } from "../../domain/playerInfo";
+import { PlayerInfo } from "../../domain/player/playerInfo";
 import { PlayerInfoRepository } from "./playerInfoRepository"
 
 export class InMemoryPlayerRepository implements PlayerInfoRepository {

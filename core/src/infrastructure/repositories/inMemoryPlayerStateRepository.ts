@@ -1,4 +1,4 @@
-import { PlayerState } from "../../domain/playerState";
+import { PlayerState } from "../../domain/player/playerState";
 import { PlayerStateRepository } from "./playerStateRepository";
 
 export class InMemoryPlayerStateRepository implements PlayerStateRepository {

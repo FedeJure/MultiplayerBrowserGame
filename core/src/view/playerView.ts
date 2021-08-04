@@ -1,7 +1,8 @@
 import { Physics, Scene } from "phaser"
 import { Observable, Subject } from "rxjs"
+import { PlayerView } from "../domain/player/playerView"
 
-export class PlayerView extends Physics.Matter.Sprite {
+export class PhaserPlayerView extends Physics.Matter.Sprite implements PlayerView {
 //TODO: ver de crear interfaces en el dominio con todas las propiedades q se usen de Phaser, para aislar 
 // el core de la dependencia del framework
 

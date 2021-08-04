@@ -1,4 +1,4 @@
-import { PlayerInputDto } from "../infrastructure/dtos/playerInputDto";
+import { PlayerInputDto } from "../../infrastructure/dtos/playerInputDto";
 
 export interface PlayerInput {
     up: boolean,

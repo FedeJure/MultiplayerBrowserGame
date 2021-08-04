@@ -1,20 +1,19 @@
 import { PlayerConfiguration } from "./playerConfiguration";
 import { PlayerInfo } from "./playerInfo";
-import { PlayerView } from "../view/playerView";
-import { PlayerFacade } from "./playerFacade";
+import { PhaserPlayerView } from "../../view/playerView";
 import { PlayerState } from "./playerState";
 
 
-export class Player implements PlayerFacade {
+export class Player {
     public readonly config: PlayerConfiguration
     public readonly state: PlayerState
     public readonly info: PlayerInfo
-    public readonly view: PlayerView
+    public readonly view: PhaserPlayerView
 
     constructor(config: PlayerConfiguration,
         playerInfo: PlayerInfo,
         playerState: PlayerState,
-        playerView: PlayerView) {
+        playerView: PhaserPlayerView) {
         this.config = config
         this.info = playerInfo
         this.state = playerState

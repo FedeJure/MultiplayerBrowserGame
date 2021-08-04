@@ -1,4 +1,4 @@
-import { Position } from "./position"
+import { Position } from "../position"
 
 export class PlayerState {
     public readonly life: number

@@ -1,5 +1,5 @@
 import {Input} from "phaser";
-import { PlayerInput } from "../../domain/playerInput";
+import { PlayerInput } from "../../domain/player/playerInput";
 import { PlayerInputDto } from "../dtos/playerInputDto";
 
 export class PlayerKeyBoardInput implements PlayerInput {

@@ -1,11 +1,11 @@
 import { GameScene } from "../view/scenes/GameScene"
 import { ProvideClientPlayer } from "../domain/actions/provideClientPlayer"
 import { ProvideLocalClientPlayer } from "../domain/actions/provideLocalClientPlayer"
-import { PlayerFacade } from "../domain/playerFacade";
 import { ServerConnection } from "../domain/serverConnection";
 import { ValidateState } from "../domain/actions/validatePosition";
 import { Log } from "../infrastructure/Logger";
 import { PlayerKeyBoardInput } from "../infrastructure/input/playerKeyboardInput";
+import { PlayerFacade } from "../view/playerFacade";
 
 export class ClientGamePresenter {
 

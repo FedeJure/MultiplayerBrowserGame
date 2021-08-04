@@ -1,14 +1,14 @@
 import { PlayerStateDto } from "../../infrastructure/dtos/playerStateDTO";
-import { PlayerFacade } from "../playerFacade";
+import { PlayerFacade } from "../../view/playerFacade";
 
 export function ValidateState(player: PlayerFacade, remoteState: PlayerStateDto) {
     const posLimit = 1
     const velLimit = 3
     if (Math.abs(remoteState.velocity.x - player.view.body.velocity.x) > velLimit) {
-        player.view.setVelocityX(remoteState.velocity.x)
+        player.view.setVelocity(remoteState.velocity.x, player.view.body.velocity.y)
     }
     if (Math.abs(remoteState.velocity.y - player.view.body.velocity.y) > velLimit) {
-        player.view.setVelocityY(remoteState.velocity.x)
+        player.view.setVelocity(player.view.body.velocity.x, remoteState.velocity.y)
     }
     if (Math.abs(remoteState.position.x - player.view.body.position.x) > posLimit) {
         player.view.setPosition(remoteState.position.x, player.view.body.position.y)
