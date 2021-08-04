@@ -1,5 +1,6 @@
 import { GameScene } from "../view/scenes/GameScene"
-import { ProvidePlayerFromDto } from "../domain/actions/providePlayerFromDto"
+import { ProvideClientPlayer } from "../domain/actions/provideClientPlayer"
+import { ProvideLocalClientPlayer } from "../domain/actions/provideLocalClientPlayer"
 import { PlayerFacade } from "../domain/playerFacade";
 import { ServerConnection } from "../domain/serverConnection";
 import { ValidateState } from "../domain/actions/validatePosition";
@@ -33,8 +34,8 @@ export class ClientGamePresenter {
             Log(this, "Initial Game State Event", data)
             const players = data.players.map(dto => {
                 var player: PlayerFacade
-                if (dto.id === this.localPlayerId) player = ProvidePlayerFromDto(dto, this.scene, true,new PlayerKeyBoardInput(this.scene.input.keyboard))
-                else player = ProvidePlayerFromDto(dto, this.scene)
+                if (dto.id === this.localPlayerId) player = ProvideLocalClientPlayer(dto, this.scene, new PlayerKeyBoardInput(this.scene.input.keyboard))
+                else player = ProvideClientPlayer(dto, this.scene)
                 this.scene.addToLifecycle(player.view)
                 this.connectedPlayers.set(player.info.id.toString(), player)
                 return player
@@ -52,7 +53,7 @@ export class ClientGamePresenter {
 
         this.connection.onNewPlayerConnected.subscribe(data => {
             if (data.player.id === this.localPlayerId || this.connectedPlayers.has(data.player.id)) return
-            const player = ProvidePlayerFromDto(data.player, this.scene)
+            const player = ProvideClientPlayer(data.player, this.scene)
             this.scene.addToLifecycle(player.view)
             this.connectedPlayers.set(player.info.id.toString(), player)
         })

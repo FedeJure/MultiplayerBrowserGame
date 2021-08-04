@@ -4,15 +4,14 @@ import { PlayerView } from "../../view/playerView";
 import { DefaultConfiguration } from "../playerConfiguration";
 import { PlayerFacade } from "../playerFacade";
 import { PlayerInfo } from "../playerInfo";
-import { PlayerInput } from "../playerInput";
 import { ClientProvider } from "../../clientProvider";
 
-export function ProvidePlayerFromDto(dto: PlayerStateDto, scene: GameScene, local: boolean = false, input?: PlayerInput): PlayerFacade {
+export function ProvideClientPlayer(dto: PlayerStateDto, scene: GameScene): PlayerFacade {
     const view = new PlayerView(scene, dto.position.x, dto.position.y, DefaultConfiguration.height, DefaultConfiguration.width)
     const info : PlayerInfo = {
         name: dto.name,
         id: dto.id
     }
-    ClientProvider.presenterProvider.forPlayer(view, local, input)
+    ClientProvider.presenterProvider.forPlayer(view)
     return { view, info }
 }

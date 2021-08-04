@@ -7,8 +7,11 @@ import { PlayerView } from "../view/playerView";
 import { GameScene } from "../view/scenes/GameScene";
 
 export class ClientPresenterProvider implements PresenterProvider {
-    forPlayer(view: PlayerView, local: boolean = false, input?: PlayerInput): void {
-        (local && input) ? new LocalPlayerPresenter(view, input, ClientProvider.serverConnection) : new ClientPlayerPresenter(view)
+    forLocalPlayer(view: PlayerView, input: PlayerInput): void {
+        new LocalPlayerPresenter(view, input, ClientProvider.serverConnection)
+    }
+    forPlayer(view: PlayerView): void {
+        new ClientPlayerPresenter(view)
     }
 
     forGameplay(scene: GameScene): void {

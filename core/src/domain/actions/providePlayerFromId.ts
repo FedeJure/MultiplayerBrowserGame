@@ -21,7 +21,7 @@ export function ProvidePlayerFromId(
                 DefaultConfiguration.initialJumps )
         }
         const view = new PlayerView(scene, playerState.position.x, playerState.position.y, DefaultConfiguration.height, DefaultConfiguration.width)
-        ServerProvider.presenterProvider.forPlayer(view, false, new PlayerSocketInput(playerId, connection))
+        ServerProvider.presenterProvider.forPlayer(view, new PlayerSocketInput(playerId, connection))
         return new Player(DefaultConfiguration, playerInfo, playerState, view)
 
 }

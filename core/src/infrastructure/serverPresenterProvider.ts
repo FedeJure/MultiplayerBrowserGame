@@ -4,13 +4,8 @@ import { ServerPlayerPresenter } from "../presentation/serverPlayerPresenter";
 import { PlayerView } from "../view/playerView";
 import { GameScene } from "../view/scenes/GameScene";
 
-export class ServerPresenterProvider implements PresenterProvider {
-    forPlayer(view: PlayerView, local: boolean = false, input?: PlayerInput): void {
-        if (input) new ServerPlayerPresenter(view, input)
+export class ServerPresenterProvider {
+    forPlayer(view: PlayerView, input: PlayerInput): void {
+        new ServerPlayerPresenter(view, input)
     }
-
-    forGameplay(scene: GameScene): void {
-        // new ServerGamePresenter()
-    }
-
 }
