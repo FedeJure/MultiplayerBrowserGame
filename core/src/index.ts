@@ -14,11 +14,12 @@ import { SocketRoomConnection } from "./infrastructure/socketRoomConnection";
 import { Log } from "./infrastructure/Logger";
 import { GameplayHud } from "./view/scenes/GameplayHud";
 import { ConnectionsRepository } from "./infrastructure/repositories/connectionsRepository";
-import { InMemoryPlayerRepository } from "./infrastructure/repositories/inMemoryPlayerRepository";
 import { InMemoryPlayerStateRepository } from "./infrastructure/repositories/inMemoryPlayerStateRepository";
 import { ClientPresenterProvider } from "./infrastructure/clientPresenterProvider"
 import { ServerPresenterProvider } from "./infrastructure/serverPresenterProvider"
 import { PlayerState } from "./domain/player/playerState";
+import { ConnectedPlayersRepository } from "./infrastructure/repositories/connectedPlayersRepository";
+import { InMemoryPlayerRepository } from "./infrastructure/repositories/inMemoryPlayerRepository";
 
 export const InitGame: (socket: Socket) => void = (socket: Socket) => {
 
@@ -26,7 +27,8 @@ export const InitGame: (socket: Socket) => void = (socket: Socket) => {
         new ConnectionsRepository(),
         new InMemoryPlayerRepository(),
         new InMemoryPlayerStateRepository(),
-        new ServerPresenterProvider()
+        new ServerPresenterProvider(),
+        new ConnectedPlayersRepository()
     )
 
     const scene = new GameScene()
@@ -34,10 +36,24 @@ export const InitGame: (socket: Socket) => void = (socket: Socket) => {
     const phaserGame = new Phaser.Game(config)
 
     ServerProvider.playerInfoRepository.addPlayer("1", { id: "1", name: "Test Player 1" })
-    ServerProvider.playerStateRepository.setPlayerState("1", new PlayerState(0, 0, 100, 2))
+    ServerProvider.playerStateRepository.setPlayerState("1", {
+        life: 100,
+        jumpsAvailable: 2,
+        inInertia: false,
+        position: { x: 100, y: 0 },
+        velocity: { x: 0, y: 0 },
+        canMove: true
+    } )
 
     ServerProvider.playerInfoRepository.addPlayer("2", { id: "2", name: "Test Player 2" })
-    ServerProvider.playerStateRepository.setPlayerState("2", new PlayerState(-50, 0, 100, 2))
+    ServerProvider.playerStateRepository.setPlayerState("2", {
+        life: 100,
+        jumpsAvailable: 2,
+        inInertia: false,
+        position: { x: -50, y: 0 },
+        velocity: { x: 0, y: 0 },
+        canMove: true
+    })
 
     const room = new SocketRoomConnection(socket, "main")
     const game = new ServerGame(scene, room);
@@ -60,7 +76,8 @@ export const InitClientGame = (socket: ClientSocket, localPlayerId: string) => {
     ClientProvider.Init(
         new ClientPresenterProvider(),
         connectionWithServer,
-        localPlayerId
+        localPlayerId,
+        new ConnectedPlayersRepository()
     )
     const scene = new GameScene()    
     const config = { ...ClientConfig, scene: [new LoadScene(), scene, new GameplayHud(connectionWithServer)] }

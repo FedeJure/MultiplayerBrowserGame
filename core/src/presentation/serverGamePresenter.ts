@@ -2,20 +2,14 @@ import { GameEvents } from "../infrastructure/events/gameEvents"
 import { GameScene } from "../view/scenes/GameScene"
 import { ProvidePlayerFromId } from "../domain/actions/providePlayerFromId"
 import { ServerProvider } from "../serverProvider";
-import { ClientConnection } from "../domain/clientConnection";
-import { ProvidePlayerStateDto } from "../domain/actions/providePlayerStateDto";
-import { PlayerStateDto } from "../infrastructure/dtos/playerStateDTO";
 import { RoomConnection } from "../domain/roomConnection";
 import { Log } from "../infrastructure/Logger";
-import { Player } from "../domain/player/player";
-
 
 export class ServerGame {
 
     readonly gameScene: GameScene
     readonly room: RoomConnection
 
-    private connectedPlayers: Map<string, {con: ClientConnection, player: Player, stateDto: PlayerStateDto}>
     private playerConnections: Map<string, string>
 
     constructor(
@@ -23,7 +17,6 @@ export class ServerGame {
         room: RoomConnection) {
         this.gameScene = gameScene
         this.room = room
-        this.connectedPlayers = new Map()
         this.playerConnections = new Map()
 
         this.gameScene.onCreate.subscribe(() => {
@@ -38,12 +31,10 @@ export class ServerGame {
                     .subscribe(({ playerId }) => {
                         try {
                             const player = ProvidePlayerFromId(playerId, this.gameScene, connection)
-                            const state = ProvidePlayerStateDto(player)
-                            this.gameScene.addToLifecycle(player.view)
-                            this.room.emit(GameEvents.NEW_PLAYER_CONNECTED.name, GameEvents.NEW_PLAYER_CONNECTED.getEvent(state))
-                            this.connectedPlayers.set(playerId, {con: connection, player, stateDto: state})
+                            ServerProvider.connectedPlayerRepository.savePlayer(playerId, player)
                             this.playerConnections.set(connection.connectionId, playerId)
-                            connection.sendInitialStateEvent(Array.from(this.connectedPlayers.values()).map(c => c.stateDto))                                                      
+                            connection.sendInitialStateEvent(ServerProvider.connectedPlayerRepository.getAll().map(c =>  ({info: c.info, id: c.info.id, state: c.state})))
+                            this.room.emit(GameEvents.NEW_PLAYER_CONNECTED.name, GameEvents.NEW_PLAYER_CONNECTED.getEvent(({id: player.info.id, info: player.info, state: player.state})))                                                                              
                             Log(this,`[Game addPlayer] player added to scene with id: ${playerId}`)            
                         } catch (error) {
                             Log(this,`[Game addPlayer] ERROR: ${error}`)
@@ -56,19 +47,18 @@ export class ServerGame {
                 const playerId = this.playerConnections.get(connection.connectionId)
                 if (playerId) {
                     this.room.emit(GameEvents.PLAYER_DISCONNECTED.name, GameEvents.PLAYER_DISCONNECTED.getEvent(playerId))
-                    const player = this.connectedPlayers.get(playerId)
+                    const player = ServerProvider.connectedPlayerRepository.getPlayer(playerId)
                     if (player) {
-                        this.gameScene.removeFromLifecycle(player.player.view)
-                        player.player.destroy()
-                        this.connectedPlayers.delete(playerId)
+                        player.destroy()
+                        ServerProvider.connectedPlayerRepository.removePlayer(playerId)
                     }
                 }
                 this.playerConnections.delete(connection.connectionId)
             })
         
         this.gameScene.onUpdate.subscribe(({time, delta}) => {
-            const data = Array.from(this.connectedPlayers.values()).map(p => (ProvidePlayerStateDto(p.player)))
-            this.room.emit(GameEvents.PLAYERS_POSITIONS.name, GameEvents.PLAYERS_POSITIONS.getEvent(data))
+            const data = Array.from(ServerProvider.connectedPlayerRepository.getAll().map(p => ({id: p.info.id, state: p.state})))
+            this.room.emit(GameEvents.PLAYERS_STATES.name, GameEvents.PLAYERS_STATES.getEvent(data))
         })
     }
 

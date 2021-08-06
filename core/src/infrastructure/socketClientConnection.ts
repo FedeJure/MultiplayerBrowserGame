@@ -2,10 +2,11 @@ import { Observable, Subject } from "rxjs";
 import { Socket } from "socket.io";
 import { ClientConnection } from "../domain/clientConnection";
 import {GameEvents, PlayerConnectedEvent, PlayerInputEvent} from "./events/gameEvents"
-import { PlayerStateDto } from "./dtos/playerStateDTO";
 import { Log } from "./Logger";
 import { SocketIOEvents } from "./events/socketIoEvents";
 import { PlayerInputDto } from "./dtos/playerInputDto";
+import { PlayerStateDto } from "./dtos/playerStateDto";
+import { PlayerInitialStateDto } from "./dtos/playerInitialStateDto";
 
 export class SocketClientConnection implements ClientConnection {
 
@@ -49,7 +50,7 @@ export class SocketClientConnection implements ClientConnection {
         })
     }
 
-    public sendInitialStateEvent(players: PlayerStateDto[]) {
+    public sendInitialStateEvent(players: PlayerInitialStateDto[]) {
         this.socket.emit(GameEvents.INITIAL_GAME_STATE.name, 
             GameEvents.INITIAL_GAME_STATE.getEvent(players))
     }

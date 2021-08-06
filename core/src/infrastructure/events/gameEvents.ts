@@ -1,19 +1,22 @@
+import { PlayerInfo } from "../../domain/player/playerInfo";
+import { PlayerState } from "../../domain/player/playerState";
+import { PlayerInitialStateDto } from "../dtos/playerInitialStateDto";
 import { PlayerInputDto } from "../dtos/playerInputDto";
-import { PlayerStateDto } from "../dtos/playerStateDTO";
+import { PlayerStateDto } from "../dtos/playerStateDto";
 
 export const GameEvents: {
     PLAYER_CONNECTED: { name: string, getEvent: (playerId: string) => PlayerConnectedEvent },
-    PLAYERS_POSITIONS: { name: string, getEvent: (positions: PlayerStateDto[]) => PlayersStatesEvent },
-    INITIAL_GAME_STATE: { name: string, getEvent: (players: PlayerStateDto[]) => InitialGameStateEvent},
-    NEW_PLAYER_CONNECTED: { name: string, getEvent: (player: PlayerStateDto) => NewPlayerConnectedEvent},
+    PLAYERS_STATES: { name: string, getEvent: (positions: PlayerStateDto[]) => PlayerStatesEvent },
+    INITIAL_GAME_STATE: { name: string, getEvent: (players: PlayerInitialStateDto[]) => InitialGameStateEvent},
+    NEW_PLAYER_CONNECTED: { name: string, getEvent: (player: PlayerInitialStateDto) => NewPlayerConnectedEvent},
     PLAYER_DISCONNECTED: { name: string, getEvent: (playerId: string) => PlayerDisconnectedEvent},
     PLAYER_INPUT: { name: string, getEvent: (playerId: string, input: PlayerInputDto) => PlayerInputEvent}
 } = {
     PLAYER_CONNECTED: {
         name: "player_connected", getEvent: (playerId) => ({ playerId, time: new Date()})
     },
-    PLAYERS_POSITIONS: {
-        name: "players_positions", getEvent: (positions) => ({ positions, time: new Date()})
+    PLAYERS_STATES: {
+        name: "players_positions", getEvent: (states) => ({ states, time: new Date()})
     },
     INITIAL_GAME_STATE: {
         name: "initial_game_state", getEvent: (players) => ({players, time: new Date()})
@@ -37,16 +40,16 @@ export interface PlayerConnectedEvent extends BaseEvent {
     playerId: string
 }
 
-export interface PlayersStatesEvent extends BaseEvent {
-    positions: PlayerStateDto[]
+export interface PlayerStatesEvent extends BaseEvent {
+    states: PlayerStateDto[]
 }
 
 export interface InitialGameStateEvent extends BaseEvent {
-    players: PlayerStateDto[]
+    players: PlayerInitialStateDto[]
 }
 
 export interface NewPlayerConnectedEvent extends BaseEvent {
-    player: PlayerStateDto
+    player: PlayerInitialStateDto
 }
 
 export interface PlayerDisconnectedEvent extends BaseEvent {

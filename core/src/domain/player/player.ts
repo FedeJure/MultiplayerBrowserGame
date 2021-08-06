@@ -1,24 +1,26 @@
-import { PlayerConfiguration } from "./playerConfiguration";
+import { observe} from "rxjs-observe"
 import { PlayerInfo } from "./playerInfo";
-import { PhaserPlayerView } from "../../view/playerView";
 import { PlayerState } from "./playerState";
-
+import { PlayerView } from "./playerView";
 
 export class Player {
-    public readonly config: PlayerConfiguration
-    public readonly state: PlayerState
+    private _state: PlayerState
     public readonly info: PlayerInfo
-    public readonly view: PhaserPlayerView
+    public readonly view: PlayerView
 
-    constructor(config: PlayerConfiguration,
-        playerInfo: PlayerInfo,
+    constructor(playerInfo: PlayerInfo,
         playerState: PlayerState,
-        playerView: PhaserPlayerView) {
-        this.config = config
+        playerView: PlayerView) {
         this.info = playerInfo
-        this.state = playerState
+        this._state = playerState
         this.view = playerView
+        
+        observe(this.view).observables.body.subscribe(body => {
+            this._state = {...this._state, velocity: body.velocity, position: body.position}
+        })
     }
+
+    public get state() { return this._state }
 
     destroy() {
         this.view.destroy()

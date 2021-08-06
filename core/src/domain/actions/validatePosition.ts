@@ -1,7 +1,7 @@
-import { PlayerStateDto } from "../../infrastructure/dtos/playerStateDTO";
-import { PlayerFacade } from "../../view/playerFacade";
+import { Player } from "../player/player";
+import { PlayerState } from "../player/playerState";
 
-export function ValidateState(player: PlayerFacade, remoteState: PlayerStateDto) {
+export function ValidateState(player: Player, remoteState: PlayerState) {
     const posLimit = 1
     const velLimit = 3
     if (Math.abs(remoteState.velocity.x - player.view.body.velocity.x) > velLimit) {

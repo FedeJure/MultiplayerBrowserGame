@@ -2,7 +2,7 @@ import { Subject } from "rxjs";
 import { Socket } from "socket.io-client";
 import { ServerConnection } from "../domain/serverConnection";
 import { PlayerInputDto } from "./dtos/playerInputDto";
-import { GameEvents, InitialGameStateEvent, NewPlayerConnectedEvent, PlayerDisconnectedEvent, PlayersStatesEvent } from "./events/gameEvents";
+import { GameEvents, InitialGameStateEvent, NewPlayerConnectedEvent, PlayerDisconnectedEvent, PlayerStatesEvent } from "./events/gameEvents";
 import { SocketIOEvents } from "./events/socketIoEvents";
 
 export class SocketServerConnection implements ServerConnection {
@@ -11,7 +11,7 @@ export class SocketServerConnection implements ServerConnection {
 
     private readonly _onInitialGameState = new Subject<InitialGameStateEvent>()
     private readonly _onNewPlayerConnected = new Subject<NewPlayerConnectedEvent>()
-    private readonly _onPlayersPositions = new Subject<PlayersStatesEvent>()
+    private readonly _onPlayersStates = new Subject<PlayerStatesEvent>()
     private readonly _onPlayerDisconnected = new Subject<PlayerDisconnectedEvent>();
     private readonly _onPing = new Subject<number>(); 
 
@@ -20,7 +20,7 @@ export class SocketServerConnection implements ServerConnection {
 
         socket.on(GameEvents.INITIAL_GAME_STATE.name, data => this._onInitialGameState.next(data))
         socket.on(GameEvents.NEW_PLAYER_CONNECTED.name, data => this._onNewPlayerConnected.next(data))
-        socket.on(GameEvents.PLAYERS_POSITIONS.name, data => this._onPlayersPositions.next(data))
+        socket.on(GameEvents.PLAYERS_STATES.name, data => this._onPlayersStates.next(data))
         socket.on(GameEvents.PLAYER_DISCONNECTED.name, data => this._onPlayerDisconnected.next(data))
 
         var startTime = Date.now()
@@ -40,8 +40,8 @@ export class SocketServerConnection implements ServerConnection {
         return this._onNewPlayerConnected
     }
 
-    get onPlayersPositions() {
-        return this._onPlayersPositions      
+    get onPlayersStates() {
+        return this._onPlayersStates      
     }
 
     get onPlayerDisconnected() {

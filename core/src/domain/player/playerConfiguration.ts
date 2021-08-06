@@ -10,7 +10,8 @@ export interface PlayerConfiguration {
     runVelocity: number,
     initialSide: Side,
     initialX: number,
-    initialY: number
+    initialY: number,
+    jumps: number
 }
 
 export const DefaultConfiguration : PlayerConfiguration = {
@@ -22,5 +23,6 @@ export const DefaultConfiguration : PlayerConfiguration = {
     runVelocity: 10,
     initialSide: RIGHT,
     initialX: 0,
-    initialY: 100
+    initialY: 100,
+    jumps: 2
 }

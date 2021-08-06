@@ -7,6 +7,7 @@ export interface PlayerView {
     }
     setVelocity(x: number, y: number): void
     setPosition(x: number, y: number): void
+    destroy(): void
     get onUpdate() : Observable<{time:number, delta:number}>
     get onPreUpdate() : Observable<{time:number, delta:number}>
 }
