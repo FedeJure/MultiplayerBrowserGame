@@ -6,6 +6,8 @@ import { PlayerInput } from "../player/playerInput";
 import { ClientProvider } from "../../clientProvider";
 import { Player } from "../player/player";
 import { PlayerState } from "../player/playerState";
+import { PresenterProvider } from "../../presentation/presenterProvider";
+import { ConnectedPlayersRepository } from "../../infrastructure/repositories/connectedPlayersRepository";
 
 export function ProvideLocalClientPlayer(info: PlayerInfo, state: PlayerState, scene: GameScene, input: PlayerInput): Player {
     const view = new PhaserPlayerView(scene, state.position.x, state.position.y, DefaultConfiguration.height, DefaultConfiguration.width)
@@ -13,4 +15,21 @@ export function ProvideLocalClientPlayer(info: PlayerInfo, state: PlayerState, s
     scene.addToLifecycle(view)
     ClientProvider.presenterProvider.forLocalPlayer(view , input)
     return player
+}
+
+export class CreateLocalClientPlayer {
+    readonly presenterProvider: PresenterProvider
+    readonly connectedPlayersRepository: ConnectedPlayersRepository
+    constructor(presenterProvider: PresenterProvider, connectedPlayersRepository: ConnectedPlayersRepository) {
+        this.presenterProvider = presenterProvider
+        this.connectedPlayersRepository = connectedPlayersRepository
+    }
+
+    public execute(info: PlayerInfo, state: PlayerState, scene: GameScene, input: PlayerInput) {
+        const view = new PhaserPlayerView(scene, state.position.x, state.position.y, DefaultConfiguration.height, DefaultConfiguration.width)
+        const player = new Player(info, state, view)
+        scene.addToLifecycle(view)
+        this.presenterProvider.forLocalPlayer(view , input)
+        this.connectedPlayersRepository.savePlayer(info.id, player)
+    }
 }
