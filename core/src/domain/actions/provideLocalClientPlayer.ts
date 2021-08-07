@@ -9,7 +9,8 @@ import { PlayerState } from "../player/playerState";
 
 export function ProvideLocalClientPlayer(info: PlayerInfo, state: PlayerState, scene: GameScene, input: PlayerInput): Player {
     const view = new PhaserPlayerView(scene, state.position.x, state.position.y, DefaultConfiguration.height, DefaultConfiguration.width)
+    const player = new Player(info, state, view)
     scene.addToLifecycle(view)
-    ClientProvider.presenterProvider.forLocalPlayer(view, input)
-    return new Player(info, state, view)
+    ClientProvider.presenterProvider.forLocalPlayer(view , input)
+    return player
 }

@@ -1,5 +1,6 @@
 import { ClientProvider } from "../clientProvider";
 import { resolvePlaterMovementWithInputs } from "../domain/actions/resolvePlayerMovementWithInput";
+import { Player } from "../domain/player/player";
 import { PlayerInput } from "../domain/player/playerInput";
 import { ServerConnection } from "../domain/serverConnection";
 import { PlayerInputDto } from "../infrastructure/dtos/playerInputDto";
@@ -10,17 +11,19 @@ import { ClientPlayerPresenter } from "./clientPlayerPresenter";
 export class LocalPlayerPresenter extends ClientPlayerPresenter {
     private input: PlayerInput
     private connection: ServerConnection
-
+    private player: Player | undefined
     private lastInputSended: string = ""
     private currentInput: PlayerInputDto | undefined
 
-    constructor(player: PhaserPlayerView, input: PlayerInput, connection: ServerConnection) {
-        super(player)
+    constructor(view: PhaserPlayerView, input: PlayerInput, connection: ServerConnection) {
+        super(view)
         this.input = input
         this.connection = connection
         this.renderLocalPlayer()
-        player.onUpdate.subscribe(this.update.bind(this))
-        player.onPreUpdate.subscribe(this.preUpdate.bind(this))
+        this.player = ClientProvider.connectedPlayers.getPlayer(ClientProvider.localPlayerId)
+        
+        view.onUpdate.subscribe(this.update.bind(this))
+        view.onPreUpdate.subscribe(this.preUpdate.bind(this))
     }
 
     renderLocalPlayer(): void {

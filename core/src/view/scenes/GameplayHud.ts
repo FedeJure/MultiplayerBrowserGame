@@ -16,7 +16,7 @@ export class GameplayHud extends Scene {
 
     create() {
         this.pingText = new Phaser.GameObjects.Text(this, 10,10, this.getPingText(0), { font: '12px Arial', color: '#000000' })
-        this.fpsText = new Phaser.GameObjects.Text(this, 50,10, this.getFpsText(), { font: '12px Arial', color: '#000000' })
+        this.fpsText = new Phaser.GameObjects.Text(this, 70,10, this.getFpsText(), { font: '12px Arial', color: '#000000' })
         this.add.existing(this.pingText)
         this.add.existing(this.fpsText)
         this.connection.onPing.subscribe(ping => {

@@ -43,7 +43,7 @@ export const InitGame: (socket: Socket) => void = (socket: Socket) => {
         position: { x: 100, y: 0 },
         velocity: { x: 0, y: 0 },
         canMove: true
-    } )
+    })
 
     ServerProvider.playerInfoRepository.addPlayer("2", { id: "2", name: "Test Player 2" })
     ServerProvider.playerStateRepository.setPlayerState("2", {
@@ -58,6 +58,13 @@ export const InitGame: (socket: Socket) => void = (socket: Socket) => {
     const room = new SocketRoomConnection(socket, "main")
     const game = new ServerGame(scene, room);
     socket.on(SocketIOEvents.CONNECTION, (clientSocket: Socket) => {
+        const emitFn = clientSocket.emit
+        clientSocket.emit = function (...args) {
+            setTimeout(() => {
+                return emitFn.apply(clientSocket, args)
+            }, 500)
+            return true
+        }
         const connection = new SocketClientConnection(clientSocket)
         room.join(connection)
         ServerProvider.connectionsRepository.addConnection(connection)
@@ -72,14 +79,14 @@ export const InitGame: (socket: Socket) => void = (socket: Socket) => {
 }
 
 export const InitClientGame = (socket: ClientSocket, localPlayerId: string) => {
-    const connectionWithServer = new SocketServerConnection(socket)    
+    const connectionWithServer = new SocketServerConnection(socket)
     ClientProvider.Init(
         new ClientPresenterProvider(),
         connectionWithServer,
         localPlayerId,
         new ConnectedPlayersRepository()
     )
-    const scene = new GameScene()    
+    const scene = new GameScene()
     const config = { ...ClientConfig, scene: [new LoadScene(), scene, new GameplayHud(connectionWithServer)] }
     const phaserGame = new Phaser.Game(config)
     const game = new ClientGamePresenter(localPlayerId, connectionWithServer, scene);

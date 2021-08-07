@@ -26,7 +26,7 @@ export class ClientGamePresenter {
             connection.emitStartNewConnection(localPlayerId)
         })
     }
-    
+
     listenEvents() {
 
         this.connection.onInitialGameState.subscribe(data => {
@@ -38,26 +38,27 @@ export class ClientGamePresenter {
                 ClientProvider.connectedPlayers.savePlayer(player.info.id, player)
                 return player
             })
-        })
 
-        this.connection.onPlayersStates.subscribe(data => {
-            data.states.forEach(p =>{
-                const player = ClientProvider.connectedPlayers.getPlayer(p.id)
-                if (player) ValidateState(player, p.state)
+
+            this.connection.onPlayersStates.subscribe(data => {
+                data.states.forEach(p => {
+                    const player = ClientProvider.connectedPlayers.getPlayer(p.id)
+                    if (player) ValidateState(player, p.state)
+                })
             })
-        })
 
-        this.connection.onNewPlayerConnected.subscribe(data => {
-            if (ClientProvider.connectedPlayers.getPlayer(data.player.id)) return
-            const player = ProvideClientPlayer(data.player.info ,data.player.state, this.scene)
-            ClientProvider.connectedPlayers.savePlayer(player.info.id, player)
-        })
+            this.connection.onNewPlayerConnected.subscribe(data => {
+                if (ClientProvider.connectedPlayers.getPlayer(data.player.id)) return
+                const player = ProvideClientPlayer(data.player.info, data.player.state, this.scene)
+                ClientProvider.connectedPlayers.savePlayer(player.info.id, player)
+            })
 
-        this.connection.onPlayerDisconnected.subscribe(data => {
-            const player = ClientProvider.connectedPlayers.getPlayer(data.playerId)
-            if (!player) return
-            player.view.destroy()
-            ClientProvider.connectedPlayers.removePlayer(data.playerId)
+            this.connection.onPlayerDisconnected.subscribe(data => {
+                const player = ClientProvider.connectedPlayers.getPlayer(data.playerId)
+                if (!player) return
+                player.view.destroy()
+                ClientProvider.connectedPlayers.removePlayer(data.playerId)
+            })
         })
     }
 
