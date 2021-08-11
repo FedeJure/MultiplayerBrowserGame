@@ -23,17 +23,11 @@ import { InMemoryPlayerRepository } from "./infrastructure/repositories/inMemory
 
 export const InitGame: (socket: Socket) => void = (socket: Socket) => {
 
-    ServerProvider.Init(
-        new ConnectionsRepository(),
-        new InMemoryPlayerRepository(),
-        new InMemoryPlayerStateRepository(),
-        new ServerPresenterProvider(),
-        new ConnectedPlayersRepository()
-    )
-
     const scene = new GameScene()
     const config = { ...ServerConfig, scene: scene }
     const phaserGame = new Phaser.Game(config)
+
+    console.log("-----------",ServerProvider.playerInfoRepository)
 
     ServerProvider.playerInfoRepository.addPlayer("1", { id: "1", name: "Test Player 1" })
     ServerProvider.playerStateRepository.setPlayerState("1", {
@@ -44,6 +38,8 @@ export const InitGame: (socket: Socket) => void = (socket: Socket) => {
         velocity: { x: 0, y: 0 },
         canMove: true
     })
+    console.log("---------------",ServerProvider.playerInfoRepository)
+    
 
     ServerProvider.playerInfoRepository.addPlayer("2", { id: "2", name: "Test Player 2" })
     ServerProvider.playerStateRepository.setPlayerState("2", {
@@ -81,10 +77,8 @@ export const InitGame: (socket: Socket) => void = (socket: Socket) => {
 export const InitClientGame = (socket: ClientSocket, localPlayerId: string) => {
     const connectionWithServer = new SocketServerConnection(socket)
     ClientProvider.Init(
-        new ClientPresenterProvider(),
         connectionWithServer,
         localPlayerId,
-        new ConnectedPlayersRepository()
     )
     const scene = new GameScene()
     const config = { ...ClientConfig, scene: [new LoadScene(), scene, new GameplayHud(connectionWithServer)] }

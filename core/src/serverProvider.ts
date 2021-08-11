@@ -1,32 +1,17 @@
+import { DependencyManager } from "./infrastructure/dependencyManager";
 import { ConnectedPlayersRepository } from "./infrastructure/repositories/connectedPlayersRepository";
 import { ConnectionsRepository } from "./infrastructure/repositories/connectionsRepository";
+import { InMemoryPlayerRepository } from "./infrastructure/repositories/inMemoryPlayerRepository";
+import { InMemoryPlayerStateRepository } from "./infrastructure/repositories/inMemoryPlayerStateRepository";
 import { PlayerInfoRepository } from "./infrastructure/repositories/playerInfoRepository";
 import { PlayerStateRepository } from "./infrastructure/repositories/playerStateRepository";
 import { ServerPresenterProvider } from "./infrastructure/serverPresenterProvider";
 
 
 export class ServerProvider {
-    private static _connectionsRepository: ConnectionsRepository
-    private static _playerInfoRepository: PlayerInfoRepository
-    private static _playerStateRepository: PlayerStateRepository
-    private static _presenterProvider: ServerPresenterProvider
-    private static _connectedPlayersRepository : ConnectedPlayersRepository
-
-    public static Init(connections: ConnectionsRepository,
-        playerInfos: PlayerInfoRepository,
-        playerStates: PlayerStateRepository,
-        presenterProvider: ServerPresenterProvider,
-        connectedPlayersrepository: ConnectedPlayersRepository) {
-            ServerProvider._connectionsRepository = connections
-            ServerProvider._playerInfoRepository = playerInfos
-            ServerProvider._playerStateRepository = playerStates
-            ServerProvider._presenterProvider = presenterProvider
-            ServerProvider._connectedPlayersRepository = connectedPlayersrepository
-    }
-
-    public static get connectionsRepository(): ConnectionsRepository { return ServerProvider._connectionsRepository }
-    public static get playerInfoRepository(): PlayerInfoRepository { return ServerProvider._playerInfoRepository }
-    public static get playerStateRepository(): PlayerStateRepository { return ServerProvider._playerStateRepository }
-    public static get presenterProvider(): ServerPresenterProvider { return ServerProvider._presenterProvider }
-    public static get connectedPlayerRepository(): ConnectedPlayersRepository { return ServerProvider._connectedPlayersRepository }
+    public static get connectionsRepository(): ConnectionsRepository { return DependencyManager.GetOrInstantiate<ConnectionsRepository>(() => new ConnectionsRepository()) }
+    public static get playerInfoRepository(): PlayerInfoRepository { return DependencyManager.GetOrInstantiate<PlayerInfoRepository>(() => new InMemoryPlayerRepository())  }
+    public static get playerStateRepository(): PlayerStateRepository { return DependencyManager.GetOrInstantiate<PlayerStateRepository>(() => new InMemoryPlayerStateRepository())  }
+    public static get presenterProvider(): ServerPresenterProvider { return DependencyManager.GetOrInstantiate<ServerPresenterProvider>(() => new ServerPresenterProvider())  }
+    public static get connectedPlayerRepository(): ConnectedPlayersRepository { return DependencyManager.GetOrInstantiate<ConnectedPlayersRepository>(() => new ConnectedPlayersRepository())  }
 }
