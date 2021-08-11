@@ -1,4 +1,5 @@
 import { ClientPresenterProvider } from "./infrastructure/clientPresenterProvider";
+import { DependencyManager } from "./infrastructure/dependencyManager";
 import { ConnectedPlayersRepository } from "./infrastructure/repositories/connectedPlayersRepository";
 import { SocketServerConnection } from "./infrastructure/socketServerConnection";
 
@@ -21,8 +22,8 @@ export class ClientProvider {
         ClientProvider._connectedPlayers = playerStates
     }
 
-    public static get presenterProvider(): ClientPresenterProvider { return ClientProvider._presenterProvider }
+    public static get presenterProvider(): ClientPresenterProvider { return DependencyManager.GetOrInstantiate<ClientPresenterProvider>(() => new ClientPresenterProvider()) }
     public static get serverConnection(): SocketServerConnection { return ClientProvider._serverConnection }
     public static get localPlayerId(): string { return ClientProvider._localPlayerId }
-    public static get connectedPlayers(): ConnectedPlayersRepository { return ClientProvider._connectedPlayers }
+    public static get connectedPlayers(): ConnectedPlayersRepository { return DependencyManager.GetOrInstantiate<ConnectedPlayersRepository>(() => new ConnectedPlayersRepository()) }
 }

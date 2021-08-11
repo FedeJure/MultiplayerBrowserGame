@@ -20,6 +20,7 @@ export class LocalPlayerPresenter extends ClientPlayerPresenter {
         this.input = input
         this.connection = connection
         this.renderLocalPlayer()
+        console.log(ClientProvider.connectedPlayers)
         this.player = ClientProvider.connectedPlayers.getPlayer(ClientProvider.localPlayerId)
         
         view.onUpdate.subscribe(this.update.bind(this))
