@@ -1,3 +1,1 @@
-export interface GameConfig extends Phaser.Types.Core.GameConfig {
-    
-}
+export interface GameConfig extends Phaser.Types.Core.GameConfig {}

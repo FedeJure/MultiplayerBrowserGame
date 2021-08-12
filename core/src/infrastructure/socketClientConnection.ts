@@ -1,7 +1,11 @@
 import { Observable, Subject } from "rxjs";
 import { Socket } from "socket.io";
 import { ClientConnection } from "../domain/clientConnection";
-import {GameEvents, PlayerConnectedEvent, PlayerInputEvent} from "./events/gameEvents"
+import {
+  GameEvents,
+  PlayerConnectedEvent,
+  PlayerInputEvent,
+} from "./events/gameEvents";
 import { Log } from "./Logger";
 import { SocketIOEvents } from "./events/socketIoEvents";
 import { PlayerInputDto } from "./dtos/playerInputDto";
@@ -9,52 +13,60 @@ import { PlayerStateDto } from "./dtos/playerStateDto";
 import { PlayerInitialStateDto } from "./dtos/playerInitialStateDto";
 
 export class SocketClientConnection implements ClientConnection {
+  public readonly socket: Socket;
+  public readonly connectionId: string;
+  public readonly connectionTime: Date;
 
-    public readonly socket: Socket;
-    public readonly connectionId: string;
-    public readonly connectionTime: Date;
+  private onPlayerConnectionSubject = new Subject<{ playerId: string }>();
+  private onInputSubject = new Subject<{
+    playerId: string;
+    input: PlayerInputDto;
+  }>();
 
-    private onPlayerConnectionSubject = new Subject<{ playerId: string }>()
-    private onInputSubject = new Subject<{playerId: string, input: PlayerInputDto}>()
+  constructor(socket: Socket) {
+    this.connectionId = socket.id;
+    this.connectionTime = new Date();
+    this.socket = socket;
 
-    constructor(socket: Socket) {
-        this.connectionId = socket.id
-        this.connectionTime = new Date()
-        this.socket = socket
+    this.listenEvents();
+  }
 
-        this.listenEvents();
-    }
+  onInput(): Observable<{ playerId: string; input: PlayerInputDto }> {
+    return this.onInputSubject;
+  }
 
-    onInput(): Observable<{playerId: string, input: PlayerInputDto}> {
-        return this.onInputSubject
-    }
+  join(roomName: string): void {
+    this.socket.join(roomName);
+  }
 
-    join(roomName: string): void {
-        this.socket.join(roomName)
-    }
+  listenEvents() {
+    this.socket.on(SocketIOEvents.PING, () => {
+      this.socket.emit(SocketIOEvents.PONG);
+    });
+    this.socket.on(
+      GameEvents.PLAYER_CONNECTED.name,
+      (data: PlayerConnectedEvent) => {
+        try {
+          const { playerId } = data;
+          this.onPlayerConnectionSubject.next({
+            playerId: playerId.toString(),
+          });
+        } catch (error) {
+          Log(this, `[Socket Client Connection] :: Error: ${error}`);
+        }
+      }
+    );
+    this.socket.on(GameEvents.PLAYER_INPUT.name, (dto: PlayerInputEvent) => {
+      this.onInputSubject.next({ playerId: dto.playerId, input: dto.input });
+    });
+  }
 
-    listenEvents() {
-        this.socket.on(SocketIOEvents.PING, () => {
-            this.socket.emit(SocketIOEvents.PONG)
-        })
-        this.socket.on(GameEvents.PLAYER_CONNECTED.name, (data: PlayerConnectedEvent) => {
-            try {
-                const { playerId } = data
-                this.onPlayerConnectionSubject.next({ playerId: playerId.toString() })
-            } catch (error) {
-                Log(this,`[Socket Client Connection] :: Error: ${error}`)
-            }
-        })
-        this.socket.on(GameEvents.PLAYER_INPUT.name, (dto: PlayerInputEvent) => {
-            this.onInputSubject.next({playerId: dto.playerId, input: dto.input})
-        })
-    }
+  public sendInitialStateEvent(players: PlayerInitialStateDto[]) {
+    this.socket.emit(
+      GameEvents.INITIAL_GAME_STATE.name,
+      GameEvents.INITIAL_GAME_STATE.getEvent(players)
+    );
+  }
 
-    public sendInitialStateEvent(players: PlayerInitialStateDto[]) {
-        this.socket.emit(GameEvents.INITIAL_GAME_STATE.name, 
-            GameEvents.INITIAL_GAME_STATE.getEvent(players))
-    }
-
-    onPlayerConnection = () => this.onPlayerConnectionSubject
-    
+  onPlayerConnection = () => this.onPlayerConnectionSubject;
 }

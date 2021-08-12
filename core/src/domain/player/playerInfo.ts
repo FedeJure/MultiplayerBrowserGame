@@ -1,4 +1,4 @@
 export interface PlayerInfo {
-    name: string,
-    id: string
+  name: string;
+  id: string;
 }

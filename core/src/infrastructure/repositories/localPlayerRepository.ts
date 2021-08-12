@@ -1,11 +1,13 @@
-import { Player } from "../../domain/player/player"
+import { Player } from "../../domain/player/player";
 
 export class LocalPlayerRepository {
-    private _player: Player | undefined
+  private _playerId: string;
 
-    setPlayer(player: Player) {
-        this._player = player
-    }
+  constructor(playerId: string) {
+    this._playerId = playerId;
+  }
 
-    get player() { return this._player}
+  get playerId() {
+    return this._playerId;
+  }
 }

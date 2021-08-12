@@ -1,6 +1,6 @@
-import { PlayerInfo } from '../../domain/player/playerInfo'
+import { PlayerInfo } from "../../domain/player/playerInfo";
 
 export interface PlayerInfoRepository {
-    getPlayer: (id: string) => PlayerInfo | undefined
-    addPlayer: (id: string, info: PlayerInfo) => void
+  getPlayer: (id: string) => PlayerInfo | undefined;
+  addPlayer: (id: string, info: PlayerInfo) => void;
 }

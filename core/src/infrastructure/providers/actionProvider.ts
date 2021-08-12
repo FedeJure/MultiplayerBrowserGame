@@ -1,0 +1,54 @@
+import { DependencyManager } from "../dependencyManager";
+import { CreateClientPlayerAction } from "../../domain/actions/provideClientPlayer";
+import { ClientProvider } from "./clientProvider";
+import { CreateLocalClientPlayer } from "../../domain/actions/provideLocalClientPlayer";
+import { CreatePlayerFromId } from "../../domain/actions/providePlayerFromId";
+import { ServerProvider } from "./serverProvider";
+import { ResolvePlayerMovementWithInputs } from "../../domain/actions/resolvePlayerMovementWithInput";
+import { ValidateStateAction } from "../../domain/actions/validatePosition";
+
+export class ActionProvider {
+  public static get CreateClientPlayer() {
+    return DependencyManager.GetOrInstantiate<CreateClientPlayerAction>(
+      () =>
+        new CreateClientPlayerAction(
+          ClientProvider.presenterProvider,
+          ClientProvider.connectedPlayers
+        )
+    );
+  }
+
+  public static get CreateLocalClientPlayer() {
+    return DependencyManager.GetOrInstantiate<CreateLocalClientPlayer>(
+      () =>
+        new CreateLocalClientPlayer(
+          ClientProvider.presenterProvider,
+          ClientProvider.connectedPlayers
+        )
+    );
+  }
+
+  public static get CreatePlayerFromId() {
+    return DependencyManager.GetOrInstantiate<CreatePlayerFromId>(
+      () =>
+        new CreatePlayerFromId(
+          ServerProvider.playerInfoRepository,
+          ServerProvider.playerStateRepository,
+          ServerProvider.presenterProvider,
+          ServerProvider.connectedPlayerRepository
+        )
+    );
+  }
+
+  public static get ResolvePlayerMovementWithInputs() {
+    return DependencyManager.GetOrInstantiate<ResolvePlayerMovementWithInputs>(
+      () => new ResolvePlayerMovementWithInputs()
+    );
+  }
+
+  public static get ValidatePosition() {
+    return DependencyManager.GetOrInstantiate<ValidateStateAction>(
+      () => new ValidateStateAction()
+    );
+  }
+}
