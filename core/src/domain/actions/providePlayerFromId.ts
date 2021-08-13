@@ -43,6 +43,7 @@ export function ProvidePlayerFromId(
   scene.addToLifecycle(view);
   ServerProvider.presenterProvider.forPlayer(
     view,
+    playerInfo,
     new PlayerSocketInput(playerId, connection)
   );
   return new Player(playerInfo, playerState, view);
@@ -98,6 +99,7 @@ export class CreatePlayerFromId {
     scene.addToLifecycle(view);
     this.presenterProvider.forPlayer(
       view,
+      playerInfo,
       new PlayerSocketInput(playerId, connection)
     );
     const player = new Player(playerInfo, playerState, view);

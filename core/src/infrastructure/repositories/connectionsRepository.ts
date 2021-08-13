@@ -1,4 +1,4 @@
-import { Observable, Subject } from "rxjs";
+import { Subject } from "rxjs";
 import { ClientConnection } from "../../domain/clientConnection";
 
 export class ConnectionsRepository {

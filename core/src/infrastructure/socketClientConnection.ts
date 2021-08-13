@@ -9,7 +9,6 @@ import {
 import { Log } from "./Logger";
 import { SocketIOEvents } from "./events/socketIoEvents";
 import { PlayerInputDto } from "./dtos/playerInputDto";
-import { PlayerStateDto } from "./dtos/playerStateDto";
 import { PlayerInitialStateDto } from "./dtos/playerInitialStateDto";
 
 export class SocketClientConnection implements ClientConnection {

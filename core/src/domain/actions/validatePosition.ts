@@ -4,6 +4,7 @@ import { PlayerState } from "../player/playerState";
 export function ValidateState(player: Player, remoteState: PlayerState) {
   const posLimit = 1;
   const velLimit = 3;
+  console.log(player.state.jumpsAvailable, remoteState.jumpsAvailable)
   if (
     Math.abs(remoteState.velocity.x - player.view.body.velocity.x) > velLimit
   ) {

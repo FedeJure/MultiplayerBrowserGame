@@ -1,11 +1,12 @@
 import { resolvePlaterMovementWithInputs } from "../domain/actions/resolvePlayerMovementWithInput";
+import { PlayerInfo } from "../domain/player/playerInfo";
 import { PlayerInput } from "../domain/player/playerInput";
 import { PhaserPlayerView } from "../view/playerView";
 
 export class ServerPlayerPresenter {
   private readonly view: PhaserPlayerView;
   private readonly input: PlayerInput;
-  constructor(player: PhaserPlayerView, input: PlayerInput) {
+  constructor(player: PhaserPlayerView, info: PlayerInfo, input: PlayerInput) {
     this.view = player;
     this.input = input;
     player.onUpdate.subscribe(this.update.bind(this));

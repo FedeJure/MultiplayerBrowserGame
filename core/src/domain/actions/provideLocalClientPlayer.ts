@@ -29,8 +29,8 @@ export function ProvideLocalClientPlayer(
 }
 
 export class CreateLocalClientPlayer {
-  readonly presenterProvider: PresenterProvider;
-  readonly connectedPlayersRepository: ConnectedPlayersRepository;
+  private readonly presenterProvider: PresenterProvider;
+  private readonly connectedPlayersRepository: ConnectedPlayersRepository;
   constructor(
     presenterProvider: PresenterProvider,
     connectedPlayersRepository: ConnectedPlayersRepository

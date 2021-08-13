@@ -14,6 +14,8 @@ import { SocketRoomConnection } from "./infrastructure/socketRoomConnection";
 import { Log } from "./infrastructure/Logger";
 import { GameplayHud } from "./view/scenes/GameplayHud";
 import { LocalPlayerRepository } from "./infrastructure/repositories/localPlayerRepository";
+import { ClientPresenterProvider } from "./infrastructure/providers/clientPresenterProvider";
+import { DependencyManager } from "./infrastructure/dependencyManager";
 
 export const InitGame: (socket: Socket) => void = (socket: Socket) => {
   const scene = new GameScene();
@@ -90,5 +92,5 @@ export const InitClientGame = (socket: ClientSocket, localPlayerId: string) => {
     scene: [new LoadScene(), scene, new GameplayHud(connectionWithServer)],
   };
   new Phaser.Game(config);
-  new ClientGamePresenter(localPlayerId, connectionWithServer, scene);
+  ClientProvider.presenterProvider.forGameplay(scene)
 };

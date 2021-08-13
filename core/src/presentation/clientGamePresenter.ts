@@ -1,26 +1,31 @@
 import { GameScene } from "../view/scenes/GameScene";
-import { ProvideClientPlayer } from "../domain/actions/provideClientPlayer";
-import { ProvideLocalClientPlayer } from "../domain/actions/provideLocalClientPlayer";
+import { CreateClientPlayerAction } from "../domain/actions/provideClientPlayer";
+import { CreateLocalClientPlayer } from "../domain/actions/provideLocalClientPlayer";
 import { ServerConnection } from "../domain/serverConnection";
 import { ValidateState } from "../domain/actions/validatePosition";
 import { Log } from "../infrastructure/Logger";
 import { PlayerKeyBoardInput } from "../infrastructure/input/playerKeyboardInput";
 import { ClientProvider } from "../infrastructure/providers/clientProvider";
-import { Player } from "../domain/player/player";
 
 export class ClientGamePresenter {
   readonly connection: ServerConnection;
   readonly scene: GameScene;
   readonly localPlayerId: string;
+  readonly createClientPlayerAction: CreateClientPlayerAction;
+  readonly createLocalPlayerAction: CreateLocalClientPlayer;
 
   constructor(
     localPlayerId: string,
     connection: ServerConnection,
-    scene: GameScene
+    scene: GameScene,
+    createClientPlayer: CreateClientPlayerAction,
+    createLocalPlayer: CreateLocalClientPlayer
   ) {
     this.connection = connection;
     this.scene = scene;
     this.localPlayerId = localPlayerId;
+    this.createClientPlayerAction = createClientPlayer;
+    this.createLocalPlayerAction = createLocalPlayer;
     scene.onCreate.subscribe(() => {
       this.listenEvents();
       connection.emitStartNewConnection(localPlayerId);
@@ -30,18 +35,20 @@ export class ClientGamePresenter {
   listenEvents() {
     this.connection.onInitialGameState.subscribe((data) => {
       Log(this, "Initial Game State Event", data);
-      const players = data.players.map((dto) => {
-        var player: Player;
+      data.players.forEach((dto) => {
         if (dto.id === this.localPlayerId)
-          player = ProvideLocalClientPlayer(
+          this.createLocalPlayerAction.execute(
             dto.info,
             dto.state,
             this.scene,
             new PlayerKeyBoardInput(this.scene.input.keyboard)
           );
-        else player = ProvideClientPlayer(dto.info, dto.state, this.scene);
-        ClientProvider.connectedPlayers.savePlayer(player.info.id, player);
-        return player;
+        else
+          this.createClientPlayerAction.execute(
+            dto.info,
+            dto.state,
+            this.scene
+          );
       });
 
       this.connection.onPlayersStates.subscribe((data) => {
@@ -53,12 +60,11 @@ export class ClientGamePresenter {
 
       this.connection.onNewPlayerConnected.subscribe((data) => {
         if (ClientProvider.connectedPlayers.getPlayer(data.player.id)) return;
-        const player = ProvideClientPlayer(
+        this.createClientPlayerAction.execute(
           data.player.info,
           data.player.state,
           this.scene
         );
-        ClientProvider.connectedPlayers.savePlayer(player.info.id, player);
       });
 
       this.connection.onPlayerDisconnected.subscribe((data) => {
@@ -68,9 +74,5 @@ export class ClientGamePresenter {
         ClientProvider.connectedPlayers.removePlayer(data.playerId);
       });
     });
-  }
-
-  private get localPlayer() {
-    return ClientProvider.connectedPlayers.getPlayer(this.localPlayerId);
   }
 }
