@@ -16,6 +16,8 @@ import { GameplayHud } from "./view/scenes/GameplayHud";
 import { LocalPlayerRepository } from "./infrastructure/repositories/localPlayerRepository";
 import { ClientPresenterProvider } from "./infrastructure/providers/clientPresenterProvider";
 import { DependencyManager } from "./infrastructure/dependencyManager";
+import { ServerPresenterProvider } from "./infrastructure/providers/serverPresenterProvider";
+import { ActionProvider } from "./infrastructure/providers/actionProvider";
 
 export const InitGame: (socket: Socket) => void = (socket: Socket) => {
   const scene = new GameScene();
@@ -51,7 +53,7 @@ export const InitGame: (socket: Socket) => void = (socket: Socket) => {
   });
 
   const room = new SocketRoomConnection(socket, "main");
-  const game = new ServerGame(scene, room);
+  const game = new ServerGame(scene, room, ActionProvider.CreatePlayerFromId);
   socket.on(SocketIOEvents.CONNECTION, (clientSocket: Socket) => {
     const emitFn = clientSocket.emit;
     clientSocket.emit = function (...args) {

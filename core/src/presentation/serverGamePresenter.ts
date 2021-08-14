@@ -1,19 +1,21 @@
 import { GameEvents } from "../infrastructure/events/gameEvents";
 import { GameScene } from "../view/scenes/GameScene";
-import { ProvidePlayerFromId } from "../domain/actions/providePlayerFromId";
 import { ServerProvider } from "../infrastructure/providers/serverProvider";
 import { RoomConnection } from "../domain/roomConnection";
 import { Log } from "../infrastructure/Logger";
+import { CreatePlayerFromId } from "../domain/actions/providePlayerFromId";
 
 export class ServerGame {
   readonly gameScene: GameScene;
   readonly room: RoomConnection;
+  readonly createPlayer: CreatePlayerFromId
 
   private playerConnections: Map<string, string>;
 
-  constructor(gameScene: GameScene, room: RoomConnection) {
+  constructor(gameScene: GameScene, room: RoomConnection, createPlayerFromId: CreatePlayerFromId) {
     this.gameScene = gameScene;
     this.room = room;
+    this.createPlayer = createPlayerFromId
     this.playerConnections = new Map();
 
     this.gameScene.onCreate.subscribe(() => {
@@ -27,7 +29,7 @@ export class ServerGame {
       .subscribe((connection) => {
         connection.onPlayerConnection().subscribe(({ playerId }) => {
           try {
-            const player = ProvidePlayerFromId(
+            const player = this.createPlayer.execute(
               playerId,
               this.gameScene,
               connection

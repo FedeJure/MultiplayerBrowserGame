@@ -10,7 +10,12 @@ import { ActionProvider } from "./actionProvider";
 
 export class ClientPresenterProvider implements PresenterProvider {
   forLocalPlayer(view: PhaserPlayerView, input: PlayerInput): void {
-    new LocalPlayerPresenter(view, input, ClientProvider.serverConnection);
+    new LocalPlayerPresenter(
+      view,
+      input,
+      ClientProvider.serverConnection,
+      ActionProvider.ResolvePlayerMovementWithInputs
+    );
   }
   forPlayer(view: PhaserPlayerView): void {
     new ClientPlayerPresenter(view);
@@ -22,6 +27,8 @@ export class ClientPresenterProvider implements PresenterProvider {
       ClientProvider.serverConnection,
       scene,
       ActionProvider.CreateClientPlayer,
-      ActionProvider.CreateLocalClientPlayer);
+      ActionProvider.CreateLocalClientPlayer,
+      ActionProvider.ValidatePosition
+    );
   }
 }

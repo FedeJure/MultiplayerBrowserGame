@@ -2,30 +2,33 @@ import { GameScene } from "../view/scenes/GameScene";
 import { CreateClientPlayerAction } from "../domain/actions/provideClientPlayer";
 import { CreateLocalClientPlayer } from "../domain/actions/provideLocalClientPlayer";
 import { ServerConnection } from "../domain/serverConnection";
-import { ValidateState } from "../domain/actions/validatePosition";
+import { ValidateStateAction } from "../domain/actions/validatePosition";
 import { Log } from "../infrastructure/Logger";
 import { PlayerKeyBoardInput } from "../infrastructure/input/playerKeyboardInput";
 import { ClientProvider } from "../infrastructure/providers/clientProvider";
 
 export class ClientGamePresenter {
-  readonly connection: ServerConnection;
-  readonly scene: GameScene;
-  readonly localPlayerId: string;
-  readonly createClientPlayerAction: CreateClientPlayerAction;
-  readonly createLocalPlayerAction: CreateLocalClientPlayer;
+  readonly connection: ServerConnection
+  readonly scene: GameScene
+  readonly localPlayerId: string
+  readonly createClientPlayerAction: CreateClientPlayerAction
+  readonly createLocalPlayerAction: CreateLocalClientPlayer
+  readonly validateStateAction: ValidateStateAction
 
   constructor(
     localPlayerId: string,
     connection: ServerConnection,
     scene: GameScene,
     createClientPlayer: CreateClientPlayerAction,
-    createLocalPlayer: CreateLocalClientPlayer
+    createLocalPlayer: CreateLocalClientPlayer,
+    validateState: ValidateStateAction
   ) {
     this.connection = connection;
     this.scene = scene;
     this.localPlayerId = localPlayerId;
     this.createClientPlayerAction = createClientPlayer;
     this.createLocalPlayerAction = createLocalPlayer;
+    this.validateStateAction = validateState
     scene.onCreate.subscribe(() => {
       this.listenEvents();
       connection.emitStartNewConnection(localPlayerId);
@@ -54,7 +57,7 @@ export class ClientGamePresenter {
       this.connection.onPlayersStates.subscribe((data) => {
         data.states.forEach((p) => {
           const player = ClientProvider.connectedPlayers.getPlayer(p.id);
-          if (player) ValidateState(player, p.state);
+          if (player) this.validateStateAction.execute(player, p.state);
         });
       });
 
