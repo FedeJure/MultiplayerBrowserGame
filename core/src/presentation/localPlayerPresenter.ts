@@ -1,4 +1,3 @@
-import { ClientProvider } from "../infrastructure/providers/clientProvider";
 import { Player } from "../domain/player/player";
 import { PlayerInput } from "../domain/player/playerInput";
 import { ServerConnection } from "../domain/serverConnection";
@@ -10,7 +9,7 @@ import { ResolvePlayerMovementWithInputs } from "../domain/actions/resolvePlayer
 export class LocalPlayerPresenter extends ClientPlayerPresenter {
   private input: PlayerInput
   private connection: ServerConnection
-  private player: Player | undefined
+  private player: Player
   private lastInputSended: string = ""
   private currentInput: PlayerInputDto | undefined
   private readonly resolveMovement: ResolvePlayerMovementWithInputs
@@ -19,18 +18,15 @@ export class LocalPlayerPresenter extends ClientPlayerPresenter {
     view: PhaserPlayerView,
     input: PlayerInput,
     connection: ServerConnection,
-    resolveMovement: ResolvePlayerMovementWithInputs
+    resolveMovement: ResolvePlayerMovementWithInputs,
+    player: Player
   ) {
     super(view);
     this.input = input;
     this.connection = connection;
     this.resolveMovement = resolveMovement
     this.renderLocalPlayer();
-    console.log(ClientProvider.connectedPlayers);
-    this.player = ClientProvider.connectedPlayers.getPlayer(
-      ClientProvider.localPlayerRepository.playerId
-    );
-
+    this.player = player
     view.onUpdate.subscribe(this.update.bind(this));
     view.onPreUpdate.subscribe(this.preUpdate.bind(this));
   }
@@ -46,7 +42,7 @@ export class LocalPlayerPresenter extends ClientPlayerPresenter {
     this.currentInput = currentInput;
     if (this.inputHasChange()) {
       this.connection.emitInput(
-        ClientProvider.localPlayerRepository.playerId,
+        this.player.info.id,
         currentInput
       );
       const newVelocity = this.resolveMovement.execute(

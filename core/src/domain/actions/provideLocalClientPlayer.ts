@@ -34,7 +34,7 @@ export class CreateLocalClientPlayer {
     );
     const player = new Player(info, state, view);
     scene.addToLifecycle(view);
-    this.presenterProvider.forLocalPlayer(view, input);
+    this.presenterProvider.forLocalPlayer(view, input, player);
     this.connectedPlayersRepository.savePlayer(info.id, player);
   }
 }

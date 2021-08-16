@@ -7,14 +7,18 @@ import { PhaserPlayerView } from "../../view/playerView";
 import { GameScene } from "../../view/scenes/GameScene";
 import { ClientGamePresenter } from "../../presentation/clientGamePresenter";
 import { ActionProvider } from "./actionProvider";
+import { Player } from "../../domain/player/player";
 
 export class ClientPresenterProvider implements PresenterProvider {
-  forLocalPlayer(view: PhaserPlayerView, input: PlayerInput): void {
+  forLocalPlayer(view: PhaserPlayerView,
+    input: PlayerInput,
+    player: Player): void {
     new LocalPlayerPresenter(
       view,
       input,
       ClientProvider.serverConnection,
-      ActionProvider.ResolvePlayerMovementWithInputs
+      ActionProvider.ResolvePlayerMovementWithInputs,
+      player
     );
   }
   forPlayer(view: PhaserPlayerView): void {
