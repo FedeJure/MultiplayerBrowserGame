@@ -1,5 +1,3 @@
-import { PlayerInfo } from "../../domain/player/playerInfo";
-import { PlayerState } from "../../domain/player/playerState";
 import { PlayerInitialStateDto } from "../dtos/playerInitialStateDto";
 import { PlayerInputDto } from "../dtos/playerInputDto";
 import { PlayerStateDto } from "../dtos/playerStateDto";
@@ -11,7 +9,7 @@ export const GameEvents: {
   };
   PLAYERS_STATES: {
     name: string;
-    getEvent: (positions: PlayerStateDto[]) => PlayerStatesEvent;
+    getEvent: (states: Map<string, PlayerStateDto>) => PlayerStatesEvent;
   };
   INITIAL_GAME_STATE: {
     name: string;
@@ -65,7 +63,7 @@ export interface PlayerConnectedEvent extends BaseEvent {
 }
 
 export interface PlayerStatesEvent extends BaseEvent {
-  states: PlayerStateDto[];
+  states: Map<string, PlayerStateDto>
 }
 
 export interface InitialGameStateEvent extends BaseEvent {

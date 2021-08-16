@@ -5,6 +5,8 @@ import { Log } from "../infrastructure/Logger";
 import { CreatePlayerFromId } from "../domain/actions/providePlayerFromId";
 import { ConnectionsRepository } from "../infrastructure/repositories/connectionsRepository";
 import { ConnectedPlayersRepository } from "../infrastructure/repositories/connectedPlayersRepository";
+import { PlayerStateDto } from "../infrastructure/dtos/playerStateDto";
+import { PlayerState } from "../domain/player/playerState";
 
 export class ServerGamePresenter {
   readonly gameScene: GameScene
@@ -49,9 +51,8 @@ export class ServerGamePresenter {
             );
             this.playerConnections.set(connection.connectionId, playerId);
             connection.sendInitialStateEvent(
-              this.connectedPlayers
-                .getAll()
-                .map((c) => ({ info: c.info, id: c.info.id, state: c.state }))
+              Array.from(this.connectedPlayers
+                .getAll()).map(player => ({id: player[0], state: player[1].state, info: player[1].info}))
             );
             this.room.emit(
               GameEvents.NEW_PLAYER_CONNECTED.name,
@@ -91,11 +92,8 @@ export class ServerGamePresenter {
       });
 
     this.gameScene.onUpdate.subscribe(({ time, delta }) => {
-      const data = Array.from(
-        this.connectedPlayers
-          .getAll()
-          .map((p) => ({ id: p.info.id, state: p.state }))
-      );
+      const data = new Map(Array.from(this.connectedPlayers.getAll())
+        .map(player => [player[0], {id: player[0], state: player[1].state}]))
       this.room.emit(
         GameEvents.PLAYERS_STATES.name,
         GameEvents.PLAYERS_STATES.getEvent(data)

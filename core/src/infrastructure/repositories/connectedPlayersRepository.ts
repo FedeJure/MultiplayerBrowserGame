@@ -16,6 +16,6 @@ export class ConnectedPlayersRepository {
   }
 
   getAll() {
-    return Array.from(this.players.values());
+    return this.players;
   }
 }
