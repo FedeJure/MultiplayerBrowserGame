@@ -1,21 +1,30 @@
 import { GameEvents } from "../infrastructure/events/gameEvents";
 import { GameScene } from "../view/scenes/GameScene";
-import { ServerProvider } from "../infrastructure/providers/serverProvider";
 import { RoomConnection } from "../domain/roomConnection";
 import { Log } from "../infrastructure/Logger";
 import { CreatePlayerFromId } from "../domain/actions/providePlayerFromId";
+import { ConnectionsRepository } from "../infrastructure/repositories/connectionsRepository";
+import { ConnectedPlayersRepository } from "../infrastructure/repositories/connectedPlayersRepository";
 
-export class ServerGame {
-  readonly gameScene: GameScene;
-  readonly room: RoomConnection;
+export class ServerGamePresenter {
+  readonly gameScene: GameScene
+  readonly room: RoomConnection
   readonly createPlayer: CreatePlayerFromId
+  readonly connectionsRepository: ConnectionsRepository
+  readonly connectedPlayers: ConnectedPlayersRepository
 
   private playerConnections: Map<string, string>;
 
-  constructor(gameScene: GameScene, room: RoomConnection, createPlayerFromId: CreatePlayerFromId) {
-    this.gameScene = gameScene;
-    this.room = room;
+  constructor(gameScene: GameScene,
+    room: RoomConnection,
+    createPlayerFromId: CreatePlayerFromId,
+    connectionsRepository: ConnectionsRepository,
+    connectedPlayers: ConnectedPlayersRepository) {
+    this.gameScene = gameScene
+    this.room = room
     this.createPlayer = createPlayerFromId
+    this.connectionsRepository = connectionsRepository
+    this.connectedPlayers = connectedPlayers
     this.playerConnections = new Map();
 
     this.gameScene.onCreate.subscribe(() => {
@@ -24,7 +33,7 @@ export class ServerGame {
   }
 
   listenEvents() {
-    ServerProvider.connectionsRepository
+    this.connectionsRepository
       .onNewConnection()
       .subscribe((connection) => {
         connection.onPlayerConnection().subscribe(({ playerId }) => {
@@ -34,13 +43,13 @@ export class ServerGame {
               this.gameScene,
               connection
             );
-            ServerProvider.connectedPlayerRepository.savePlayer(
+            this.connectedPlayers.savePlayer(
               playerId,
               player
             );
             this.playerConnections.set(connection.connectionId, playerId);
             connection.sendInitialStateEvent(
-              ServerProvider.connectedPlayerRepository
+              this.connectedPlayers
                 .getAll()
                 .map((c) => ({ info: c.info, id: c.info.id, state: c.state }))
             );
@@ -62,7 +71,7 @@ export class ServerGame {
         });
       });
 
-    ServerProvider.connectionsRepository
+    this.connectionsRepository
       .onDisconnection()
       .subscribe((connection) => {
         const playerId = this.playerConnections.get(connection.connectionId);
@@ -72,10 +81,10 @@ export class ServerGame {
             GameEvents.PLAYER_DISCONNECTED.getEvent(playerId)
           );
           const player =
-            ServerProvider.connectedPlayerRepository.getPlayer(playerId);
+            this.connectedPlayers.getPlayer(playerId);
           if (player) {
             player.destroy();
-            ServerProvider.connectedPlayerRepository.removePlayer(playerId);
+            this.connectedPlayers.removePlayer(playerId);
           }
         }
         this.playerConnections.delete(connection.connectionId);
@@ -83,7 +92,7 @@ export class ServerGame {
 
     this.gameScene.onUpdate.subscribe(({ time, delta }) => {
       const data = Array.from(
-        ServerProvider.connectedPlayerRepository
+        this.connectedPlayers
           .getAll()
           .map((p) => ({ id: p.info.id, state: p.state }))
       );

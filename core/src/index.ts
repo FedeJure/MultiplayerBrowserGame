@@ -1,5 +1,5 @@
 import { Socket } from "socket.io";
-import { ServerGame } from "./presentation/serverGamePresenter";
+import { ServerGamePresenter } from "./presentation/serverGamePresenter";
 import { SocketIOEvents } from "./infrastructure/events/socketIoEvents";
 import { ServerProvider } from "./infrastructure/providers/serverProvider";
 import { ClientProvider } from "./infrastructure/providers/clientProvider";
@@ -53,7 +53,11 @@ export const InitGame: (socket: Socket) => void = (socket: Socket) => {
   });
 
   const room = new SocketRoomConnection(socket, "main");
-  const game = new ServerGame(scene, room, ActionProvider.CreatePlayerFromId);
+  const game = new ServerGamePresenter(scene,
+    room,
+    ActionProvider.CreatePlayerFromId,
+    ServerProvider.connectionsRepository,
+    ServerProvider.connectedPlayerRepository);
   socket.on(SocketIOEvents.CONNECTION, (clientSocket: Socket) => {
     const emitFn = clientSocket.emit;
     clientSocket.emit = function (...args) {
