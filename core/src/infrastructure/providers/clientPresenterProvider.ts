@@ -28,7 +28,8 @@ export class ClientPresenterProvider implements PresenterProvider {
       scene,
       ActionProvider.CreateClientPlayer,
       ActionProvider.CreateLocalClientPlayer,
-      ActionProvider.ValidatePosition
+      ActionProvider.ValidatePosition,
+      ClientProvider.connectedPlayers
     );
   }
 }

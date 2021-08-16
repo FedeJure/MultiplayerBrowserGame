@@ -5,7 +5,7 @@ import { ServerConnection } from "../domain/serverConnection";
 import { ValidateStateAction } from "../domain/actions/validatePosition";
 import { Log } from "../infrastructure/Logger";
 import { PlayerKeyBoardInput } from "../infrastructure/input/playerKeyboardInput";
-import { ClientProvider } from "../infrastructure/providers/clientProvider";
+import { ConnectedPlayersRepository } from "../infrastructure/repositories/connectedPlayersRepository";
 
 export class ClientGamePresenter {
   readonly connection: ServerConnection
@@ -14,6 +14,7 @@ export class ClientGamePresenter {
   readonly createClientPlayerAction: CreateClientPlayerAction
   readonly createLocalPlayerAction: CreateLocalClientPlayer
   readonly validateStateAction: ValidateStateAction
+  readonly playersRepository: ConnectedPlayersRepository
 
   constructor(
     localPlayerId: string,
@@ -21,7 +22,8 @@ export class ClientGamePresenter {
     scene: GameScene,
     createClientPlayer: CreateClientPlayerAction,
     createLocalPlayer: CreateLocalClientPlayer,
-    validateState: ValidateStateAction
+    validateState: ValidateStateAction,
+    playersRepository: ConnectedPlayersRepository
   ) {
     this.connection = connection;
     this.scene = scene;
@@ -29,6 +31,7 @@ export class ClientGamePresenter {
     this.createClientPlayerAction = createClientPlayer;
     this.createLocalPlayerAction = createLocalPlayer;
     this.validateStateAction = validateState
+    this.playersRepository = playersRepository
     scene.onCreate.subscribe(() => {
       this.listenEvents();
       connection.emitStartNewConnection(localPlayerId);
@@ -56,13 +59,13 @@ export class ClientGamePresenter {
 
       this.connection.onPlayersStates.subscribe((data) => {
         data.states.forEach((p) => {
-          const player = ClientProvider.connectedPlayers.getPlayer(p.id);
+          const player = this.playersRepository.getPlayer(p.id);
           if (player) this.validateStateAction.execute(player, p.state);
         });
       });
 
       this.connection.onNewPlayerConnected.subscribe((data) => {
-        if (ClientProvider.connectedPlayers.getPlayer(data.player.id)) return;
+        if (this.playersRepository.getPlayer(data.player.id)) return;
         this.createClientPlayerAction.execute(
           data.player.info,
           data.player.state,
@@ -71,10 +74,10 @@ export class ClientGamePresenter {
       });
 
       this.connection.onPlayerDisconnected.subscribe((data) => {
-        const player = ClientProvider.connectedPlayers.getPlayer(data.playerId);
+        const player = this.playersRepository.getPlayer(data.playerId);
         if (!player) return;
         player.view.destroy();
-        ClientProvider.connectedPlayers.removePlayer(data.playerId);
+        this.playersRepository.removePlayer(data.playerId);
       });
     });
   }
