@@ -57,13 +57,6 @@ export class ClientGamePresenter {
           );
       });
 
-      // this.connection.onPlayersStates.subscribe((data) => {
-      //   data.states.forEach((p) => {
-      //     const player = this.playersRepository.getPlayer(p.id);
-      //     if (player) this.validateStateAction.execute(player, p.state);
-      //   });
-      // });
-
       this.connection.onNewPlayerConnected.subscribe((data) => {
         if (this.playersRepository.getPlayer(data.player.id)) return;
         this.createClientPlayerAction.execute(
@@ -74,9 +67,6 @@ export class ClientGamePresenter {
       });
 
       this.connection.onPlayerDisconnected.subscribe((data) => {
-        const player = this.playersRepository.getPlayer(data.playerId);
-        if (!player) return;
-        player.view.destroy();
         this.playersRepository.removePlayer(data.playerId);
       });
     });

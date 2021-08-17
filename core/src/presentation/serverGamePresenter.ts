@@ -5,8 +5,7 @@ import { Log } from "../infrastructure/Logger";
 import { CreatePlayerFromId } from "../domain/actions/providePlayerFromId";
 import { ConnectionsRepository } from "../infrastructure/repositories/connectionsRepository";
 import { ConnectedPlayersRepository } from "../infrastructure/repositories/connectedPlayersRepository";
-import { PlayerStateDto } from "../infrastructure/dtos/playerStateDto";
-import { PlayerState } from "../domain/player/playerState";
+import { PlayerStateRepository } from "../infrastructure/repositories/playerStateRepository";
 
 export class ServerGamePresenter {
   readonly gameScene: GameScene
@@ -14,6 +13,7 @@ export class ServerGamePresenter {
   readonly createPlayer: CreatePlayerFromId
   readonly connectionsRepository: ConnectionsRepository
   readonly connectedPlayers: ConnectedPlayersRepository
+  readonly playerStates: PlayerStateRepository
 
   private playerConnections: Map<string, string>;
 
@@ -21,12 +21,14 @@ export class ServerGamePresenter {
     room: RoomConnection,
     createPlayerFromId: CreatePlayerFromId,
     connectionsRepository: ConnectionsRepository,
-    connectedPlayers: ConnectedPlayersRepository) {
+    connectedPlayers: ConnectedPlayersRepository,
+    playerStates: PlayerStateRepository) {
     this.gameScene = gameScene
     this.room = room
     this.createPlayer = createPlayerFromId
     this.connectionsRepository = connectionsRepository
     this.connectedPlayers = connectedPlayers
+    this.playerStates = playerStates
     this.playerConnections = new Map();
 
     this.gameScene.onCreate.subscribe(() => {
@@ -92,11 +94,9 @@ export class ServerGamePresenter {
       });
 
     this.gameScene.onUpdate.subscribe(({ time, delta }) => {
-      const data = new Map(Array.from(this.connectedPlayers.getAll())
-        .map(player => [player[0], {id: player[0], state: player[1].state}]))
       this.room.emit(
         GameEvents.PLAYERS_STATES.name,
-        GameEvents.PLAYERS_STATES.getEvent(data)
+        GameEvents.PLAYERS_STATES.getEvent(this.playerStates.getAll())
       );
     });
   }

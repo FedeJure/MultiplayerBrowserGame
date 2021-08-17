@@ -1,13 +1,12 @@
 import { Observable } from "rxjs";
+import { PlayerInitialStateDto } from "../infrastructure/dtos/playerInitialStateDto";
 import { PlayerInputDto } from "../infrastructure/dtos/playerInputDto";
-import { PlayerStateDto } from "../infrastructure/dtos/playerStateDto";
-import { PlayerState } from "./player/playerState";
 
 export interface ClientConnection {
   connectionId: string;
   connectionTime: Date;
   onPlayerConnection(): Observable<{ playerId: string }>;
-  sendInitialStateEvent(players: PlayerStateDto[]): void;
+  sendInitialStateEvent(players: PlayerInitialStateDto[]): void;
   join(roomName: string): void;
   onInput(): Observable<{ playerId: string; input: PlayerInputDto }>;
 }

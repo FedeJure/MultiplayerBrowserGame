@@ -3,6 +3,7 @@ import { PlayerInput } from "../../domain/player/playerInput";
 import { ServerPlayerPresenter } from "../../presentation/serverPlayerPresenter";
 import { PhaserPlayerView } from "../../view/playerView";
 import { ActionProvider } from "./actionProvider";
+import { ServerProvider } from "./serverProvider";
 
 export class ServerPresenterProvider {
   forPlayer(
@@ -14,7 +15,8 @@ export class ServerPresenterProvider {
       view,
       info,
       input,
-      ActionProvider.ResolvePlayerMovementWithInputs
+      ActionProvider.ResolvePlayerMovementWithInputs,
+      ServerProvider.playerStateRepository
     );
   }
 }

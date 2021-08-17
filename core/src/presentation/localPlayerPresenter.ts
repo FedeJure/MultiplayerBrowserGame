@@ -5,16 +5,11 @@ import { PlayerInputDto } from "../infrastructure/dtos/playerInputDto";
 import { PhaserPlayerView } from "../view/playerView";
 import { ClientPlayerPresenter } from "./clientPlayerPresenter";
 import { ResolvePlayerMovementWithInputs } from "../domain/actions/resolvePlayerMovementWithInput";
-import { filter } from "rxjs";
-import { PlayerStatesEvent } from "../infrastructure/events/gameEvents";
 import { ValidateStateAction } from "../domain/actions/validatePosition";
 
 export class LocalPlayerPresenter extends ClientPlayerPresenter {
   private readonly input: PlayerInput
-  private readonly connection: ServerConnection
-  private readonly player: Player
   private readonly resolveMovement: ResolvePlayerMovementWithInputs
-  private readonly validateState: ValidateStateAction
 
   private lastInputSended: string = ""
   private currentInput: PlayerInputDto | undefined
@@ -27,26 +22,12 @@ export class LocalPlayerPresenter extends ClientPlayerPresenter {
     player: Player,
     validateState: ValidateStateAction
   ) {
-    super(view);
+    super(view, connection, player, validateState);
     this.input = input;
-    this.connection = connection;
     this.resolveMovement = resolveMovement
-    this.validateState = validateState
     this.renderLocalPlayer();
-    this.player = player
     view.onUpdate.subscribe(this.update.bind(this));
     view.onPreUpdate.subscribe(this.preUpdate.bind(this));
-
-    this.connection.onPlayersStates
-    .pipe(filter(state =>{
-      console.log(state)
-      return state.states.has(player.info.id)}))
-    .subscribe(this.HandleStateEvent)
-  }
-
-  private HandleStateEvent(statesEvent: PlayerStatesEvent): void {
-    const state = statesEvent.states.get(this.player.info.id)?.state;
-    if (state) this.validateState.execute(this.player, state)
   }
 
   renderLocalPlayer(): void {

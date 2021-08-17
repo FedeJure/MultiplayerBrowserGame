@@ -26,8 +26,8 @@ export class CreateClientPlayerAction {
       DefaultConfiguration.height,
       DefaultConfiguration.width
     );
-    this.presenterProvider.forPlayer(view);
     const player = new Player(info, state, view);
+    this.presenterProvider.forPlayer(view, player);
     this.connectedPlayersRepository.savePlayer(info.id, player);
   }
 }

@@ -22,8 +22,11 @@ export class ClientPresenterProvider implements PresenterProvider {
       ActionProvider.ValidatePosition
     );
   }
-  forPlayer(view: PhaserPlayerView): void {
-    new ClientPlayerPresenter(view);
+  forPlayer(view: PhaserPlayerView, player: Player): void {
+    new ClientPlayerPresenter(view,
+      ClientProvider.serverConnection,
+      player,
+      ActionProvider.ValidatePosition);
   }
 
   forGameplay(scene: GameScene): void {

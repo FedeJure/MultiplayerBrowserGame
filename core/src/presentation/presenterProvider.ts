@@ -5,7 +5,6 @@ import { GameScene } from "../view/scenes/GameScene";
 
 export interface PresenterProvider {
   forLocalPlayer(view: PhaserPlayerView, input: PlayerInput, player: Player): void;
-  forPlayer(view: PhaserPlayerView, input: PlayerInput): void;
-  forPlayer(view: PhaserPlayerView): void;
+  forPlayer(view: PhaserPlayerView, player: Player): void;
   forGameplay(scene: GameScene): void;
 }
