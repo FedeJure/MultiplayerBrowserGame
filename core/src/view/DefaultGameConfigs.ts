@@ -12,7 +12,7 @@ export const ClientConfig: GameConfig = {
     matter: {
       enableSleeping: true,
       gravity: {
-        y: 2,
+        y: 4,
       },
       debug: {
         showBody: true,
@@ -33,7 +33,7 @@ export const ServerConfig: GameConfig = {
     matter: {
       enableSleeping: false,
       gravity: {
-        y: 2,
+        y: 4,
       },
       debug: {
         showBody: false,

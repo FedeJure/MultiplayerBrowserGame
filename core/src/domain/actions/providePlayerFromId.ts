@@ -47,6 +47,7 @@ export class CreatePlayerFromId {
         },
         velocity: { x: 0, y: 0 },
         canMove: true,
+        canJump: true
       };
     }
     const view = new PhaserPlayerView(

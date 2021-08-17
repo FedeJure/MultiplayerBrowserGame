@@ -16,14 +16,6 @@ export class Player {
     this.info = playerInfo;
     this._state = playerState;
     this.view = playerView;
-
-    observe(this.view).observables.body.subscribe((body) => {
-      this._state = {
-        ...this._state,
-        velocity: body.velocity,
-        position: body.position,
-      };
-    });
   }
 
   public get state() {

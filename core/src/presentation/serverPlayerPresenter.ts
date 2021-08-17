@@ -26,13 +26,14 @@ export class ServerPlayerPresenter {
   update({ time, delta }: { time: number; delta: number }) {
     const oldState = this.playerStates.getPlayerState(this.info.id)
     if (oldState) {
-      const newVelocity = this.resolveMovement.execute(
+      const newState = this.resolveMovement.execute(
         this.input,
         this.view,
+        oldState,
         delta
       );
-      this.playerStates.setPlayerState(this.info.id, {...oldState, velocity: newVelocity, position: this.view.body.position})
-      this.view.setVelocity(newVelocity.x, newVelocity.y);
+      this.playerStates.setPlayerState(this.info.id, newState)
+      this.view.setVelocity(newState.velocity.x, newState.velocity.y);
     }
     
     

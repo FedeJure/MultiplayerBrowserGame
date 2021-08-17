@@ -6,13 +6,15 @@ import { PhaserPlayerView } from "../view/playerView";
 import { ClientPlayerPresenter } from "./clientPlayerPresenter";
 import { ResolvePlayerMovementWithInputs } from "../domain/actions/resolvePlayerMovementWithInput";
 import { ValidateStateAction } from "../domain/actions/validatePosition";
+import { PlayerStateRepository } from "../infrastructure/repositories/playerStateRepository";
 
 export class LocalPlayerPresenter extends ClientPlayerPresenter {
-  private readonly input: PlayerInput
-  private readonly resolveMovement: ResolvePlayerMovementWithInputs
+  private readonly input: PlayerInput;
+  private readonly resolveMovement: ResolvePlayerMovementWithInputs;
+  private readonly playerStateRepository: PlayerStateRepository;
 
-  private lastInputSended: string = ""
-  private currentInput: PlayerInputDto | undefined
+  private lastInputSended: string = "";
+  private currentInput: PlayerInputDto | undefined;
 
   constructor(
     view: PhaserPlayerView,
@@ -20,11 +22,13 @@ export class LocalPlayerPresenter extends ClientPlayerPresenter {
     connection: ServerConnection,
     resolveMovement: ResolvePlayerMovementWithInputs,
     player: Player,
-    validateState: ValidateStateAction
+    validateState: ValidateStateAction,
+    playerStateRepository: PlayerStateRepository
   ) {
     super(view, connection, player, validateState);
     this.input = input;
-    this.resolveMovement = resolveMovement
+    this.resolveMovement = resolveMovement;
+    this.playerStateRepository = playerStateRepository;
     this.renderLocalPlayer();
     view.onUpdate.subscribe(this.update.bind(this));
     view.onPreUpdate.subscribe(this.preUpdate.bind(this));
@@ -40,16 +44,25 @@ export class LocalPlayerPresenter extends ClientPlayerPresenter {
     const currentInput = this.input.toDto();
     this.currentInput = currentInput;
     if (this.inputHasChange()) {
-      this.connection.emitInput(
-        this.player.info.id,
-        currentInput
+      this.connection.emitInput(this.player.info.id, currentInput);
+      const oldState = this.playerStateRepository.getPlayerState(
+        this.player.info.id
       );
-      const newVelocity = this.resolveMovement.execute(
-        this.input,
-        this.view,
-        delta
-      );
-      this.view.setVelocity(newVelocity.x, newVelocity.y);
+      console.log(oldState)
+      if (oldState) {
+        const newState = this.resolveMovement.execute(
+          this.input,
+          this.view,
+          oldState,
+          delta
+        );
+        this.view.setVelocity(newState.velocity.x, newState.velocity.y);
+        this.playerStateRepository.setPlayerState(
+          this.player.info.id,
+          newState
+        );
+      }
+
       this.lastInputSended = JSON.stringify(currentInput);
     }
   }

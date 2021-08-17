@@ -3,6 +3,8 @@ import { DependencyManager } from "../dependencyManager";
 import { ConnectedPlayersRepository } from "../repositories/connectedPlayersRepository";
 import { LocalPlayerRepository } from "../repositories/localPlayerRepository";
 import { SocketServerConnection } from "../socketServerConnection";
+import { PlayerStateRepository } from "../repositories/playerStateRepository";
+import { InMemoryPlayerStateRepository } from "../repositories/inMemoryPlayerStateRepository";
 
 export class ClientProvider {
   private static _serverConnection: SocketServerConnection;
@@ -14,6 +16,12 @@ export class ClientProvider {
   ) {
     ClientProvider._serverConnection = serverConnection;
     ClientProvider._localPlayerRepository = localPlayerRepository;
+  }
+
+  public static get playerStateRepository(): PlayerStateRepository {
+    return DependencyManager.GetOrInstantiate<PlayerStateRepository>(
+      () => new InMemoryPlayerStateRepository()
+    );
   }
 
   public static get presenterProvider(): ClientPresenterProvider {

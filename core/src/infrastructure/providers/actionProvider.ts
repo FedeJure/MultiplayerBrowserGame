@@ -23,7 +23,8 @@ export class ActionProvider {
       () =>
         new CreateLocalClientPlayer(
           ClientProvider.presenterProvider,
-          ClientProvider.connectedPlayers
+          ClientProvider.connectedPlayers,
+          ClientProvider.playerStateRepository
         )
     );
   }

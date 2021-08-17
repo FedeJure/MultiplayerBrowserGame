@@ -7,16 +7,20 @@ import { Player } from "../player/player";
 import { PlayerState } from "../player/playerState";
 import { PresenterProvider } from "../../presentation/presenterProvider";
 import { ConnectedPlayersRepository } from "../../infrastructure/repositories/connectedPlayersRepository";
+import { PlayerStateRepository } from "../../infrastructure/repositories/playerStateRepository";
 
 export class CreateLocalClientPlayer {
   private readonly presenterProvider: PresenterProvider;
   private readonly connectedPlayersRepository: ConnectedPlayersRepository;
+  private readonly playerStateRepository: PlayerStateRepository
   constructor(
     presenterProvider: PresenterProvider,
-    connectedPlayersRepository: ConnectedPlayersRepository
+    connectedPlayersRepository: ConnectedPlayersRepository,
+    playerStateRepository: PlayerStateRepository
   ) {
     this.presenterProvider = presenterProvider;
     this.connectedPlayersRepository = connectedPlayersRepository;
+    this.playerStateRepository = playerStateRepository
   }
 
   public execute(
@@ -37,5 +41,6 @@ export class CreateLocalClientPlayer {
     scene.addToLifecycle(view);
     this.presenterProvider.forLocalPlayer(view, input, player);
     this.connectedPlayersRepository.savePlayer(info.id, player);
+    this.playerStateRepository.setPlayerState(info.id, player.state)
   }
 }
