@@ -1,5 +1,8 @@
 import { Observable, Subject } from "rxjs";
-import { Scene, GameObjects, Physics } from "phaser";
+import { Scene, Physics } from "phaser";
+import { CollisionTypes } from "../../domain/collisionTypes";
+import { CollisionsDispatcher } from "../collisionsDispatcher";
+import { BodyType } from "matter";
 
 export class GameScene extends Scene {
   private _onUpdate = new Subject<{ time: number; delta: number }>();
@@ -7,8 +10,10 @@ export class GameScene extends Scene {
 
   private _lifeCycleObjects: Phaser.GameObjects.Group | undefined;
 
-  constructor() {
+  private _collisionDispatcher: CollisionsDispatcher;
+  constructor(collisionDispatcher: CollisionsDispatcher) {
     super({ key: "gameScene" });
+    this._collisionDispatcher = collisionDispatcher;
   }
 
   create() {
@@ -18,7 +23,18 @@ export class GameScene extends Scene {
     const background = this.add.image(1250, 300, "background");
     background.scaleY = 2;
     background.scaleX = 2;
+    this.initCollisions();
     this._onCreate.next();
+  }
+
+  initCollisions() {
+    this.matter.world.addListener(
+      "collisionstart",
+      (ev: Phaser.Physics.Matter.Events.CollisionStartEvent) => {
+        this._collisionDispatcher.sendCollisionStart(ev)
+      },
+      this
+    );
   }
 
   update(time: number, delta: number) {
@@ -43,23 +59,11 @@ export class GameScene extends Scene {
 
   private initPlatforms = () => {
     //TODO: refactorear esto para generar platform de archivo de configs
-    var platformCount = 1;
-    var platformY = 500;
-    var lastPlatformX = -200;
-    for (var i = 0; i < platformCount; i++) {
-      const ground = new Physics.Matter.Image(
-        this.matter.world,
-        lastPlatformX,
-        platformY,
-        ""
-      );
-      ground.setSize(200, 50);
-      ground.setStatic(true);
-      ground.setOrigin(1, 1);
-      ground.setScale(100, 1);
-      ground.setBounce(0);
-      this.matter.world.add(ground);
-      lastPlatformX += 200 * 0.5;
-    }
+
+    const ground = new Physics.Matter.Sprite(this.matter.world, 0, 500, "");
+    ground.setScale(100, 1);
+    ground.setStatic(true);
+    ground.setCollisionCategory(CollisionTypes.StaticEnvironment);
+    ground.setCollidesWith([CollisionTypes.Player]);
   };
 }

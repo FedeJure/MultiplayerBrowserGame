@@ -14,7 +14,6 @@ export class ResolvePlayerMovementWithInputs {
     let newVelocity: { x: number; y: number } = view.body.velocity
     let velocity = 1
     let maxRunVelocity = 10
-    let maxJumpVelocity = 5
     newVelocity.x += +input.right * velocity * deltaTime;
     newVelocity.x -= +input.left * velocity * deltaTime;
     let availableJumps = state.jumpsAvailable;

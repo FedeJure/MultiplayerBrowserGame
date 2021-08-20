@@ -1,3 +1,4 @@
+import { CollisionsDispatcher } from "../../view/collisionsDispatcher";
 import { DependencyManager } from "../dependencyManager";
 import { ConnectedPlayersRepository } from "../repositories/connectedPlayersRepository";
 import { ConnectionsRepository } from "../repositories/connectionsRepository";
@@ -31,6 +32,11 @@ export class ServerProvider {
   public static get connectedPlayerRepository(): ConnectedPlayersRepository {
     return DependencyManager.GetOrInstantiate<ConnectedPlayersRepository>(
       () => new ConnectedPlayersRepository()
+    );
+  }
+  public static get collisionsDispatcher(): CollisionsDispatcher {
+    return DependencyManager.GetOrInstantiate<CollisionsDispatcher>(
+      () => new CollisionsDispatcher()
     );
   }
 }

@@ -1,6 +1,9 @@
+import { BodyType } from "matter";
 import { Physics, Scene } from "phaser";
 import { Observable, Subject } from "rxjs";
-import { PlayerView } from "../domain/player/playerView";
+import { CollisionTypes } from "../domain/collisionTypes";
+import { PlayerView } from "../presentation/playerView";
+import { GameScene } from "./scenes/GameScene";
 
 export class PhaserPlayerView
   extends Physics.Matter.Sprite
@@ -8,7 +11,6 @@ export class PhaserPlayerView
 {
   //TODO: ver de crear interfaces en el dominio con todas las propiedades q se usen de Phaser, para aislar
   // el core de la dependencia del framework
-
   readonly scene: Scene;
   private readonly _onUpdate = new Subject<{ time: number; delta: number }>();
   private readonly _onPreUpdate = new Subject<{
@@ -17,7 +19,7 @@ export class PhaserPlayerView
   }>();
 
   constructor(
-    scene: Scene,
+    scene: GameScene,
     x: number,
     y: number,
     height: number,
@@ -28,7 +30,12 @@ export class PhaserPlayerView
     this.width = width;
     this.setBounce(0);
     this.scene = scene;
-    scene.matter.world.add(this);
+    this.initCollisions(this)
+  }
+
+  private initCollisions(view: PhaserPlayerView) {
+    view.setCollisionCategory(CollisionTypes.Player);
+    view.setCollidesWith([CollisionTypes.StaticEnvironment, CollisionTypes.Player]);
   }
 
   destroy() {
@@ -51,4 +58,6 @@ export class PhaserPlayerView
   public get onPreUpdate(): Observable<{ time: number; delta: number }> {
     return this._onPreUpdate;
   }
+
+  public get matterBody() { return this.body as BodyType }
 }

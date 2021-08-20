@@ -3,6 +3,7 @@ import { ValidateStateAction } from "../domain/actions/validatePosition";
 import { Player } from "../domain/player/player";
 import { ServerConnection } from "../domain/serverConnection";
 import { PlayerStatesEvent } from "../infrastructure/events/gameEvents";
+import { CollisionsDispatcher } from "../view/collisionsDispatcher";
 import { PhaserPlayerView } from "../view/playerView";
 
 export class ClientPlayerPresenter {
@@ -17,7 +18,8 @@ export class ClientPlayerPresenter {
     view: PhaserPlayerView,
     connection: ServerConnection,
     player: Player,
-    validateState: ValidateStateAction
+    validateState: ValidateStateAction,
+    collisionsDispatcher: CollisionsDispatcher
   ) {
     this.view = view;
     this.player = player;
@@ -36,6 +38,10 @@ export class ClientPlayerPresenter {
         this.subscriptions.forEach((s) => s.unsubscribe());
         player.view.destroy();
       });
+      collisionsDispatcher.subscribeToCollisions(view.matterBody.id)
+      .subscribe(col => {
+        console.log("col", col)
+      })
   }
 
   private HandleStateEvent(statesEvent: PlayerStatesEvent): void {

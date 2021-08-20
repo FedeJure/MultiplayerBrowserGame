@@ -20,14 +20,16 @@ export class ClientPresenterProvider implements PresenterProvider {
       ActionProvider.ResolvePlayerMovementWithInputs,
       player,
       ActionProvider.ValidatePosition,
-      ClientProvider.playerStateRepository
+      ClientProvider.playerStateRepository,
+      ClientProvider.collisionsDispatcher
     );
   }
   forPlayer(view: PhaserPlayerView, player: Player): void {
     new ClientPlayerPresenter(view,
       ClientProvider.serverConnection,
       player,
-      ActionProvider.ValidatePosition);
+      ActionProvider.ValidatePosition,
+      ClientProvider.collisionsDispatcher);
   }
 
   forGameplay(scene: GameScene): void {

@@ -16,7 +16,7 @@ import { LocalPlayerRepository } from "./infrastructure/repositories/localPlayer
 import { ActionProvider } from "./infrastructure/providers/actionProvider";
 
 export const InitGame: (socket: Socket) => void = (socket: Socket) => {
-  const scene = new GameScene();
+  const scene = new GameScene(ServerProvider.collisionsDispatcher);
   const config = { ...ServerConfig, scene: scene };
   const phaserGame = new Phaser.Game(config);
 
@@ -91,7 +91,7 @@ export const InitClientGame = (socket: ClientSocket, localPlayerId: string) => {
     connectionWithServer,
     new LocalPlayerRepository(localPlayerId)
   );
-  const scene = new GameScene();
+  const scene = new GameScene(ClientProvider.collisionsDispatcher);
   const config = {
     ...ClientConfig,
     scene: [new LoadScene(), scene, new GameplayHud(connectionWithServer)],

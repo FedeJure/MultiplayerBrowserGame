@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --config jestconfig.json",
+    "test": "npx jest --config jestconfig.json",
     "build": "tsc",
     "start": "tsc --watch",
     "prepare": "npm run build"
@@ -12,7 +12,9 @@
   "author": "Federico Jure",
   "license": "ISC",
   "dependencies": {
+    "matter": "0.2.0",
     "phaser": "3.55.2",
+    "phaser-matter-collision-plugin": "^1.0.0",
     "redux": "4.1.0",
     "rxjs": "7.2.0",
     "rxjs-observe": "2.1.6",
@@ -20,6 +22,8 @@
     "socket.io-client": "4.1.3"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.15.0",
+    "@fluffy-spoon/substitute": "^1.208.0",
     "@types/jest": "26.0.24",
     "jest": "27.0.6",
     "ts-jest": "^27.0.4",

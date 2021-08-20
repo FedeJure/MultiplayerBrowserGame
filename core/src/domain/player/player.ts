@@ -1,7 +1,6 @@
-import { observe } from "rxjs-observe";
 import { PlayerInfo } from "./playerInfo";
 import { PlayerState } from "./playerState";
-import { PlayerView } from "./playerView";
+import { PlayerView } from "../../presentation/playerView";
 
 export class Player {
   private _state: PlayerState;

@@ -5,6 +5,7 @@ import { LocalPlayerRepository } from "../repositories/localPlayerRepository";
 import { SocketServerConnection } from "../socketServerConnection";
 import { PlayerStateRepository } from "../repositories/playerStateRepository";
 import { InMemoryPlayerStateRepository } from "../repositories/inMemoryPlayerStateRepository";
+import { CollisionsDispatcher } from "../../view/collisionsDispatcher";
 
 export class ClientProvider {
   private static _serverConnection: SocketServerConnection;
@@ -38,6 +39,11 @@ export class ClientProvider {
   public static get connectedPlayers(): ConnectedPlayersRepository {
     return DependencyManager.GetOrInstantiate<ConnectedPlayersRepository>(
       () => new ConnectedPlayersRepository()
+    );
+  }
+  public static get collisionsDispatcher(): CollisionsDispatcher {
+    return DependencyManager.GetOrInstantiate<CollisionsDispatcher>(
+      () => new CollisionsDispatcher()
     );
   }
 }

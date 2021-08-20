@@ -7,6 +7,7 @@ import { ClientPlayerPresenter } from "./clientPlayerPresenter";
 import { ResolvePlayerMovementWithInputs } from "../domain/actions/resolvePlayerMovementWithInput";
 import { ValidateStateAction } from "../domain/actions/validatePosition";
 import { PlayerStateRepository } from "../infrastructure/repositories/playerStateRepository";
+import { CollisionsDispatcher } from "../view/collisionsDispatcher";
 
 export class LocalPlayerPresenter extends ClientPlayerPresenter {
   private readonly input: PlayerInput;
@@ -23,9 +24,10 @@ export class LocalPlayerPresenter extends ClientPlayerPresenter {
     resolveMovement: ResolvePlayerMovementWithInputs,
     player: Player,
     validateState: ValidateStateAction,
-    playerStateRepository: PlayerStateRepository
+    playerStateRepository: PlayerStateRepository,
+    collisionDispatcher: CollisionsDispatcher
   ) {
-    super(view, connection, player, validateState);
+    super(view, connection, player, validateState, collisionDispatcher);
     this.input = input;
     this.resolveMovement = resolveMovement;
     this.playerStateRepository = playerStateRepository;
@@ -48,7 +50,6 @@ export class LocalPlayerPresenter extends ClientPlayerPresenter {
       const oldState = this.playerStateRepository.getPlayerState(
         this.player.info.id
       );
-      console.log(oldState)
       if (oldState) {
         const newState = this.resolveMovement.execute(
           this.input,

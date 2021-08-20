@@ -1,5 +1,5 @@
 import { GameConfig } from "./gameConfig";
-import { GameScene } from "./scenes/GameScene";
+
 
 export const ClientConfig: GameConfig = {
   type: Phaser.AUTO,
@@ -12,14 +12,14 @@ export const ClientConfig: GameConfig = {
     matter: {
       enableSleeping: true,
       gravity: {
-        y: 4,
+        y: 1,
       },
       debug: {
         showBody: true,
         showStaticBody: true,
       },
     },
-  },
+  }
 };
 
 export const ServerConfig: GameConfig = {
@@ -33,12 +33,12 @@ export const ServerConfig: GameConfig = {
     matter: {
       enableSleeping: false,
       gravity: {
-        y: 4,
+        y: 1,
       },
       debug: {
         showBody: false,
         showStaticBody: false,
       },
     },
-  },
+  }
 };
