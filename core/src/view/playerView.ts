@@ -1,7 +1,7 @@
 import { BodyType } from "matter";
 import { Physics, Scene } from "phaser";
 import { Observable, Subject } from "rxjs";
-import { CollisionTypes } from "./collisions/collisionTypes";
+import { CollisionCategory } from "./collisions/collisionTypes";
 import { PlayerView } from "../presentation/playerView";
 import { GameScene } from "./scenes/GameScene";
 
@@ -34,8 +34,8 @@ export class PhaserPlayerView
   }
 
   private initCollisions(view: PhaserPlayerView) {
-    view.setCollisionCategory(CollisionTypes.Player);
-    view.setCollidesWith([CollisionTypes.StaticEnvironment]);
+    view.setCollisionCategory(CollisionCategory.Player);
+    view.setCollidesWith([CollisionCategory.StaticEnvironment]);
   }
 
   destroy() {

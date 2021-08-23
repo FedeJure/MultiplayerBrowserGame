@@ -8,6 +8,7 @@ import { ResolvePlayerMovementWithInputs } from "../domain/actions/resolvePlayer
 import { ValidateStateAction } from "../domain/actions/validatePosition";
 import { PlayerStateRepository } from "../infrastructure/repositories/playerStateRepository";
 import { CollisionsDispatcher } from "../view/collisions/collisionsDispatcher";
+import { PlayerCollisionDelegator } from "./playerCollisionDelegator";
 
 export class LocalPlayerPresenter extends ClientPlayerPresenter {
   private readonly input: PlayerInput;
@@ -34,24 +35,12 @@ export class LocalPlayerPresenter extends ClientPlayerPresenter {
     this.playerStateRepository = playerStateRepository;
     this.collisionDispatcher = collisionDispatcher;
     this.renderLocalPlayer();
-    this.subscribeToCollisions();
+    new PlayerCollisionDelegator(collisionDispatcher, view)
     view.onUpdate.subscribe(this.update.bind(this));
-    view.onPreUpdate.subscribe(this.preUpdate.bind(this));
   }
-  subscribeToCollisions() {
-
-    this.collisionDispatcher.subscribeToStartCollision(this.view.matterBody.id)
-    .subscribe(col => {
-      
-      console.log("col", col)
-    })
-  }
-
   renderLocalPlayer(): void {
     this.view.scene.cameras.main.startFollow(this.view);
   }
-
-  preUpdate({ time, delta }: { time: number; delta: number }) {}
 
   update({ time, delta }: { time: number; delta: number }) {
     const currentInput = this.input.toDto();

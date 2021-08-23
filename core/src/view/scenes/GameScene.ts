@@ -1,6 +1,6 @@
 import { Observable, Subject } from "rxjs";
 import { Scene, Physics } from "phaser";
-import { CollisionTypes } from "../collisions/collisionTypes";
+import { CollisionCategory } from "../collisions/collisionTypes";
 import { CollisionsDispatcher } from "../collisions/collisionsDispatcher";
 
 const safeStringify = (obj: any, indent = 2) => {
@@ -79,7 +79,7 @@ export class GameScene extends Scene {
     ground.setScale(100, 1);
     ground.setStatic(true);
     ground.setFriction(0)
-    ground.setCollisionCategory(CollisionTypes.StaticEnvironment);
-    ground.setCollidesWith([CollisionTypes.Player]);
+    ground.setCollisionCategory(CollisionCategory.StaticEnvironment);
+    ground.setCollidesWith([CollisionCategory.Player]);
   };
 }
