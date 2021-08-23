@@ -1,4 +1,4 @@
-import { CollisionsDispatcher } from "../../view/collisionsDispatcher";
+import { CollisionsDispatcher } from "../../view/collisions/collisionsDispatcher";
 import { DependencyManager } from "../dependencyManager";
 import { ConnectedPlayersRepository } from "../repositories/connectedPlayersRepository";
 import { ConnectionsRepository } from "../repositories/connectionsRepository";

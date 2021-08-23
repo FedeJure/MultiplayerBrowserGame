@@ -6,11 +6,11 @@ export const ClientConfig: GameConfig = {
   parent: "gameContainer",
   width: 800,
   height: 600,
-  autoFocus: false,
+  autoFocus: true,
   physics: {
     default: "matter",
     matter: {
-      enableSleeping: true,
+      enableSleeping: false,
       gravity: {
         y: 1,
       },

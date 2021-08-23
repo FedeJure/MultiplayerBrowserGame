@@ -2,7 +2,6 @@ import { GameScene } from "../view/scenes/GameScene";
 import { CreateClientPlayerAction } from "../domain/actions/provideClientPlayer";
 import { CreateLocalClientPlayer } from "../domain/actions/provideLocalClientPlayer";
 import { ServerConnection } from "../domain/serverConnection";
-import { ValidateStateAction } from "../domain/actions/validatePosition";
 import { Log } from "../infrastructure/Logger";
 import { PlayerKeyBoardInput } from "../infrastructure/input/playerKeyboardInput";
 import { ConnectedPlayersRepository } from "../infrastructure/repositories/connectedPlayersRepository";
@@ -13,7 +12,6 @@ export class ClientGamePresenter {
   readonly localPlayerId: string
   readonly createClientPlayerAction: CreateClientPlayerAction
   readonly createLocalPlayerAction: CreateLocalClientPlayer
-  readonly validateStateAction: ValidateStateAction
   readonly playersRepository: ConnectedPlayersRepository
 
   constructor(
@@ -22,7 +20,6 @@ export class ClientGamePresenter {
     scene: GameScene,
     createClientPlayer: CreateClientPlayerAction,
     createLocalPlayer: CreateLocalClientPlayer,
-    validateState: ValidateStateAction,
     playersRepository: ConnectedPlayersRepository
   ) {
     this.connection = connection;
@@ -30,7 +27,6 @@ export class ClientGamePresenter {
     this.localPlayerId = localPlayerId;
     this.createClientPlayerAction = createClientPlayer;
     this.createLocalPlayerAction = createLocalPlayer;
-    this.validateStateAction = validateState
     this.playersRepository = playersRepository
     scene.onCreate.subscribe(() => {
       this.listenEvents();

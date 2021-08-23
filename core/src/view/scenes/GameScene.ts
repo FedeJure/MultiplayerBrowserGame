@@ -1,8 +1,23 @@
 import { Observable, Subject } from "rxjs";
 import { Scene, Physics } from "phaser";
-import { CollisionTypes } from "../../domain/collisionTypes";
-import { CollisionsDispatcher } from "../collisionsDispatcher";
-import { BodyType } from "matter";
+import { CollisionTypes } from "../collisions/collisionTypes";
+import { CollisionsDispatcher } from "../collisions/collisionsDispatcher";
+
+const safeStringify = (obj: any, indent = 2) => {
+  let cache: any = [];
+  const retVal = JSON.stringify(
+    obj,
+    (key, value) =>
+      typeof value === "object" && value !== null
+        ? cache.includes(value)
+          ? undefined // Duplicate reference found, discard key
+          : cache.push(value) && value // Store value in our collection
+        : value,
+    indent
+  );
+  cache = null;
+  return retVal;
+};
 
 export class GameScene extends Scene {
   private _onUpdate = new Subject<{ time: number; delta: number }>();
@@ -63,6 +78,7 @@ export class GameScene extends Scene {
     const ground = new Physics.Matter.Sprite(this.matter.world, 0, 500, "");
     ground.setScale(100, 1);
     ground.setStatic(true);
+    ground.setFriction(0)
     ground.setCollisionCategory(CollisionTypes.StaticEnvironment);
     ground.setCollidesWith([CollisionTypes.Player]);
   };

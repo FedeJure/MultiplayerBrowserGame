@@ -7,12 +7,13 @@ import { ClientPlayerPresenter } from "./clientPlayerPresenter";
 import { ResolvePlayerMovementWithInputs } from "../domain/actions/resolvePlayerMovementWithInput";
 import { ValidateStateAction } from "../domain/actions/validatePosition";
 import { PlayerStateRepository } from "../infrastructure/repositories/playerStateRepository";
-import { CollisionsDispatcher } from "../view/collisionsDispatcher";
+import { CollisionsDispatcher } from "../view/collisions/collisionsDispatcher";
 
 export class LocalPlayerPresenter extends ClientPlayerPresenter {
   private readonly input: PlayerInput;
   private readonly resolveMovement: ResolvePlayerMovementWithInputs;
   private readonly playerStateRepository: PlayerStateRepository;
+  private readonly collisionDispatcher: CollisionsDispatcher;
 
   private lastInputSended: string = "";
   private currentInput: PlayerInputDto | undefined;
@@ -27,13 +28,23 @@ export class LocalPlayerPresenter extends ClientPlayerPresenter {
     playerStateRepository: PlayerStateRepository,
     collisionDispatcher: CollisionsDispatcher
   ) {
-    super(view, connection, player, validateState, collisionDispatcher);
+    super(view, connection, player, validateState);
     this.input = input;
     this.resolveMovement = resolveMovement;
     this.playerStateRepository = playerStateRepository;
+    this.collisionDispatcher = collisionDispatcher;
     this.renderLocalPlayer();
+    this.subscribeToCollisions();
     view.onUpdate.subscribe(this.update.bind(this));
     view.onPreUpdate.subscribe(this.preUpdate.bind(this));
+  }
+  subscribeToCollisions() {
+
+    this.collisionDispatcher.subscribeToStartCollision(this.view.matterBody.id)
+    .subscribe(col => {
+      
+      console.log("col", col)
+    })
   }
 
   renderLocalPlayer(): void {

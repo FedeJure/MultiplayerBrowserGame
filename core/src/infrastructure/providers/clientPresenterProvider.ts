@@ -28,8 +28,7 @@ export class ClientPresenterProvider implements PresenterProvider {
     new ClientPlayerPresenter(view,
       ClientProvider.serverConnection,
       player,
-      ActionProvider.ValidatePosition,
-      ClientProvider.collisionsDispatcher);
+      ActionProvider.ValidatePosition);
   }
 
   forGameplay(scene: GameScene): void {
@@ -39,7 +38,6 @@ export class ClientPresenterProvider implements PresenterProvider {
       scene,
       ActionProvider.CreateClientPlayer,
       ActionProvider.CreateLocalClientPlayer,
-      ActionProvider.ValidatePosition,
       ClientProvider.connectedPlayers
     );
   }

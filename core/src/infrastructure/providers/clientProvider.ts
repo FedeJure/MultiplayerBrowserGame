@@ -5,7 +5,7 @@ import { LocalPlayerRepository } from "../repositories/localPlayerRepository";
 import { SocketServerConnection } from "../socketServerConnection";
 import { PlayerStateRepository } from "../repositories/playerStateRepository";
 import { InMemoryPlayerStateRepository } from "../repositories/inMemoryPlayerStateRepository";
-import { CollisionsDispatcher } from "../../view/collisionsDispatcher";
+import { CollisionsDispatcher } from "../../view/collisions/collisionsDispatcher";
 
 export class ClientProvider {
   private static _serverConnection: SocketServerConnection;

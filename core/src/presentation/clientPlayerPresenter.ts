@@ -1,9 +1,8 @@
-import { filter, Subscription } from "rxjs";
+import { delay, filter, last, Subscription, take } from "rxjs";
 import { ValidateStateAction } from "../domain/actions/validatePosition";
 import { Player } from "../domain/player/player";
 import { ServerConnection } from "../domain/serverConnection";
 import { PlayerStatesEvent } from "../infrastructure/events/gameEvents";
-import { CollisionsDispatcher } from "../view/collisionsDispatcher";
 import { PhaserPlayerView } from "../view/playerView";
 
 export class ClientPlayerPresenter {
@@ -18,8 +17,7 @@ export class ClientPlayerPresenter {
     view: PhaserPlayerView,
     connection: ServerConnection,
     player: Player,
-    validateState: ValidateStateAction,
-    collisionsDispatcher: CollisionsDispatcher
+    validateState: ValidateStateAction
   ) {
     this.view = view;
     this.player = player;
@@ -29,7 +27,8 @@ export class ClientPlayerPresenter {
     this.renderPlayer(view);
 
     this.subscriptions.push(
-      connection.onPlayersStates.subscribe(this.HandleStateEvent.bind(this))
+      connection.onPlayersStates
+        .subscribe(this.HandleStateEvent.bind(this))
     );
 
     this.connection.onPlayerDisconnected
@@ -38,10 +37,6 @@ export class ClientPlayerPresenter {
         this.subscriptions.forEach((s) => s.unsubscribe());
         player.view.destroy();
       });
-      collisionsDispatcher.subscribeToCollisions(view.matterBody.id)
-      .subscribe(col => {
-        console.log("col", col)
-      })
   }
 
   private HandleStateEvent(statesEvent: PlayerStatesEvent): void {
