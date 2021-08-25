@@ -1,4 +1,5 @@
 import { PhaserPlayerView } from "../../view/playerView";
+import { DefaultConfiguration } from "../player/playerConfiguration";
 import { PlayerInput } from "../player/playerInput";
 import { PlayerState } from "../player/playerState";
 
@@ -16,9 +17,8 @@ export class ResolvePlayerMovementWithInputs {
     let maxRunVelocity = 10
     newVelocity.x += +input.right * velocity * deltaTime;
     newVelocity.x -= +input.left * velocity * deltaTime;
-    let availableJumps = state.jumpsAvailable;
+    let availableJumps = state.grounded ? DefaultConfiguration.initialJumps : state.jumpsAvailable;
     let canJump = state.canJump;
-
     if (canJump && availableJumps > 0 && input.jump) {
       newVelocity.y = -10;
       availableJumps--;

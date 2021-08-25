@@ -5,5 +5,6 @@ export interface PlayerState {
   readonly canMove: boolean;
   readonly position: { x: number; y: number };
   readonly velocity: { x: number; y: number };
-  readonly canJump: boolean
+  readonly canJump: boolean,
+  readonly grounded: boolean
 }

@@ -1,10 +1,9 @@
 import { CollisionsDispatcher } from "./collisionsDispatcher";
-import { CollisionCategory } from "./collisionTypes";
+import { CollisionCategory, CollisionType } from "./collisionTypes";
 import { CollisionData } from "./collisionData";
 import { Delegator } from "../delegator";
 import { Disposer } from "../disposer";
 import { PlayerStateRepository } from "../../infrastructure/repositories/playerStateRepository";
-import { DefaultConfiguration } from "../player/playerConfiguration";
 import { Player } from "../player/player";
 
 export class PlayerCollisionDelegator implements Delegator {
@@ -13,7 +12,7 @@ export class PlayerCollisionDelegator implements Delegator {
   private readonly statesRepository: PlayerStateRepository;
 
   private readonly handlersMap: Map<
-    CollisionCategory,
+    string,
     (col: CollisionData) => void
   > = new Map();
   private readonly disposer: Disposer = new Disposer();
@@ -27,17 +26,21 @@ export class PlayerCollisionDelegator implements Delegator {
     this.player = player;
     this.statesRepository = statesRepository;
     this.handlersMap.set(
-      CollisionCategory.StaticEnvironment,
-      this.handleStaticEnvCollision.bind(this)
+      [CollisionCategory.StaticEnvironment, CollisionType.Start].toString(),
+      this.handleStaticEnvCollisionStart.bind(this)
+    );
+    this.handlersMap.set(
+      [CollisionCategory.StaticEnvironment, CollisionType.End].toString(),
+      this.handleStaticEnvCollisionEnd.bind(this)
     );
   }
 
   init(): void {
     this.disposer.add(
       this.collisionsDispatcher
-        .subscribeToStartCollision(this.player.view.matterBody.id.toString())
+        .subscribeToCollision(this.player.view.matterBody.id.toString())
         .subscribe((col) => {
-          const handler = this.handlersMap.get(col.collidedCategory);
+          const handler = this.handlersMap.get([col.collidedCategory, col.type].toString());
           if (handler) handler(col);
         })
     );
@@ -46,12 +49,21 @@ export class PlayerCollisionDelegator implements Delegator {
     this.disposer.dispose();
   }
 
-  private handleStaticEnvCollision(col: CollisionData) {
+  private handleStaticEnvCollisionStart(col: CollisionData) {
     const state = this.statesRepository.getPlayerState(this.player.info.id);
     if (state)
       this.statesRepository.setPlayerState(this.player.info.id, {
         ...state,
-        jumpsAvailable: DefaultConfiguration.initialJumps,
+        grounded: true,
+      });
+  }
+
+  private handleStaticEnvCollisionEnd(col: CollisionData) {
+    const state = this.statesRepository.getPlayerState(this.player.info.id);
+    if (state)
+      this.statesRepository.setPlayerState(this.player.info.id, {
+        ...state,
+        grounded: false,
       });
   }
 }

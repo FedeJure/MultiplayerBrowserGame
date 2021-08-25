@@ -33,7 +33,8 @@ export const InitGame: (socket: Socket) => void = (socket: Socket) => {
     position: { x: 100, y: 0 },
     velocity: { x: 0, y: 0 },
     canMove: true,
-    canJump: true
+    canJump: true,
+    grounded: false
   });
 
   ServerProvider.playerInfoRepository.addPlayer("2", {
@@ -47,7 +48,8 @@ export const InitGame: (socket: Socket) => void = (socket: Socket) => {
     position: { x: -50, y: 0 },
     velocity: { x: 0, y: 0 },
     canMove: true,
-    canJump: true
+    canJump: true,
+    grounded: false
   });
 
   const room = new SocketRoomConnection(socket, "main");

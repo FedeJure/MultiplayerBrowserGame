@@ -7,6 +7,9 @@ export const ClientConfig: GameConfig = {
   width: 800,
   height: 600,
   autoFocus: true,
+  fps: {
+    min: 60,
+  },
   physics: {
     default: "matter",
     matter: {
@@ -28,6 +31,9 @@ export const ServerConfig: GameConfig = {
   width: 800,
   height: 600,
   autoFocus: true,
+  fps: {
+    min: 60,
+  },
   physics: {
     default: "matter",
     matter: {

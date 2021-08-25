@@ -50,6 +50,14 @@ export class GameScene extends Scene {
       },
       this
     );
+
+    this.matter.world.addListener(
+      "collisionend",
+      (ev: Phaser.Physics.Matter.Events.CollisionEndEvent) => {
+        this._collisionDispatcher.sendCollisionEnd(ev)
+      },
+      this
+    );
   }
 
   update(time: number, delta: number) {

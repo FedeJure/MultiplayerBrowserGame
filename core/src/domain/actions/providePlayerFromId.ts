@@ -50,6 +50,7 @@ export class CreatePlayerFromId {
         velocity: { x: 0, y: 0 },
         canMove: true,
         canJump: true,
+        grounded: false
       };
     }
     const view = new PhaserPlayerView(
@@ -57,7 +58,7 @@ export class CreatePlayerFromId {
       playerState.position.x,
       playerState.position.y,
       DefaultConfiguration.height,
-      DefaultConfiguration.width
+      DefaultConfiguration.width,
     );
     scene.addToLifecycle(view);
     const player = new Player(playerInfo, playerState, view);
