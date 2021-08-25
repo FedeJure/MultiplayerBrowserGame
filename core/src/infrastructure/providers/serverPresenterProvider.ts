@@ -1,22 +1,27 @@
-import { PlayerInfo } from "../../domain/player/playerInfo";
+import { PlayerCollisionDelegator } from "../../domain/collisions/playerCollisionDelegator";
+import { Player } from "../../domain/player/player";
 import { PlayerInput } from "../../domain/player/playerInput";
 import { ServerPlayerPresenter } from "../../presentation/serverPlayerPresenter";
-import { PhaserPlayerView } from "../../view/playerView";
 import { ActionProvider } from "./actionProvider";
 import { ServerProvider } from "./serverProvider";
 
 export class ServerPresenterProvider {
   forPlayer(
-    view: PhaserPlayerView,
-    info: PlayerInfo,
+    player:Player,
     input: PlayerInput
   ): void {
     new ServerPlayerPresenter(
-      view,
-      info,
+      player,
       input,
       ActionProvider.ResolvePlayerMovementWithInputs,
-      ServerProvider.playerStateRepository
+      ServerProvider.playerStateRepository,
+      [
+        new PlayerCollisionDelegator(
+          player,
+          ServerProvider.collisionsDispatcher,
+          ServerProvider.playerStateRepository
+        ),
+      ]
     );
   }
 }

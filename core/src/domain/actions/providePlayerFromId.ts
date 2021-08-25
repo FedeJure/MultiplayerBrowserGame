@@ -8,6 +8,8 @@ import { PlayerInfoRepository } from "../../infrastructure/repositories/playerIn
 import { PlayerStateRepository } from "../../infrastructure/repositories/playerStateRepository";
 import { ConnectedPlayersRepository } from "../../infrastructure/repositories/connectedPlayersRepository";
 import { ServerPresenterProvider } from "../../infrastructure/providers/serverPresenterProvider";
+import { PlayerCollisionDelegator } from "../collisions/playerCollisionDelegator";
+import { ServerProvider } from "../../infrastructure/providers/serverProvider";
 
 export class CreatePlayerFromId {
   private readonly infoRepository: PlayerInfoRepository;
@@ -47,7 +49,7 @@ export class CreatePlayerFromId {
         },
         velocity: { x: 0, y: 0 },
         canMove: true,
-        canJump: true
+        canJump: true,
       };
     }
     const view = new PhaserPlayerView(
@@ -58,12 +60,12 @@ export class CreatePlayerFromId {
       DefaultConfiguration.width
     );
     scene.addToLifecycle(view);
+    const player = new Player(playerInfo, playerState, view);
     this.presenterProvider.forPlayer(
-      view,
-      playerInfo,
+      player,
       new PlayerSocketInput(playerId, connection)
     );
-    const player = new Player(playerInfo, playerState, view);
+
     this.connectedPlayersRepository.savePlayer(playerId, player);
     return player;
   }

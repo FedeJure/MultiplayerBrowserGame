@@ -1,7 +1,7 @@
 import { Observable, Subject } from "rxjs";
 import { Scene, Physics } from "phaser";
-import { CollisionCategory } from "../collisions/collisionTypes";
-import { CollisionsDispatcher } from "../collisions/collisionsDispatcher";
+import { CollisionsDispatcher } from "../../domain/collisions/collisionsDispatcher";
+import { CollisionCategory } from "../../domain/collisions/collisionTypes";
 
 const safeStringify = (obj: any, indent = 2) => {
   let cache: any = [];

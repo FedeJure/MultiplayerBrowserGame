@@ -1,16 +1,16 @@
 import { PlayerInfo } from "./playerInfo";
 import { PlayerState } from "./playerState";
-import { PlayerView } from "../../presentation/playerView";
+import { PhaserPlayerView } from "../../view/playerView";
 
 export class Player {
   private _state: PlayerState;
   public readonly info: PlayerInfo;
-  public readonly view: PlayerView;
+  public readonly view: PhaserPlayerView;
 
   constructor(
     playerInfo: PlayerInfo,
     playerState: PlayerState,
-    playerView: PlayerView
+    playerView: PhaserPlayerView
   ) {
     this.info = playerInfo;
     this._state = playerState;

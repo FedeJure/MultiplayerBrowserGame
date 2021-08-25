@@ -5,13 +5,14 @@ type CollisionStartEvent = Phaser.Physics.Matter.Events.CollisionStartEvent;
 type MatterCollisionData = Phaser.Types.Physics.Matter.MatterCollisionData;
 
 export class CollisionsDispatcher {
-  subscriptions: Map<number, Subject<CollisionData>> = new Map();
+
+  subscriptions: Map<string, Subject<CollisionData>> = new Map();
 
   constructor() {}
 
-  public subscribeToStartCollision(bodyId: number): Observable<CollisionData> {
+  public subscribeToStartCollision(id: string): Observable<CollisionData> {
     const subject = new Subject<CollisionData>();
-    this.subscriptions.set(bodyId, subject);
+    this.subscriptions.set(id, subject);
     return subject;
   }
 
@@ -27,7 +28,7 @@ export class CollisionsDispatcher {
     bodyTarget: MatterJS.BodyType,
     event: MatterCollisionData
   ) {
-    const subject = this.subscriptions.get(bodySource.id);
+    const subject = this.subscriptions.get(bodySource.id.toString());
     if (subject) subject.next(createData(event, bodyTarget));
   }
 }

@@ -6,6 +6,8 @@ import { Player } from "../player/player";
 import { PlayerState } from "../player/playerState";
 import { PresenterProvider } from "../../presentation/presenterProvider";
 import { ConnectedPlayersRepository } from "../../infrastructure/repositories/connectedPlayersRepository";
+import { PlayerCollisionDelegator } from "../collisions/playerCollisionDelegator";
+import { ClientProvider } from "../../infrastructure/providers/clientProvider";
 
 export class CreateClientPlayerAction {
   private readonly presenterProvider: PresenterProvider;
@@ -26,7 +28,11 @@ export class CreateClientPlayerAction {
       DefaultConfiguration.height,
       DefaultConfiguration.width
     );
-    const player = new Player(info, state, view);
+    const player = new Player(
+      info,
+      state,
+      view
+    );
     this.presenterProvider.forPlayer(view, player);
     this.connectedPlayersRepository.savePlayer(info.id, player);
   }

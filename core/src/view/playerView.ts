@@ -1,7 +1,7 @@
 import { BodyType } from "matter";
 import { Physics, Scene } from "phaser";
 import { Observable, Subject } from "rxjs";
-import { CollisionCategory } from "./collisions/collisionTypes";
+import { CollisionCategory } from "../domain/collisions/collisionTypes";
 import { PlayerView } from "../presentation/playerView";
 import { GameScene } from "./scenes/GameScene";
 

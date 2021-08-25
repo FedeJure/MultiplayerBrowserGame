@@ -8,11 +8,14 @@ import { GameScene } from "../../view/scenes/GameScene";
 import { ClientGamePresenter } from "../../presentation/clientGamePresenter";
 import { ActionProvider } from "./actionProvider";
 import { Player } from "../../domain/player/player";
+import { PlayerCollisionDelegator } from "../../domain/collisions/playerCollisionDelegator";
 
 export class ClientPresenterProvider implements PresenterProvider {
-  forLocalPlayer(view: PhaserPlayerView,
+  forLocalPlayer(
+    view: PhaserPlayerView,
     input: PlayerInput,
-    player: Player): void {
+    player: Player
+  ): void {
     new LocalPlayerPresenter(
       view,
       input,
@@ -21,14 +24,22 @@ export class ClientPresenterProvider implements PresenterProvider {
       player,
       ActionProvider.ValidatePosition,
       ClientProvider.playerStateRepository,
-      ClientProvider.collisionsDispatcher
+      [
+        new PlayerCollisionDelegator(
+          player,
+          ClientProvider.collisionsDispatcher,
+          ClientProvider.playerStateRepository
+        ),
+      ]
     );
   }
   forPlayer(view: PhaserPlayerView, player: Player): void {
-    new ClientPlayerPresenter(view,
+    new ClientPlayerPresenter(
+      view,
       ClientProvider.serverConnection,
       player,
-      ActionProvider.ValidatePosition);
+      ActionProvider.ValidatePosition
+    );
   }
 
   forGameplay(scene: GameScene): void {

@@ -7,14 +7,13 @@ import { ClientPlayerPresenter } from "./clientPlayerPresenter";
 import { ResolvePlayerMovementWithInputs } from "../domain/actions/resolvePlayerMovementWithInput";
 import { ValidateStateAction } from "../domain/actions/validatePosition";
 import { PlayerStateRepository } from "../infrastructure/repositories/playerStateRepository";
-import { CollisionsDispatcher } from "../view/collisions/collisionsDispatcher";
-import { PlayerCollisionDelegator } from "./playerCollisionDelegator";
+import { Delegator } from "../domain/delegator";
 
 export class LocalPlayerPresenter extends ClientPlayerPresenter {
   private readonly input: PlayerInput;
   private readonly resolveMovement: ResolvePlayerMovementWithInputs;
   private readonly playerStateRepository: PlayerStateRepository;
-  private readonly collisionDispatcher: CollisionsDispatcher;
+  private readonly delegators: Delegator[];
 
   private lastInputSended: string = "";
   private currentInput: PlayerInputDto | undefined;
@@ -27,16 +26,16 @@ export class LocalPlayerPresenter extends ClientPlayerPresenter {
     player: Player,
     validateState: ValidateStateAction,
     playerStateRepository: PlayerStateRepository,
-    collisionDispatcher: CollisionsDispatcher
+    delegators: Delegator[]
   ) {
     super(view, connection, player, validateState);
     this.input = input;
     this.resolveMovement = resolveMovement;
     this.playerStateRepository = playerStateRepository;
-    this.collisionDispatcher = collisionDispatcher;
+    this.delegators = delegators;
     this.renderLocalPlayer();
-    new PlayerCollisionDelegator(collisionDispatcher, view)
     view.onUpdate.subscribe(this.update.bind(this));
+    delegators.forEach((d) => d.init());
   }
   renderLocalPlayer(): void {
     this.view.scene.cameras.main.startFollow(this.view);

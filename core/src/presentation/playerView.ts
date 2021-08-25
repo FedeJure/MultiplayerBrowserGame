@@ -1,3 +1,4 @@
+import { BodyType } from "matter";
 import { Observable } from "rxjs";
 
 export interface PlayerView {
@@ -10,4 +11,5 @@ export interface PlayerView {
   destroy(): void;
   get onUpdate(): Observable<{ time: number; delta: number }>;
   get onPreUpdate(): Observable<{ time: number; delta: number }>;
+  get matterBody() : BodyType
 }
