@@ -26,8 +26,7 @@ export class ClientPresenterProvider {
         ),
         new PlayerMovementValidationDelegator(player,
           ClientProvider.serverConnection,
-          ClientProvider.playerStateRepository,
-          ActionProvider.ValidatePosition),
+          ClientProvider.playerStateRepository),
         new PlayerInputDelegator(player,
           input,
           ClientProvider.serverConnection,
@@ -44,8 +43,7 @@ export class ClientPresenterProvider {
       [
         new PlayerMovementValidationDelegator(player,
           ClientProvider.serverConnection,
-          ClientProvider.playerStateRepository,
-          ActionProvider.ValidatePosition),
+          ClientProvider.playerStateRepository),
         new PlayerRemoteMovementDelegator(
           player,
           ClientProvider.serverConnection

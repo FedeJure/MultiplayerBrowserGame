@@ -4,7 +4,7 @@ import { PlayerInput } from "../player/playerInput";
 import { PlayerState } from "../player/playerState";
 
 export class ResolvePlayerMovementWithInputs {
-  constructor() {}
+  constructor() { }
 
   execute(
     input: PlayerInput,
@@ -14,22 +14,31 @@ export class ResolvePlayerMovementWithInputs {
   ): PlayerState {
     let newVelocity: { x: number; y: number } = view.body.velocity
     let velocity = 1
-    let maxRunVelocity = 10
-    newVelocity.x += +input.right * velocity * deltaTime;
-    newVelocity.x -= +input.left * velocity * deltaTime;
+    let maxRunVelocity = 5
+
     let availableJumps = state.grounded ? DefaultConfiguration.initialJumps : state.jumpsAvailable;
     let canJump = state.canJump;
+    let jumping = false
+
     if (canJump && availableJumps > 0 && input.jump) {
-      newVelocity.y = -10;
+      newVelocity.y = -5;
       availableJumps--;
       canJump = false;
+      jumping = true
     }
 
     if (!canJump && availableJumps > 0 && !input.jump) canJump = true;
 
-    newVelocity.x =
-      Math.sign(newVelocity.x) *
-      Math.min(maxRunVelocity, Math.abs(newVelocity.x));
+    if ((state.grounded && (input.left || input.right)) || jumping) {
+      newVelocity.x += +input.right * velocity * deltaTime;
+      newVelocity.x -= +input.left * velocity * deltaTime;
+      newVelocity.x =
+        Math.sign(newVelocity.x) *
+        Math.min(maxRunVelocity, Math.abs(newVelocity.x));
+    }
+    if (state.grounded && !input.left && !input.right)
+      newVelocity = { x: 0, y:  newVelocity.y}
+
     return {
       ...state,
       velocity: newVelocity,
@@ -37,5 +46,9 @@ export class ResolvePlayerMovementWithInputs {
       position: view.body.position,
       canJump,
     };
+  }
+
+  processJump() {
+
   }
 }

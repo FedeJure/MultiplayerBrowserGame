@@ -21,6 +21,7 @@ export class PlayerRemoteMovementDelegator implements Delegator {
             if (state) {
                 const view = this.player.view
                 view.setPosition(state.position.x, state.position.y)
+                view.setVelocity(state.velocity.x, state.velocity.y)
             }
         }))
     }
