@@ -8,6 +8,7 @@ export class LocalPlayerRenderDelegator implements Delegator {
     }
     init(): void {
         this.player.view.scene.cameras.main.startFollow(this.player.view);
+        this.player.view.scene.cameras.main.setZoom(2,2)
     }
     stop(): void {
     }
