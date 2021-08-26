@@ -34,6 +34,8 @@ export class PlayerCollisionDelegator implements Delegator {
       this.handleStaticEnvCollisionEnd.bind(this)
     );
   }
+  update(time: number, delta: number): void {
+  }
 
   init(): void {
     this.disposer.add(

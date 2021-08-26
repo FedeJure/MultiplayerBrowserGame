@@ -5,18 +5,16 @@ import { PlayerInfo } from "../player/playerInfo";
 import { PlayerInput } from "../player/playerInput";
 import { Player } from "../player/player";
 import { PlayerState } from "../player/playerState";
-import { PresenterProvider } from "../../presentation/presenterProvider";
 import { ConnectedPlayersRepository } from "../../infrastructure/repositories/connectedPlayersRepository";
 import { PlayerStateRepository } from "../../infrastructure/repositories/playerStateRepository";
-import { PlayerCollisionDelegator } from "../collisions/playerCollisionDelegator";
-import { ClientProvider } from "../../infrastructure/providers/clientProvider";
+import { ClientPresenterProvider } from "../../infrastructure/providers/clientPresenterProvider";
 
 export class CreateLocalClientPlayer {
-  private readonly presenterProvider: PresenterProvider;
+  private readonly presenterProvider: ClientPresenterProvider;
   private readonly connectedPlayersRepository: ConnectedPlayersRepository;
   private readonly playerStateRepository: PlayerStateRepository;
   constructor(
-    presenterProvider: PresenterProvider,
+    presenterProvider: ClientPresenterProvider,
     connectedPlayersRepository: ConnectedPlayersRepository,
     playerStateRepository: PlayerStateRepository
   ) {
@@ -45,7 +43,7 @@ export class CreateLocalClientPlayer {
       view
     );
     scene.addToLifecycle(view);
-    this.presenterProvider.forLocalPlayer(view, input, player);
+    this.presenterProvider.forLocalPlayer(input, player);
     this.connectedPlayersRepository.savePlayer(info.id, player);
     this.playerStateRepository.setPlayerState(info.id, player.state);
   }

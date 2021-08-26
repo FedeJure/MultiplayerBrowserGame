@@ -1,47 +1,37 @@
 import { filter, Subscription } from "rxjs";
-import { ValidateStateAction } from "../domain/actions/validatePosition";
+import { Delegator } from "../domain/delegator";
 import { Player } from "../domain/player/player";
 import { ServerConnection } from "../domain/serverConnection";
-import { PlayerStatesEvent } from "../infrastructure/events/gameEvents";
 import { PhaserPlayerView } from "../view/playerView";
 
 export class ClientPlayerPresenter {
   protected readonly view: PhaserPlayerView;
   protected readonly player: Player;
   protected readonly connection: ServerConnection;
-  private readonly validateState: ValidateStateAction;
-
-  private readonly subscriptions: Subscription[] = [];
 
   constructor(
-    view: PhaserPlayerView,
     connection: ServerConnection,
     player: Player,
-    validateState: ValidateStateAction
+    delegators: Delegator[]
   ) {
-    this.view = view;
+    this.view = player.view;
     this.player = player;
-    this.validateState = validateState;
     this.connection = connection;
-    this.createAnimations(view);
-    this.renderPlayer(view);
-
-    this.subscriptions.push(
-      connection.onPlayersStates
-        .subscribe(this.HandleStateEvent.bind(this))
-    );
+    this.createAnimations(this.view);
+    this.renderPlayer(this.view);
 
     this.connection.onPlayerDisconnected
       .pipe(filter((p) => p.playerId === player.info.id))
       .subscribe((_) => {
-        this.subscriptions.forEach((s) => s.unsubscribe());
+        delegators.forEach(d => d.stop())
         player.view.destroy();
-      });
-  }
 
-  private HandleStateEvent(statesEvent: PlayerStatesEvent): void {
-    const state = statesEvent.states[this.player.info.id];
-    if (new Boolean(state)) this.validateState.execute(this.player, state);
+      });
+
+    delegators.forEach(d => d.init())
+    this.view.onUpdate.subscribe(data => {
+      delegators.forEach(d => d.update(data.time, data.delta))
+    })
   }
 
   private renderPlayer(player: PhaserPlayerView): void {

@@ -1,44 +1,56 @@
 import { ClientProvider } from "./clientProvider";
 import { PlayerInput } from "../../domain/player/playerInput";
 import { ClientPlayerPresenter } from "../../presentation/clientPlayerPresenter";
-import { LocalPlayerPresenter } from "../../presentation/localPlayerPresenter";
-import { PresenterProvider } from "../../presentation/presenterProvider";
-import { PhaserPlayerView } from "../../view/playerView";
 import { GameScene } from "../../view/scenes/GameScene";
 import { ClientGamePresenter } from "../../presentation/clientGamePresenter";
 import { ActionProvider } from "./actionProvider";
 import { Player } from "../../domain/player/player";
 import { PlayerCollisionDelegator } from "../../domain/collisions/playerCollisionDelegator";
-
-export class ClientPresenterProvider implements PresenterProvider {
+import { PlayerMovementValidationDelegator } from "../../domain/movement/playerMovementValidationDelegator"
+import { PlayerInputDelegator } from "../../domain/input/playerInputDelegator"
+import { LocalPlayerRenderDelegator } from "../../domain/player/localPlayerRenderDelegator"
+import { PlayerRemoteMovementDelegator } from "../../domain/movement/playerRemoteMovementDelegator"
+export class ClientPresenterProvider {
   forLocalPlayer(
-    view: PhaserPlayerView,
     input: PlayerInput,
     player: Player
   ): void {
-    new LocalPlayerPresenter(
-      view,
-      input,
+    new ClientPlayerPresenter(
       ClientProvider.serverConnection,
-      ActionProvider.ResolvePlayerMovementWithInputs,
       player,
-      ActionProvider.ValidatePosition,
-      ClientProvider.playerStateRepository,
       [
         new PlayerCollisionDelegator(
           player,
           ClientProvider.collisionsDispatcher,
           ClientProvider.playerStateRepository
         ),
+        new PlayerMovementValidationDelegator(player,
+          ClientProvider.serverConnection,
+          ClientProvider.playerStateRepository,
+          ActionProvider.ValidatePosition),
+        new PlayerInputDelegator(player,
+          input,
+          ClientProvider.serverConnection,
+          ClientProvider.playerStateRepository,
+          ActionProvider.ResolvePlayerMovementWithInputs),
+        new LocalPlayerRenderDelegator(player)
       ]
     );
   }
-  forPlayer(view: PhaserPlayerView, player: Player): void {
+  forPlayer(player: Player): void {
     new ClientPlayerPresenter(
-      view,
       ClientProvider.serverConnection,
       player,
-      ActionProvider.ValidatePosition
+      [
+        new PlayerMovementValidationDelegator(player,
+          ClientProvider.serverConnection,
+          ClientProvider.playerStateRepository,
+          ActionProvider.ValidatePosition),
+        new PlayerRemoteMovementDelegator(
+          player,
+          ClientProvider.serverConnection
+        )
+      ]
     );
   }
 

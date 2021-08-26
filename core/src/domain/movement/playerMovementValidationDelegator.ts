@@ -1,4 +1,5 @@
 import { PlayerStateRepository } from "../../infrastructure/repositories/playerStateRepository";
+import { ValidateStateAction } from "../actions/validatePosition";
 import { Delegator } from "../delegator";
 import { Disposer } from "../disposer";
 import { Player } from "../player/player";
@@ -9,12 +10,18 @@ export class PlayerMovementValidationDelegator implements Delegator {
     private readonly connection: ServerConnection
     private readonly disposer: Disposer = new Disposer()
     private readonly stateRepository: PlayerStateRepository
+    private readonly validateState: ValidateStateAction
     constructor(player: Player,
         connection: ServerConnection,
-        stateRepository: PlayerStateRepository) {
+        stateRepository: PlayerStateRepository,
+        validateState: ValidateStateAction) {
         this.player = player
         this.connection = connection
         this.stateRepository = stateRepository
+        this.validateState = validateState
+    }
+    update(time: number, delta: number): void {
+        
     }
 
     init() {
@@ -22,9 +29,9 @@ export class PlayerMovementValidationDelegator implements Delegator {
             this.connection.onPlayersStates
               .subscribe(event => {
                 const state = event.states[this.player.info.id];
-                if (new Boolean(state)) {
+                if (state) {
                     const localState = this.stateRepository.getPlayerState(this.player.info.id)
-                    if (localState) console.log(state.position.x - localState.position.x, state.position.y - localState.position.y)
+                    if (localState) this.validateState.execute(this.player, state)
                 }
               })
           );
