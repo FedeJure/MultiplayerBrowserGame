@@ -36,8 +36,10 @@ export class ResolvePlayerMovementWithInputs {
         Math.sign(newVelocity.x) *
         Math.min(maxRunVelocity, Math.abs(newVelocity.x));
     }
-    if (state.grounded && !input.left && !input.right)
+    if (state.grounded && !input.left && !input.right){
       newVelocity = { x: 0, y:  newVelocity.y}
+    }
+       
 
     return {
       ...state,

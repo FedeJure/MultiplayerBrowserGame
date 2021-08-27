@@ -28,7 +28,7 @@ export class PlayerMovementValidationDelegator implements Delegator {
                     const state = event.states[this.player.info.id];
                     if (state) {
                         const localState = this.stateRepository.getPlayerState(this.player.info.id)
-                        if (localState) this.validatePosition(localState, state)
+                        // if (localState) this.validatePosition(localState, state)
                     }
                 })
         );

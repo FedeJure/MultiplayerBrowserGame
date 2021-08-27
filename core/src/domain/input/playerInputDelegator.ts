@@ -5,6 +5,7 @@ import { ServerConnection } from "../serverConnection";
 import { PlayerInput } from "../player/playerInput"
 import { PlayerInputDto } from "../../infrastructure/dtos/playerInputDto";
 import { ResolvePlayerMovementWithInputs } from "../actions/resolvePlayerMovementWithInput";
+import { PlayerState } from "../player/playerState";
 
 
 export class PlayerInputDelegator implements Delegator {
@@ -17,6 +18,7 @@ export class PlayerInputDelegator implements Delegator {
 
     private currentInput: PlayerInputDto | undefined;
     private lastInputSended: string = "";
+    private savedState: PlayerState | undefined;
 
     constructor(
         player: Player,
@@ -37,11 +39,11 @@ export class PlayerInputDelegator implements Delegator {
     update(time: number, delta: number): void {
         const currentInput = this.input.toDto();
         this.currentInput = currentInput;
-        if (this.inputHasChange()) {
+        const oldState = this.statesRepository.getPlayerState(
+            this.player.info.id
+        );
+        if (this.inputHasChange() || (JSON.stringify(oldState) != JSON.stringify(this.savedState))) {
             this.connection.emitInput(this.player.info.id, currentInput);
-            const oldState = this.statesRepository.getPlayerState(
-                this.player.info.id
-            );
             if (oldState) {
                 const newState = this.resolveMovement.execute(
                     this.input,
@@ -54,6 +56,7 @@ export class PlayerInputDelegator implements Delegator {
                     this.player.info.id,
                     newState
                 );
+                this.savedState = newState
             }
 
             this.lastInputSended = JSON.stringify(currentInput);

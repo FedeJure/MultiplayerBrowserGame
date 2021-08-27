@@ -1,4 +1,4 @@
-import { filter, Subscription } from "rxjs";
+import { filter } from "rxjs";
 import { Delegator } from "../domain/delegator";
 import { Player } from "../domain/player/player";
 import { ServerConnection } from "../domain/serverConnection";
@@ -35,10 +35,10 @@ export class ClientPlayerPresenter {
   }
 
   private renderPlayer(player: PhaserPlayerView): void {
+    player.scene.add.existing(player);
     this.createAnimations(player);
     player.setTexture("player_anim");
-    player.anims.play("idle");
-    player.scene.add.existing(player);
+    player.play("idle")
   }
 
   private createAnimations(player: PhaserPlayerView) {

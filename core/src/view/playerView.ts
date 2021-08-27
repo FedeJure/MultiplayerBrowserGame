@@ -11,7 +11,6 @@ export class PhaserPlayerView
 {
   //TODO: ver de crear interfaces en el dominio con todas las propiedades q se usen de Phaser, para aislar
   // el core de la dependencia del framework
-  readonly scene: Scene;
   private readonly _onUpdate = new Subject<{ time: number; delta: number }>();
   private readonly _onPreUpdate = new Subject<{
     time: number;
@@ -29,7 +28,6 @@ export class PhaserPlayerView
     this.height = height;
     this.width = width;
     this.setBounce(0);
-    this.scene = scene;
     this.initCollisions(this)
   }
 
@@ -44,10 +42,12 @@ export class PhaserPlayerView
   }
 
   preUpdate(time: number, delta: number) {
+    super.preUpdate(time, delta)
     this._onPreUpdate.next({ time, delta });
   }
 
   update(time: number, delta: number) {
+    super.update(time,delta)
     this.setAngle(0); //Prevents to gameobject rotate due Matter physics. Cant find another solution at the moment
     this._onUpdate.next({ time, delta });
   }
