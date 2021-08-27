@@ -1,3 +1,5 @@
+import { Side } from "../side";
+
 export interface PlayerState {
   readonly life: number;
   readonly jumpsAvailable: number;
@@ -6,5 +8,6 @@ export interface PlayerState {
   readonly position: { x: number; y: number };
   readonly velocity: { x: number; y: number };
   readonly canJump: boolean,
-  readonly grounded: boolean
+  readonly grounded: boolean,
+  readonly side: Side
 }

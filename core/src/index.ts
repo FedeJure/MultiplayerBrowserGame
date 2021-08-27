@@ -6,7 +6,7 @@ import { ClientProvider } from "./infrastructure/providers/clientProvider";
 import { GameScene } from "./view/scenes/GameScene";
 import { Socket as ClientSocket } from "socket.io-client";
 import { SocketClientConnection } from "./infrastructure/socketClientConnection";
-import { ClientConfig, ServerConfig } from "./view/DefaultGameConfigs";
+import { ClientConfig, ServerConfig } from "./infrastructure/configuration/DefaultGameConfigs";
 import { LoadScene } from "./view/scenes/LoadScene";
 import { SocketServerConnection } from "./infrastructure/socketServerConnection";
 import { SocketRoomConnection } from "./infrastructure/socketRoomConnection";
@@ -14,6 +14,7 @@ import { Log } from "./infrastructure/Logger";
 import { GameplayHud } from "./view/scenes/GameplayHud";
 import { LocalPlayerRepository } from "./infrastructure/repositories/localPlayerRepository";
 import { ActionProvider } from "./infrastructure/providers/actionProvider";
+import { DefaultPlayerState } from "./infrastructure/configuration/DefaultPlayerState";
 
 export const InitGame: (socket: Socket) => void = (socket: Socket) => {
   const scene = new GameScene(ServerProvider.collisionsDispatcher);
@@ -26,31 +27,13 @@ export const InitGame: (socket: Socket) => void = (socket: Socket) => {
     id: "1",
     name: "Test Player 1",
   });
-  ServerProvider.playerStateRepository.setPlayerState("1", {
-    life: 100,
-    jumpsAvailable: 2,
-    inInertia: false,
-    position: { x: 100, y: 0 },
-    velocity: { x: 0, y: 0 },
-    canMove: true,
-    canJump: true,
-    grounded: false
-  });
+  ServerProvider.playerStateRepository.setPlayerState("1", DefaultPlayerState);
 
   ServerProvider.playerInfoRepository.addPlayer("2", {
     id: "2",
     name: "Test Player 2",
   });
-  ServerProvider.playerStateRepository.setPlayerState("2", {
-    life: 100,
-    jumpsAvailable: 2,
-    inInertia: false,
-    position: { x: -50, y: 0 },
-    velocity: { x: 0, y: 0 },
-    canMove: true,
-    canJump: true,
-    grounded: false
-  });
+  ServerProvider.playerStateRepository.setPlayerState("2", DefaultPlayerState);
 
   const room = new SocketRoomConnection(socket, "main");
   const game = new ServerGamePresenter(scene,

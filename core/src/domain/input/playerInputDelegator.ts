@@ -2,66 +2,67 @@ import { PlayerStateRepository } from "../../infrastructure/repositories/playerS
 import { Delegator } from "../delegator";
 import { Player } from "../player/player";
 import { ServerConnection } from "../serverConnection";
-import { PlayerInput } from "../player/playerInput"
+import { PlayerInput } from "../player/playerInput";
 import { PlayerInputDto } from "../../infrastructure/dtos/playerInputDto";
 import { ResolvePlayerMovementWithInputs } from "../actions/resolvePlayerMovementWithInput";
 import { PlayerState } from "../player/playerState";
-
+import { Side } from "../side";
 
 export class PlayerInputDelegator implements Delegator {
+  private readonly connection: ServerConnection;
+  private readonly statesRepository: PlayerStateRepository;
+  private readonly player: Player;
+  private readonly input: PlayerInput;
+  private readonly resolveMovement: ResolvePlayerMovementWithInputs;
 
-    private readonly connection: ServerConnection
-    private readonly statesRepository: PlayerStateRepository
-    private readonly player: Player
-    private readonly input: PlayerInput
-    private readonly resolveMovement: ResolvePlayerMovementWithInputs
+  private currentInput: PlayerInputDto | undefined;
+  private lastInputSended: string = "";
+  private savedState: PlayerState | undefined;
 
-    private currentInput: PlayerInputDto | undefined;
-    private lastInputSended: string = "";
-    private savedState: PlayerState | undefined;
-
-    constructor(
-        player: Player,
-        input: PlayerInput,
-        connection: ServerConnection,
-        statesRepository: PlayerStateRepository,
-        resolveMovement: ResolvePlayerMovementWithInputs) {
-        this.player = player
-        this.connection = connection
-        this.statesRepository = statesRepository
-        this.input = input
-        this.resolveMovement = resolveMovement
-    }
-    init(): void {
-    }
-    stop(): void {
-    }
-    update(time: number, delta: number): void {
-        const currentInput = this.input.toDto();
-        this.currentInput = currentInput;
-        const oldState = this.statesRepository.getPlayerState(
-            this.player.info.id
+  constructor(
+    player: Player,
+    input: PlayerInput,
+    connection: ServerConnection,
+    statesRepository: PlayerStateRepository,
+    resolveMovement: ResolvePlayerMovementWithInputs
+  ) {
+    this.player = player;
+    this.connection = connection;
+    this.statesRepository = statesRepository;
+    this.input = input;
+    this.resolveMovement = resolveMovement;
+  }
+  init(): void {}
+  stop(): void {}
+  update(time: number, delta: number): void {
+    const currentInput = this.input.toDto();
+    this.currentInput = currentInput;
+    const oldState = this.statesRepository.getPlayerState(this.player.info.id);
+    if (
+      [this.inputHasChange(), ...Object.values(currentInput)].some((a) => a) ||
+      oldState != this.savedState
+    ) {
+        this.connection.emitInput(this.player.info.id, currentInput)
+      if (oldState) {
+        const newState = this.resolveMovement.execute(
+          this.input,
+          this.player.view,
+          oldState,
+          delta
         );
-        if (this.inputHasChange() || (JSON.stringify(oldState) != JSON.stringify(this.savedState))) {
-            this.connection.emitInput(this.player.info.id, currentInput);
-            if (oldState) {
-                const newState = this.resolveMovement.execute(
-                    this.input,
-                    this.player.view,
-                    oldState,
-                    delta
-                );
-                this.player.view.setVelocity(newState.velocity.x, newState.velocity.y);
-                this.statesRepository.setPlayerState(
-                    this.player.info.id,
-                    newState
-                );
-                this.savedState = newState
-            }
+        this.player.view.setVelocity(newState.velocity.x, newState.velocity.y);
+        this.player.view.setScale(
+          (newState.side == Side.RIGHT ? 1 : -1) *
+            Math.abs(this.player.view.scaleX),
+          this.player.view.scaleY
+        );
+        this.statesRepository.setPlayerState(this.player.info.id, newState);
+        this.savedState = newState;
+      }
 
-            this.lastInputSended = JSON.stringify(currentInput);
-        }
+      this.lastInputSended = JSON.stringify(currentInput);
     }
+  }
 
   inputHasChange() {
     return (
@@ -69,5 +70,4 @@ export class PlayerInputDelegator implements Delegator {
       JSON.stringify(this.currentInput) != this.lastInputSended
     );
   }
-
 }

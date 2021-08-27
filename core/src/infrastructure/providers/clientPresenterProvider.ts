@@ -6,50 +6,54 @@ import { ClientGamePresenter } from "../../presentation/clientGamePresenter";
 import { ActionProvider } from "./actionProvider";
 import { Player } from "../../domain/player/player";
 import { PlayerCollisionDelegator } from "../../domain/collisions/playerCollisionDelegator";
-import { PlayerMovementValidationDelegator } from "../../domain/movement/playerMovementValidationDelegator"
-import { PlayerInputDelegator } from "../../domain/input/playerInputDelegator"
-import { LocalPlayerRenderDelegator } from "../../domain/player/localPlayerRenderDelegator"
-import { PlayerRemoteMovementDelegator } from "../../domain/movement/playerRemoteMovementDelegator"
+import { PlayerMovementValidationDelegator } from "../../domain/movement/playerMovementValidationDelegator";
+import { PlayerInputDelegator } from "../../domain/input/playerInputDelegator";
+import { LocalPlayerRenderDelegator } from "../../domain/player/localPlayerRenderDelegator";
+import { PlayerRemoteMovementDelegator } from "../../domain/movement/playerRemoteMovementDelegator";
+import { PlayerAnimationDelegator } from "../../domain/animations/playerAnimationDelegator";
 export class ClientPresenterProvider {
-  forLocalPlayer(
-    input: PlayerInput,
-    player: Player
-  ): void {
-    new ClientPlayerPresenter(
-      ClientProvider.serverConnection,
-      player,
-      [
-        new PlayerCollisionDelegator(
-          player,
-          ClientProvider.collisionsDispatcher,
-          ClientProvider.playerStateRepository
-        ),
-        new PlayerMovementValidationDelegator(player,
-          ClientProvider.serverConnection,
-          ClientProvider.playerStateRepository),
-        new PlayerInputDelegator(player,
-          input,
-          ClientProvider.serverConnection,
-          ClientProvider.playerStateRepository,
-          ActionProvider.ResolvePlayerMovementWithInputs),
-        new LocalPlayerRenderDelegator(player)
-      ]
-    );
+  forLocalPlayer(input: PlayerInput, player: Player): void {
+    new ClientPlayerPresenter(ClientProvider.serverConnection, player, [
+      new PlayerCollisionDelegator(
+        player,
+        ClientProvider.collisionsDispatcher,
+        ClientProvider.playerStateRepository
+      ),
+      new PlayerMovementValidationDelegator(
+        player,
+        ClientProvider.serverConnection,
+        ClientProvider.playerStateRepository
+      ),
+      new PlayerInputDelegator(
+        player,
+        input,
+        ClientProvider.serverConnection,
+        ClientProvider.playerStateRepository,
+        ActionProvider.ResolvePlayerMovementWithInputs
+      ),
+      new LocalPlayerRenderDelegator(player),
+      new PlayerAnimationDelegator(
+        player,
+        ClientProvider.playerStateRepository
+      ),
+    ]);
   }
   forPlayer(player: Player): void {
-    new ClientPlayerPresenter(
-      ClientProvider.serverConnection,
-      player,
-      [
-        new PlayerMovementValidationDelegator(player,
-          ClientProvider.serverConnection,
-          ClientProvider.playerStateRepository),
-        new PlayerRemoteMovementDelegator(
-          player,
-          ClientProvider.serverConnection
-        )
-      ]
-    );
+    new ClientPlayerPresenter(ClientProvider.serverConnection, player, [
+      new PlayerMovementValidationDelegator(
+        player,
+        ClientProvider.serverConnection,
+        ClientProvider.playerStateRepository
+      ),
+      new PlayerRemoteMovementDelegator(
+        player,
+        ClientProvider.serverConnection
+      ),
+      new PlayerAnimationDelegator(
+        player,
+        ClientProvider.playerStateRepository
+      ),
+    ]);
   }
 
   forGameplay(scene: GameScene): void {

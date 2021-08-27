@@ -17,7 +17,6 @@ export class ClientPlayerPresenter {
     this.view = player.view;
     this.player = player;
     this.connection = connection;
-    this.createAnimations(this.view);
     this.renderPlayer(this.view);
 
     this.connection.onPlayerDisconnected
@@ -36,21 +35,5 @@ export class ClientPlayerPresenter {
 
   private renderPlayer(player: PhaserPlayerView): void {
     player.scene.add.existing(player);
-    this.createAnimations(player);
-    player.setTexture("player_anim");
-    player.play("idle")
-  }
-
-  private createAnimations(player: PhaserPlayerView) {
-    if (!player.scene.anims.exists("idle"))
-      player.scene.anims.create({
-        key: "idle",
-        frames: player.scene.anims.generateFrameNumbers("player_anim", {
-          start: 0,
-          end: 2,
-        }),
-        frameRate: 5,
-        repeat: -1,
-      });
   }
 }

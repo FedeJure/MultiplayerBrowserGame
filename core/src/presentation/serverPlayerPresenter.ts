@@ -1,10 +1,8 @@
 import { ResolvePlayerMovementWithInputs } from "../domain/actions/resolvePlayerMovementWithInput";
 import { Delegator } from "../domain/delegator";
 import { Player } from "../domain/player/player";
-import { PlayerInfo } from "../domain/player/playerInfo";
 import { PlayerInput } from "../domain/player/playerInput";
 import { PlayerStateRepository } from "../infrastructure/repositories/playerStateRepository";
-import { PhaserPlayerView } from "../view/playerView";
 
 export class ServerPlayerPresenter {
   private readonly player: Player

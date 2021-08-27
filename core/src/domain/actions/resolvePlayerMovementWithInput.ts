@@ -2,9 +2,10 @@ import { PhaserPlayerView } from "../../view/playerView";
 import { DefaultConfiguration } from "../player/playerConfiguration";
 import { PlayerInput } from "../player/playerInput";
 import { PlayerState } from "../player/playerState";
+import { Side } from "../side";
 
 export class ResolvePlayerMovementWithInputs {
-  constructor() { }
+  constructor() {}
 
   execute(
     input: PlayerInput,
@@ -12,19 +13,21 @@ export class ResolvePlayerMovementWithInputs {
     state: PlayerState,
     deltaTime: number
   ): PlayerState {
-    let newVelocity: { x: number; y: number } = view.body.velocity
-    let velocity = 1
-    let maxRunVelocity = 5
+    let newVelocity: { x: number; y: number } = view.body.velocity;
+    let velocity = 1;
+    let maxRunVelocity = 5;
 
-    let availableJumps = state.grounded ? DefaultConfiguration.initialJumps : state.jumpsAvailable;
+    let availableJumps = state.grounded
+      ? DefaultConfiguration.initialJumps
+      : state.jumpsAvailable;
     let canJump = state.canJump;
-    let jumping = false
+    let jumping = false;
 
     if (canJump && availableJumps > 0 && input.jump) {
       newVelocity.y = -5;
       availableJumps--;
       canJump = false;
-      jumping = true
+      jumping = true;
     }
 
     if (!canJump && availableJumps > 0 && !input.jump) canJump = true;
@@ -35,11 +38,17 @@ export class ResolvePlayerMovementWithInputs {
       newVelocity.x =
         Math.sign(newVelocity.x) *
         Math.min(maxRunVelocity, Math.abs(newVelocity.x));
+    } 
+    if (state.grounded && !input.left && !input.right) {
+      newVelocity = { x: 0, y: newVelocity.y };
     }
-    if (state.grounded && !input.left && !input.right){
-      newVelocity = { x: 0, y:  newVelocity.y}
-    }
-       
+
+    const side =
+      newVelocity.x == 0
+        ? state.side
+        : newVelocity.x > 0
+        ? Side.RIGHT
+        : Side.LEFT;
 
     return {
       ...state,
@@ -47,10 +56,9 @@ export class ResolvePlayerMovementWithInputs {
       jumpsAvailable: availableJumps,
       position: view.body.position,
       canJump,
+      side
     };
   }
 
-  processJump() {
-
-  }
+  processJump() {}
 }

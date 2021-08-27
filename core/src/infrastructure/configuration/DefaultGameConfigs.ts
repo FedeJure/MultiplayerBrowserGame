@@ -1,4 +1,4 @@
-import { GameConfig } from "./gameConfig";
+import { GameConfig } from "../../view/gameConfig";
 
 
 export const ClientConfig: GameConfig = {

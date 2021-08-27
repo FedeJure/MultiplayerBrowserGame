@@ -10,6 +10,7 @@ import { ConnectedPlayersRepository } from "../../infrastructure/repositories/co
 import { ServerPresenterProvider } from "../../infrastructure/providers/serverPresenterProvider";
 import { PlayerCollisionDelegator } from "../collisions/playerCollisionDelegator";
 import { ServerProvider } from "../../infrastructure/providers/serverProvider";
+import { DefaultPlayerState } from "../../infrastructure/configuration/DefaultPlayerState";
 
 export class CreatePlayerFromId {
   private readonly infoRepository: PlayerInfoRepository;
@@ -37,28 +38,14 @@ export class CreatePlayerFromId {
     const playerInfo = this.infoRepository.getPlayer(playerId);
     if (playerInfo === undefined)
       throw new Error(`Player with ID: ${playerId} not found`);
-    var playerState = this.stateRepository.getPlayerState(playerId);
-    if (playerState === undefined) {
-      playerState = {
-        life: DefaultConfiguration.initialLife,
-        jumpsAvailable: DefaultConfiguration.jumps,
-        inInertia: false,
-        position: {
-          x: DefaultConfiguration.initialX,
-          y: DefaultConfiguration.initialY,
-        },
-        velocity: { x: 0, y: 0 },
-        canMove: true,
-        canJump: true,
-        grounded: false
-      };
-    }
+    const playerState =
+      this.stateRepository.getPlayerState(playerId) || DefaultPlayerState;
     const view = new PhaserPlayerView(
       scene,
       playerState.position.x,
       playerState.position.y,
       DefaultConfiguration.height,
-      DefaultConfiguration.width,
+      DefaultConfiguration.width
     );
     scene.addToLifecycle(view);
     const player = new Player(playerInfo, playerState, view);
