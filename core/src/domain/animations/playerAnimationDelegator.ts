@@ -9,6 +9,7 @@ enum AnimationState {
   IDLE_JUMP = "idleJump",
   RUNNING_JUMP = "runningJump",
   SECOND_JUMP = "secondJump",
+  FALLING = "falling",
 }
 
 export class PlayerAnimationDelegator implements Delegator {
@@ -27,9 +28,10 @@ export class PlayerAnimationDelegator implements Delegator {
   stop(): void {}
   update(time: number, delta: number): void {
     const state = this.statesRepository.getPlayerState(this.player.info.id);
-    if (state != this.savedState && state) {
+    if (state) {
       const absVelx = Math.abs(state.velocity.x);
       const absVely = Math.abs(state.velocity.y);
+      const velY = state.velocity.y;
       if (state.grounded) {
         if (absVelx > 1 && absVely < 2) this.playAnim(AnimationState.RUNNING);
         else if (absVelx < 1 && absVely >= 2)
@@ -38,7 +40,7 @@ export class PlayerAnimationDelegator implements Delegator {
           this.playAnim(AnimationState.RUNNING_JUMP);
         else this.playAnim(AnimationState.IDLE);
       } else {
-          if(absVely >= 2) this.playAnim(AnimationState.RUNNING_JUMP);
+        if (velY > 2) this.playAnim(AnimationState.FALLING);
       }
 
       this.savedState = state;
@@ -52,6 +54,7 @@ export class PlayerAnimationDelegator implements Delegator {
     this.createAnim(8, 13, AnimationState.RUNNING, true, 800);
     this.createAnim(15, 23, AnimationState.IDLE_JUMP, false, 500);
     this.createAnim(15, 23, AnimationState.RUNNING_JUMP, false, 500);
+    this.createAnim(22, 23, AnimationState.FALLING, false, 200);
   }
 
   private getAnimationForPlayer(anim: string) {
