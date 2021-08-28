@@ -47,7 +47,7 @@ export class PlayerInputDelegator implements Delegator {
       [this.inputHasChange(), ...Object.values(currentInput)].some((a) => a) ||
       oldState != this.savedState
     ) {
-      const newInputRequest = this.inputRequestRepository.getOrCreate(this.player.info.id) + (this.inputHasChange() ? 1 : 0)
+      const newInputRequest = this.inputRequestRepository.getOrCreate(this.player.info.id) + 1
       this.connection.emitInput(this.player.info.id, currentInput, newInputRequest);
       this.inputRequestRepository.set(
         this.player.info.id,
