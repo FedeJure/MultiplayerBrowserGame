@@ -1,3 +1,4 @@
+import { PlayerStateRepository } from "../../infrastructure/repositories/playerStateRepository";
 import { Delegator } from "../delegator";
 import { Disposer } from "../disposer";
 import { Player } from "../player/player";
@@ -8,18 +9,24 @@ import { Side } from "../side";
 export class PlayerRemoteMovementDelegator implements Delegator {
   private readonly player: Player;
   private readonly connection: ServerConnection;
+  private readonly playerStateRepository: PlayerStateRepository;
 
   private readonly disposer: Disposer = new Disposer();
-  private lastState: PlayerState | undefined;
 
-  constructor(player: Player, connection: ServerConnection) {
+  constructor(
+    player: Player,
+    connection: ServerConnection,
+    playerStateRepository: PlayerStateRepository
+  ) {
     this.player = player;
     this.connection = connection;
+    this.playerStateRepository = playerStateRepository;
   }
   init(): void {
     this.disposer.add(
       this.connection.onPlayersStates.subscribe((event) => {
-        this.lastState = event.states[this.player.info.id];
+        const state = event.states[this.player.info.id];
+        if (state) this.playerStateRepository.setPlayerState(this.player.info.id, state)
       })
     );
   }
@@ -28,15 +35,16 @@ export class PlayerRemoteMovementDelegator implements Delegator {
   }
 
   update(time: number, delta: number): void {
-    if (this.lastState) {
+    const state = this.playerStateRepository.getPlayerState(this.player.info.id)
+    if (state) {
       const view = this.player.view;
       view.setScale(
-        (this.lastState.side == Side.RIGHT ? 1 : -1) *
+        (state.side == Side.RIGHT ? 1 : -1) *
           Math.abs(this.player.view.scaleX),
         this.player.view.scaleY
       );
-      view.setPosition(this.lastState.position.x, this.lastState.position.y);
-      view.setVelocity(this.lastState.velocity.x, this.lastState.velocity.y);
+      view.setPosition(state.position.x, state.position.y);
+      view.setVelocity(state.velocity.x, state.velocity.y);
     }
   }
 }

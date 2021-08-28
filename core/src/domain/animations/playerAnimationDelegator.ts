@@ -54,7 +54,7 @@ export class PlayerAnimationDelegator implements Delegator {
     this.createAnim(8, 13, AnimationState.RUNNING, true, 800);
     this.createAnim(15, 23, AnimationState.IDLE_JUMP, false, 500);
     this.createAnim(15, 23, AnimationState.RUNNING_JUMP, false, 500);
-    this.createAnim(22, 23, AnimationState.FALLING, false, 200);
+    this.createAnim(22, 23, AnimationState.FALLING, true, 200);
   }
 
   private getAnimationForPlayer(anim: string) {
