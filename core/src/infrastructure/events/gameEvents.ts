@@ -1,7 +1,6 @@
 import { PlayerState } from "../../domain/player/playerState";
 import { PlayerInitialStateDto } from "../dtos/playerInitialStateDto";
 import { PlayerInputDto } from "../dtos/playerInputDto";
-import { PlayerStateDto } from "../dtos/playerStateDto";
 
 export const GameEvents: {
   PLAYER_CONNECTED: {
@@ -10,7 +9,7 @@ export const GameEvents: {
   };
   PLAYERS_STATES: {
     name: string;
-    getEvent: (states: {[key: string]: PlayerState}) => PlayerStatesEvent;
+    getEvent: (states: { [key: string]: PlayerState }) => PlayerStatesEvent;
   };
   INITIAL_GAME_STATE: {
     name: string;
@@ -26,7 +25,11 @@ export const GameEvents: {
   };
   PLAYER_INPUT: {
     name: string;
-    getEvent: (playerId: string, input: PlayerInputDto) => PlayerInputEvent;
+    getEvent: (
+      playerId: string,
+      input: PlayerInputDto,
+      inputNumber: number
+    ) => PlayerInputEvent;
   };
 } = {
   PLAYER_CONNECTED: {
@@ -51,7 +54,12 @@ export const GameEvents: {
   },
   PLAYER_INPUT: {
     name: "player_input",
-    getEvent: (playerId, input) => ({ playerId, input, time: new Date() }),
+    getEvent: (playerId, input, inputNumber) => ({
+      playerId,
+      input,
+      inputNumber,
+      time: new Date(),
+    }),
   },
 };
 
@@ -64,7 +72,7 @@ export interface PlayerConnectedEvent extends BaseEvent {
 }
 
 export interface PlayerStatesEvent extends BaseEvent {
-  states: {[key: string]: PlayerState}
+  states: { [key: string]: PlayerState };
 }
 
 export interface InitialGameStateEvent extends BaseEvent {
@@ -82,4 +90,5 @@ export interface PlayerDisconnectedEvent extends BaseEvent {
 export interface PlayerInputEvent extends BaseEvent {
   playerId: string;
   input: PlayerInputDto;
+  inputNumber: number;
 }

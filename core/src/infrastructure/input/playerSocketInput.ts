@@ -2,6 +2,7 @@ import { filter } from "rxjs";
 import { ClientConnection } from "../../domain/clientConnection";
 import { PlayerInput } from "../../domain/player/playerInput";
 import { PlayerInputDto } from "../dtos/playerInputDto";
+import { PlayerInputRequestRepository } from "../repositories/playerInputRequestRepository";
 
 export class PlayerSocketInput implements PlayerInput {
   private _up: boolean = false;
@@ -10,7 +11,11 @@ export class PlayerSocketInput implements PlayerInput {
   private _right: boolean = false;
   private _jump: boolean = false;
 
-  constructor(playerId: string, connection: ClientConnection) {
+  constructor(
+    playerId: string,
+    connection: ClientConnection,
+    inputRequestRepository: PlayerInputRequestRepository
+  ) {
     connection
       .onInput()
       .pipe(filter((ev) => ev.playerId === playerId))
@@ -20,6 +25,7 @@ export class PlayerSocketInput implements PlayerInput {
         this._left = inputDto.input.left;
         this._right = inputDto.input.right;
         this._jump = inputDto.input.jump;
+        inputRequestRepository.set(playerId, inputDto.inputNumber);
       });
   }
 

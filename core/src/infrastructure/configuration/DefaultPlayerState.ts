@@ -10,5 +10,6 @@ export const DefaultPlayerState: PlayerState = {
     canMove: true,
     canJump: true,
     grounded: false,
-    side: Side.RIGHT
+    side: Side.RIGHT,
+    inputNumber: 1
   }

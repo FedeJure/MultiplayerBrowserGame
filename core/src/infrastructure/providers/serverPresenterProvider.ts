@@ -21,7 +21,8 @@ export class ServerPresenterProvider {
           ServerProvider.collisionsDispatcher,
           ServerProvider.playerStateRepository
         ),
-      ]
+      ],
+      ServerProvider.playerInputRequestRepository
     );
   }
 }

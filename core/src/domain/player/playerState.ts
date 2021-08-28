@@ -9,5 +9,6 @@ export interface PlayerState {
   readonly velocity: { x: number; y: number };
   readonly canJump: boolean,
   readonly grounded: boolean,
-  readonly side: Side
+  readonly side: Side,
+  readonly inputNumber: number
 }

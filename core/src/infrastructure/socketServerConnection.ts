@@ -75,10 +75,14 @@ export class SocketServerConnection implements ServerConnection {
     );
   }
 
-  emitInput(playerId: string, input: PlayerInputDto): void {
+  emitInput(
+    playerId: string,
+    input: PlayerInputDto,
+    inputRequest: number
+  ): void {
     this.socket.emit(
       GameEvents.PLAYER_INPUT.name,
-      GameEvents.PLAYER_INPUT.getEvent(playerId, input)
+      GameEvents.PLAYER_INPUT.getEvent(playerId, input, inputRequest)
     );
   }
 }

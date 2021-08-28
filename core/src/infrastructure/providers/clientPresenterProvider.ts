@@ -22,14 +22,16 @@ export class ClientPresenterProvider {
       new PlayerMovementValidationDelegator(
         player,
         ClientProvider.serverConnection,
-        ClientProvider.playerStateRepository
+        ClientProvider.playerStateRepository,
+        ClientProvider.playerInputRequestRepository
       ),
       new PlayerInputDelegator(
         player,
         input,
         ClientProvider.serverConnection,
         ClientProvider.playerStateRepository,
-        ActionProvider.ResolvePlayerMovementWithInputs
+        ActionProvider.ResolvePlayerMovementWithInputs,
+        ClientProvider.playerInputRequestRepository
       ),
       new LocalPlayerRenderDelegator(player),
       new PlayerAnimationDelegator(
@@ -43,7 +45,8 @@ export class ClientPresenterProvider {
       new PlayerMovementValidationDelegator(
         player,
         ClientProvider.serverConnection,
-        ClientProvider.playerStateRepository
+        ClientProvider.playerStateRepository,
+        ClientProvider.playerInputRequestRepository
       ),
       new PlayerAnimationDelegator(
         player,

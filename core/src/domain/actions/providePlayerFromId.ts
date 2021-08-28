@@ -51,7 +51,7 @@ export class CreatePlayerFromId {
     const player = new Player(playerInfo, playerState, view);
     this.presenterProvider.forPlayer(
       player,
-      new PlayerSocketInput(playerId, connection)
+      new PlayerSocketInput(playerId, connection, ServerProvider.playerInputRequestRepository)
     );
 
     this.connectedPlayersRepository.savePlayer(playerId, player);

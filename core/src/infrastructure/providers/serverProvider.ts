@@ -5,6 +5,7 @@ import { ConnectionsRepository } from "../repositories/connectionsRepository";
 import { InMemoryPlayerRepository } from "../repositories/inMemoryPlayerRepository";
 import { InMemoryPlayerStateRepository } from "../repositories/inMemoryPlayerStateRepository";
 import { PlayerInfoRepository } from "../repositories/playerInfoRepository";
+import { PlayerInputRequestRepository } from "../repositories/playerInputRequestRepository";
 import { PlayerStateRepository } from "../repositories/playerStateRepository";
 import { ServerPresenterProvider } from "./serverPresenterProvider";
 
@@ -38,5 +39,10 @@ export class ServerProvider {
     return DependencyManager.GetOrInstantiate<CollisionsDispatcher>(
       () => new CollisionsDispatcher()
     );
+  }
+  public static get playerInputRequestRepository(): PlayerInputRequestRepository {
+    return DependencyManager.GetOrInstantiate<PlayerInputRequestRepository>(
+      () => new PlayerInputRequestRepository()
+    )
   }
 }

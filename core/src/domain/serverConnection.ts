@@ -13,5 +13,5 @@ export interface ServerConnection {
   onPlayerDisconnected: Observable<PlayerDisconnectedEvent>;
   onPing: Observable<number>;
   emitStartNewConnection(playerId: string): void;
-  emitInput(playerId: string, input: PlayerInputDto): void;
+  emitInput(playerId: string, input: PlayerInputDto, inputRequest: number): void;
 }

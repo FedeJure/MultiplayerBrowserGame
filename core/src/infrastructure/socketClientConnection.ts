@@ -17,10 +17,7 @@ export class SocketClientConnection implements ClientConnection {
   public readonly connectionTime: Date;
 
   private onPlayerConnectionSubject = new Subject<{ playerId: string }>();
-  private onInputSubject = new Subject<{
-    playerId: string;
-    input: PlayerInputDto;
-  }>();
+  private onInputSubject = new Subject<PlayerInputEvent>();
 
   constructor(socket: Socket) {
     this.connectionId = socket.id;
@@ -30,7 +27,7 @@ export class SocketClientConnection implements ClientConnection {
     this.listenEvents();
   }
 
-  onInput(): Observable<{ playerId: string; input: PlayerInputDto }> {
+  onInput(): Observable<PlayerInputEvent> {
     return this.onInputSubject;
   }
 
@@ -56,7 +53,7 @@ export class SocketClientConnection implements ClientConnection {
       }
     );
     this.socket.on(GameEvents.PLAYER_INPUT.name, (dto: PlayerInputEvent) => {
-      this.onInputSubject.next({ playerId: dto.playerId, input: dto.input });
+      this.onInputSubject.next(dto);
     });
   }
 
