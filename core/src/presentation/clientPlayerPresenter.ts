@@ -28,11 +28,9 @@ export class ClientPlayerPresenter {
         player.view.destroy();
       });
     delegators.forEach(d => d.init())
-    this.view.onUpdate.subscribe(data => 
-      this.delegators.forEach(d => {
-        if (player.info.id == "2") console.log(d)
-        d.update(data.time, data.delta)
-      })
+    this.view.onUpdate.subscribe(data =>
+      this.delegators.forEach(d =>
+        d.update(data.time, data.delta))
     )
   }
 

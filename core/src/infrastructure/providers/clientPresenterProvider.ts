@@ -53,6 +53,10 @@ export class ClientPresenterProvider {
         player,
         ClientProvider.serverConnection
       ),
+      new PlayerAnimationDelegator(
+        player,
+        ClientProvider.playerStateRepository
+      ),
     ]);
   }
 
