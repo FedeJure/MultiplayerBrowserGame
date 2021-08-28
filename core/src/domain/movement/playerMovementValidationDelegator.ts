@@ -18,7 +18,6 @@ export class PlayerMovementValidationDelegator implements Delegator {
         this.stateRepository = stateRepository
     }
     update(time: number, delta: number): void {
-
     }
 
     init() {

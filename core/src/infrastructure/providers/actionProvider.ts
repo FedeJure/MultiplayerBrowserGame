@@ -12,7 +12,8 @@ export class ActionProvider {
       () =>
         new CreateClientPlayerAction(
           ClientProvider.presenterProvider,
-          ClientProvider.connectedPlayers
+          ClientProvider.connectedPlayers,
+          ClientProvider.playerStateRepository
         )
     );
   }

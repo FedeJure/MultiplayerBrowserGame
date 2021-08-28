@@ -45,13 +45,13 @@ export class ClientPresenterProvider {
         ClientProvider.serverConnection,
         ClientProvider.playerStateRepository
       ),
-      new PlayerRemoteMovementDelegator(
-        player,
-        ClientProvider.serverConnection
-      ),
       new PlayerAnimationDelegator(
         player,
         ClientProvider.playerStateRepository
+      ),
+      new PlayerRemoteMovementDelegator(
+        player,
+        ClientProvider.serverConnection
       ),
     ]);
   }

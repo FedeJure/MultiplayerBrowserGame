@@ -8,6 +8,7 @@ export class ClientPlayerPresenter {
   protected readonly view: PhaserPlayerView;
   protected readonly player: Player;
   protected readonly connection: ServerConnection;
+  private readonly delegators: Delegator[]
 
   constructor(
     connection: ServerConnection,
@@ -17,6 +18,7 @@ export class ClientPlayerPresenter {
     this.view = player.view;
     this.player = player;
     this.connection = connection;
+    this.delegators = delegators;
     this.renderPlayer(this.view);
 
     this.connection.onPlayerDisconnected
@@ -24,13 +26,14 @@ export class ClientPlayerPresenter {
       .subscribe((_) => {
         delegators.forEach(d => d.stop())
         player.view.destroy();
-
       });
-
     delegators.forEach(d => d.init())
-    this.view.onUpdate.subscribe(data => {
-      delegators.forEach(d => d.update(data.time, data.delta))
-    })
+    this.view.onUpdate.subscribe(data => 
+      this.delegators.forEach(d => {
+        if (player.info.id == "2") console.log(d)
+        d.update(data.time, data.delta)
+      })
+    )
   }
 
   private renderPlayer(player: PhaserPlayerView): void {

@@ -9,7 +9,8 @@ export class PlayerRemoteMovementDelegator implements Delegator {
   private readonly connection: ServerConnection;
 
   private readonly disposer: Disposer = new Disposer();
-  private readonly lastState: PlayerState | undefined;
+  private lastState: PlayerState | undefined;
+
   constructor(player: Player, connection: ServerConnection) {
     this.player = player;
     this.connection = connection;
@@ -17,13 +18,14 @@ export class PlayerRemoteMovementDelegator implements Delegator {
   init(): void {
     this.disposer.add(
       this.connection.onPlayersStates.subscribe((event) => {
-        const lastState = event.states[this.player.info.id];
+        this.lastState = event.states[this.player.info.id];
       })
     );
   }
   stop(): void {
     this.disposer.dispose();
   }
+
   update(time: number, delta: number): void {
     if (this.lastState) {
       const view = this.player.view;
