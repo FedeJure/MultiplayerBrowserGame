@@ -35,7 +35,7 @@ export class PlayerMovementValidationDelegator implements Delegator {
           state &&
           this.inputRepository.getOrCreate(this.player.info.id) ==
             state.inputNumber &&
-          state.inputNumber > this.lastInputValidated 
+          state.inputNumber >= this.lastInputValidated 
         ) {
           this.lastInputValidated = state.inputNumber;
           const localState = this.stateRepository.getPlayerState(
@@ -58,18 +58,6 @@ export class PlayerMovementValidationDelegator implements Delegator {
       y: remoteState.position.y,
       duration: distance,
     });
-    // if (Math.abs(remoteState.velocity.x - state.velocity.x) > velLimit) {
-    //   this.player.view.setVelocity(remoteState.velocity.x, state.velocity.y);
-    // }
-    // if (Math.abs(remoteState.velocity.y - state.velocity.y) > velLimit) {
-    //   this.player.view.setVelocity(state.velocity.x, remoteState.velocity.y);
-    // }
-    // if (Math.abs(remoteState.position.x - state.position.x) > posLimit) {
-    //   this.player.view.setPosition(remoteState.position.x, state.position.y);
-    // }
-    // if (Math.abs(remoteState.position.y - state.position.y) > posLimit) {
-    //   this.player.view.setPosition(state.position.x, remoteState.position.y);
-    // }
   }
 
   stop() {}
