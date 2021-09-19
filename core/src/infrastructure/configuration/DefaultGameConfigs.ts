@@ -9,6 +9,8 @@ export const ClientConfig: GameConfig = {
   autoFocus: true,
   fps: {
     min: 60,
+    forceSetTimeOut: true,
+    target: 60
   },
   physics: {
     default: "matter",
@@ -33,6 +35,8 @@ export const ServerConfig: GameConfig = {
   autoFocus: true,
   fps: {
     min: 60,
+    forceSetTimeOut: true,
+    target: 60
   },
   physics: {
     default: "matter",
