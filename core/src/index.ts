@@ -6,7 +6,10 @@ import { ClientProvider } from "./infrastructure/providers/clientProvider";
 import { GameScene } from "./view/scenes/GameScene";
 import { Socket as ClientSocket } from "socket.io-client";
 import { SocketClientConnection } from "./infrastructure/socketClientConnection";
-import { ClientConfig, ServerConfig } from "./infrastructure/configuration/DefaultGameConfigs";
+import {
+  ClientConfig,
+  ServerConfig,
+} from "./infrastructure/configuration/DefaultGameConfigs";
 import { LoadScene } from "./view/scenes/LoadScene";
 import { SocketServerConnection } from "./infrastructure/socketServerConnection";
 import { SocketRoomConnection } from "./infrastructure/socketRoomConnection";
@@ -15,6 +18,7 @@ import { GameplayHud } from "./view/scenes/GameplayHud";
 import { LocalPlayerRepository } from "./infrastructure/repositories/localPlayerRepository";
 import { ActionProvider } from "./infrastructure/providers/actionProvider";
 import { DefaultPlayerState } from "./infrastructure/configuration/DefaultPlayerState";
+import { PlayerState } from "./domain/player/playerState";
 
 export const InitGame: (socket: Socket) => void = (socket: Socket) => {
   const scene = new GameScene(ServerProvider.collisionsDispatcher);
@@ -35,13 +39,33 @@ export const InitGame: (socket: Socket) => void = (socket: Socket) => {
   });
   ServerProvider.playerStateRepository.setPlayerState("2", DefaultPlayerState);
 
+  // for (let i = 3; i < 50; i++) {
+  //   ServerProvider.playerInfoRepository.addPlayer(i.toString(), {
+  //     id: i.toString(),
+  //     name: "Test Player "+i.toString(),
+  //   });
+  //   const state :PlayerState = {
+  //     ...DefaultPlayerState,
+  //     position: {
+  //       x: (Math.random() * 50) + 50,
+  //       y: 0
+  //     }
+  //   }
+  //   ServerProvider.playerStateRepository.setPlayerState(
+  //     i.toString(),
+  //     state
+  //   );
+  // }
+
   const room = new SocketRoomConnection(socket, "main");
-  const game = new ServerGamePresenter(scene,
+  const game = new ServerGamePresenter(
+    scene,
     room,
     ActionProvider.CreatePlayerFromId,
     ServerProvider.connectionsRepository,
     ServerProvider.connectedPlayerRepository,
-    ServerProvider.playerStateRepository);
+    ServerProvider.playerStateRepository
+  );
   socket.on(SocketIOEvents.CONNECTION, (clientSocket: Socket) => {
     const emitFn = clientSocket.emit;
     clientSocket.emit = function (...args) {
@@ -82,5 +106,5 @@ export const InitClientGame = (socket: ClientSocket, localPlayerId: string) => {
     scene: [new LoadScene(), scene, new GameplayHud(connectionWithServer)],
   };
   new Phaser.Game(config);
-  ClientProvider.presenterProvider.forGameplay(scene)
+  ClientProvider.presenterProvider.forGameplay(scene);
 };

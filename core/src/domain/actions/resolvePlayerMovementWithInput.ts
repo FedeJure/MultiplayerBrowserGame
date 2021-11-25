@@ -13,7 +13,8 @@ export class ResolvePlayerMovementWithInputs {
     state: PlayerState,
     deltaTime: number
   ): PlayerState {
-    let newVelocity: { x: number; y: number } = view.body.velocity;
+    let newVelX = view.body.velocity.x;
+    let newVelY = view.body.velocity.y;
     let velocity = 1;
     let maxRunVelocity = 5;
 
@@ -24,7 +25,7 @@ export class ResolvePlayerMovementWithInputs {
     let jumping = false;
 
     if (canJump && availableJumps > 0 && input.jump) {
-      newVelocity.y = -5;
+      newVelY = -5;
       availableJumps--;
       canJump = false;
       jumping = true;
@@ -33,30 +34,28 @@ export class ResolvePlayerMovementWithInputs {
     if (!canJump && availableJumps > 0 && !input.jump) canJump = true;
 
     if ((state.grounded && (input.left || input.right)) || jumping) {
-      newVelocity.x += +input.right * velocity * deltaTime;
-      newVelocity.x -= +input.left * velocity * deltaTime;
-      newVelocity.x =
-        Math.sign(newVelocity.x) *
-        Math.min(maxRunVelocity, Math.abs(newVelocity.x));
-    } 
+      newVelX += +input.right * velocity * deltaTime;
+      newVelX -= +input.left * velocity * deltaTime;
+      newVelX =
+        Math.sign(newVelX) * Math.min(maxRunVelocity, Math.abs(newVelX));
+    }
     if (state.grounded && !input.left && !input.right) {
-      newVelocity = { x: 0, y: newVelocity.y };
+      newVelX = 0;
     }
 
     const side =
-      newVelocity.x == 0
-        ? state.side
-        : newVelocity.x > 0
-        ? Side.RIGHT
-        : Side.LEFT;
+      newVelX === 0 ? state.side : newVelX > 0 ? Side.RIGHT : Side.LEFT;
 
     return {
       ...state,
-      velocity: newVelocity,
+      velocity: {
+        x: Number(newVelX.toPrecision(2)),
+        y: Number(newVelY.toPrecision(2)),
+      },
       jumpsAvailable: availableJumps,
       position: view.body.position,
       canJump,
-      side
+      side,
     };
   }
 

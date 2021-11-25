@@ -47,32 +47,34 @@ export class PlayerInputDelegator implements Delegator {
       [this.inputHasChange(), ...Object.values(currentInput)].some((a) => a) ||
       oldState != this.savedState
     ) {
-      const newInputRequest = this.inputRequestRepository.getOrCreate(this.player.info.id) + 1
-      this.connection.emitInput(this.player.info.id, currentInput, newInputRequest);
-      this.inputRequestRepository.set(
+      const newInputRequest =
+        this.inputRequestRepository.getOrCreate(this.player.info.id) + 1;
+      this.connection.emitInput(
         this.player.info.id,
+        currentInput,
         newInputRequest
       );
-      if (oldState) {
-        const newState = this.resolveMovement.execute(
-          this.input,
-          this.player.view,
-          oldState,
-          delta
-        );
-        this.player.view.setVelocity(newState.velocity.x, newState.velocity.y);
-        this.player.view.setPosition(newState.position.x, newState.position.y)
-        this.player.view.setScale(
-          (newState.side == Side.RIGHT ? 1 : -1) *
-            Math.abs(this.player.view.scaleX),
-          this.player.view.scaleY
-        );
-        this.statesRepository.setPlayerState(this.player.info.id, newState);
-        this.savedState = newState;
-      }
-
-      this.lastInputSended = JSON.stringify(currentInput);
+      this.inputRequestRepository.set(this.player.info.id, newInputRequest);
     }
+    if (oldState) {
+      const newState = this.resolveMovement.execute(
+        this.input,
+        this.player.view,
+        oldState,
+        delta
+      );
+      this.player.view.setVelocity(newState.velocity.x, newState.velocity.y);
+      this.player.view.setPosition(newState.position.x, newState.position.y);
+      this.player.view.setScale(
+        (newState.side == Side.RIGHT ? 1 : -1) *
+          Math.abs(this.player.view.scaleX),
+        this.player.view.scaleY
+      );
+      this.statesRepository.setPlayerState(this.player.info.id, newState);
+      this.savedState = newState;
+    }
+
+    this.lastInputSended = JSON.stringify(currentInput);
   }
 
   inputHasChange() {

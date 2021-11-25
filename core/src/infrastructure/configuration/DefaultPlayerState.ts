@@ -1,3 +1,4 @@
+import { AnimationCode } from "../../domain/animations/animations";
 import { PlayerState } from "../../domain/player/playerState";
 import { Side } from "../../domain/side";
 
@@ -11,5 +12,6 @@ export const DefaultPlayerState: PlayerState = {
     canJump: true,
     grounded: false,
     side: Side.RIGHT,
-    inputNumber: 1
+    inputNumber: 1,
+    anim: AnimationCode.IDLE
   }

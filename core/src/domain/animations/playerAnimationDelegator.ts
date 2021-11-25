@@ -2,15 +2,7 @@ import { PlayerStateRepository } from "../../infrastructure/repositories/playerS
 import { Delegator } from "../delegator";
 import { Player } from "../player/player";
 import { PlayerState } from "../player/playerState";
-
-enum AnimationState {
-  IDLE = "idle",
-  RUNNING = "running",
-  IDLE_JUMP = "idleJump",
-  RUNNING_JUMP = "runningJump",
-  SECOND_JUMP = "secondJump",
-  FALLING = "falling",
-}
+import { AnimationCode } from "./animations";
 
 export class PlayerAnimationDelegator implements Delegator {
   private savedState: PlayerState | undefined;
@@ -28,40 +20,70 @@ export class PlayerAnimationDelegator implements Delegator {
   stop(): void {}
   update(time: number, delta: number): void {
     const state = this.statesRepository.getPlayerState(this.player.info.id);
+
     if (state) {
+      let animToPlay: AnimationCode | null = null;
       const absVelx = Math.abs(state.velocity.x);
       const absVely = Math.abs(state.velocity.y);
       const velY = state.velocity.y;
-      if (state.grounded) {
-        if (absVelx > 1 && absVely < 2) this.playAnim(AnimationState.RUNNING);
-        else if (absVelx < 1 && absVely >= 2)
-          this.playAnim(AnimationState.IDLE_JUMP);
-        else if (absVelx > 1 && absVely >= 2)
-          this.playAnim(AnimationState.RUNNING_JUMP);
-        else this.playAnim(AnimationState.IDLE);
-      } else {
-        if (velY > 2) this.playAnim(AnimationState.FALLING);
-      }
 
-      this.savedState = state;
+      animToPlay = this.getAnimation(state, velY, absVelx, absVely);
+
+      // if (state.grounded) {
+      //   if (absVelx > 1) {
+      //     if (absVely < 2) animToPlay = AnimationCode.RUNNING;
+      //     else animToPlay = AnimationCode.RUNNING_JUMP;
+      //   } else if (absVelx < 1 && absVely >= 2)
+      //     animToPlay = AnimationCode.IDLE_JUMP;
+      //   else animToPlay = AnimationCode.IDLE;
+      // } else {
+      //   if (velY > 2) animToPlay = AnimationCode.FALLING;
+      // }
+      console.log(animToPlay);
+      if (animToPlay && state.anim != animToPlay) {
+        this.statesRepository.setPlayerState(this.player.info.id, {
+          ...state,
+          anim: animToPlay,
+        });
+        this.playAnim(animToPlay);
+      }
     }
+  }
+
+  private getAnimation(
+    state: PlayerState,
+    velY: number,
+    absVelx: number,
+    absVely: number
+  ) {
+    if (!state.grounded && velY > 2) return AnimationCode.FALLING;
+
+    if (state.grounded && absVelx > 1 && absVely < 2)
+      return AnimationCode.RUNNING;
+
+    if (absVelx < 1 && absVely >= 2) return AnimationCode.IDLE_JUMP;
+
+    if (absVelx > 1 && absVely >= 2) return AnimationCode.RUNNING_JUMP;
+
+    if (state.grounded && absVely < 1 && absVelx < 1) return AnimationCode.IDLE;
+    return state.anim;
   }
 
   private setupAnimations() {
     const player = this.player.view;
     player.setTexture("player_anim");
-    this.createAnim(0, 2, AnimationState.IDLE, true, 1000);
-    this.createAnim(8, 13, AnimationState.RUNNING, true, 800);
-    this.createAnim(15, 23, AnimationState.IDLE_JUMP, false, 500);
-    this.createAnim(15, 23, AnimationState.RUNNING_JUMP, false, 500);
-    this.createAnim(22, 23, AnimationState.FALLING, true, 200);
+    this.createAnim(0, 2, AnimationCode.IDLE, true, 1000);
+    this.createAnim(8, 13, AnimationCode.RUNNING, true, 800);
+    this.createAnim(15, 23, AnimationCode.IDLE_JUMP, false, 500);
+    this.createAnim(15, 23, AnimationCode.RUNNING_JUMP, false, 500);
+    this.createAnim(22, 23, AnimationCode.FALLING, true, 200);
   }
 
   private getAnimationForPlayer(anim: string) {
     return `${this.player.info.id}-${anim}`;
   }
 
-  private playAnim(anim: AnimationState) {
+  private playAnim(anim: AnimationCode) {
     const key = this.getAnimationForPlayer(anim);
     if (this.player.view.anims.currentAnim?.key == key) return;
     this.player.view.play(key);

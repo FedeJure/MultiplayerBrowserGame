@@ -1,9 +1,9 @@
-import React , {useEffect, useState} from "react"
+import React, { useEffect, useState } from "react"
 import { io } from "socket.io-client"
 import { InitClientGame } from "multiplayer-game-core/lib/index";
 
 
-export const Game = ({playerId}: {playerId: string}) => {
+export const Game = ({ playerId }: { playerId: string }) => {
 
     const [connected, setConnected] = useState(false)
 
@@ -15,21 +15,21 @@ export const Game = ({playerId}: {playerId: string}) => {
             query: {
                 playerId
             },
-            transports: ["websocket","polling"]
+            transports: ["websocket", "polling"]
         });
-        
+
         socket.on("connect", () => {
             console.log("[Game] :: Successfully connected :D")
-            setConnected(true)  
-            InitClientGame(socket, playerId)    
+            setConnected(true)
+            InitClientGame(socket, playerId)
         })
 
         socket.on("disconnect", () => {
             console.log("Disconnected from server")
             setConnected(false)
         })
-        
-      }, [])
+
+    }, [])
 
     return <div>
         {connected && <div id="gameContainer"></div>}
