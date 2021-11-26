@@ -18,44 +18,19 @@ import { GameplayHud } from "./view/scenes/GameplayHud";
 import { LocalPlayerRepository } from "./infrastructure/repositories/localPlayerRepository";
 import { ActionProvider } from "./infrastructure/providers/actionProvider";
 import { DefaultPlayerState } from "./infrastructure/configuration/DefaultPlayerState";
-import { PlayerState } from "./domain/player/playerState";
 
 export const InitGame: (socket: Socket) => void = (socket: Socket) => {
   const scene = new GameScene(ServerProvider.collisionsDispatcher);
   const config = { ...ServerConfig, scene: scene };
-  const phaserGame = new Phaser.Game(config);
+  const _ = new Phaser.Game(config);
 
-  console.log("-----------", ServerProvider.playerInfoRepository);
-
-  ServerProvider.playerInfoRepository.addPlayer("1", {
-    id: "1",
-    name: "Test Player 1",
-  });
-  ServerProvider.playerStateRepository.setPlayerState("1", DefaultPlayerState);
-
-  ServerProvider.playerInfoRepository.addPlayer("2", {
-    id: "2",
-    name: "Test Player 2",
-  });
-  ServerProvider.playerStateRepository.setPlayerState("2", DefaultPlayerState);
-
-  // for (let i = 3; i < 50; i++) {
-  //   ServerProvider.playerInfoRepository.addPlayer(i.toString(), {
-  //     id: i.toString(),
-  //     name: "Test Player "+i.toString(),
-  //   });
-  //   const state :PlayerState = {
-  //     ...DefaultPlayerState,
-  //     position: {
-  //       x: (Math.random() * 50) + 50,
-  //       y: 0
-  //     }
-  //   }
-  //   ServerProvider.playerStateRepository.setPlayerState(
-  //     i.toString(),
-  //     state
-  //   );
-  // }
+  for (let i = 1; i <= 200; i++) {
+    ServerProvider.playerInfoRepository.addPlayer(i.toString(), {
+      id: i.toString(),
+      name: "Test Player "+ i,
+    });
+    ServerProvider.playerStateRepository.setPlayerState(i.toString(), DefaultPlayerState);
+  }
 
   const room = new SocketRoomConnection(socket, "main");
   const game = new ServerGamePresenter(

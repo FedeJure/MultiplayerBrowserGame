@@ -1,7 +1,6 @@
 import { PlayerStateRepository } from "../../infrastructure/repositories/playerStateRepository";
 import { Delegator } from "../delegator";
 import { Player } from "../player/player";
-import { PlayerInput } from "../player/playerInput";
 import { PlayerState } from "../player/playerState";
 import { AnimationCode } from "./animations";
 
@@ -9,7 +8,7 @@ export class ServerPlayerAnimationDelegator implements Delegator {
   protected readonly statesRepository: PlayerStateRepository;
   protected readonly player: Player;
 
-  constructor(player: Player, statesRepository: PlayerStateRepository, input: PlayerInput) {
+  constructor(player: Player, statesRepository: PlayerStateRepository) {
     this.statesRepository = statesRepository;
     this.player = player;
   }

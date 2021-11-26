@@ -14,13 +14,15 @@ app.get('/', function (_, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
+let mockNextId = 1
+
 app.post('/login', function (req, res) {
   try {
     console.log(req.body)
     const {username, password} = req.body
     console.log(`[Login] :: Trying logging with username: ${username}, password: ${password}`)
-    if (username == "test1") res.status(200).send({playerId: "1", message: "Logged success!", ok: true})
-    if (username == "test2") res.status(200).send({playerId: "2", message: "Logged success!", ok: true})
+    res.status(200).send({playerId: mockNextId.toString(), message: "Logged success!", ok: true})
+    mockNextId++
   } catch (error) {
     console.log(error)
     res.status(400).send({ok: false, message: "Logging failed"})

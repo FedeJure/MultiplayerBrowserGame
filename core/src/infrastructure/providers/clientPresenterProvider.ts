@@ -37,8 +37,7 @@ export class ClientPresenterProvider {
       new LocalPlayerRenderDelegator(player),
       new PlayerAnimationDelegator(
         player,
-        ClientProvider.playerStateRepository,
-        input
+        ClientProvider.playerStateRepository
       ),
     ]);
   }
