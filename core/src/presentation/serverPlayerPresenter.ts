@@ -30,6 +30,7 @@ export class ServerPlayerPresenter {
   }
 
   update({ time, delta }: { time: number; delta: number }) {
+    this.delegators.forEach(d => d.update(time,delta))
     const oldState = this.playerStates.getPlayerState(this.player.info.id)
     if (oldState) {
       const newState = this.resolveMovement.execute(

@@ -11,6 +11,7 @@ import { PlayerInputDelegator } from "../../domain/input/playerInputDelegator";
 import { LocalPlayerRenderDelegator } from "../../domain/player/localPlayerRenderDelegator";
 import { PlayerRemoteMovementDelegator } from "../../domain/movement/playerRemoteMovementDelegator";
 import { PlayerAnimationDelegator } from "../../domain/animations/playerAnimationDelegator";
+import { RemotePlayerAnimationDelegator } from "../../domain/animations/remotePlayerAnimationDelegator";
 export class ClientPresenterProvider {
   forLocalPlayer(input: PlayerInput, player: Player): void {
     new ClientPlayerPresenter(ClientProvider.serverConnection, player, [
@@ -48,7 +49,7 @@ export class ClientPresenterProvider {
       //   ClientProvider.playerStateRepository,
       //   ClientProvider.playerInputRequestRepository
       // ),
-      new PlayerAnimationDelegator(
+      new RemotePlayerAnimationDelegator(
         player,
         ClientProvider.playerStateRepository
       ),
@@ -56,11 +57,7 @@ export class ClientPresenterProvider {
         player,
         ClientProvider.serverConnection,
         ClientProvider.playerStateRepository
-      ),
-      new PlayerAnimationDelegator(
-        player,
-        ClientProvider.playerStateRepository
-      ),
+      )
     ]);
   }
 

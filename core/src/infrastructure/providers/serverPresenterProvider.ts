@@ -1,3 +1,4 @@
+import { ServerPlayerAnimationDelegator } from "../../domain/animations/serverPlayerAnimationDelegator";
 import { PlayerCollisionDelegator } from "../../domain/collisions/playerCollisionDelegator";
 import { Player } from "../../domain/player/player";
 import { PlayerInput } from "../../domain/player/playerInput";
@@ -19,6 +20,10 @@ export class ServerPresenterProvider {
         new PlayerCollisionDelegator(
           player,
           ServerProvider.collisionsDispatcher,
+          ServerProvider.playerStateRepository
+        ),
+        new ServerPlayerAnimationDelegator(
+          player,
           ServerProvider.playerStateRepository
         ),
       ],
