@@ -8,7 +8,8 @@ export const Game = ({ playerId }: { playerId: string }) => {
     const [connected, setConnected] = useState(false)
 
     useEffect(() => {
-        const socket = io("ws://127.0.0.1:8080", {
+        var host = document.location.origin.replace(/^http/, 'ws')
+        const socket = io(host, {
             auth: {
                 token: "1234"
             },

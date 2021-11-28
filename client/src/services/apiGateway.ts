@@ -6,5 +6,5 @@ export function login(username: string, password: string) {
         },
         body: JSON.stringify({username, password})
     }
-    return fetch(`http://127.0.0.1:3000/login`, config).then(res => res.json())
+    return fetch(`${document.location.origin}/login`, config).then(res => res.json())
 }
