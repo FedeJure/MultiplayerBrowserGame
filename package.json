@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js",
-    "start-prod": "node index.js",
-    "build": "bash check-dependencies-and-build-client.sh",
-    "build-client": "bash check-dependencies-and-build-client.sh"
+    "start": "",
+    "start-prod": "",
+    "build": "bash check-dependencies-and-build-client.sh"
   },
   "author": "",
   "license": "ISC",

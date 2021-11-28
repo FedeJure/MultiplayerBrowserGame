@@ -12,7 +12,7 @@ app.use(bodyParser.json({ extended: true }));
 
 app.get('*', function (_, res) {
   //Serve client root file
-  res.sendFile(__dirname + '/client/build/index.html');
+  res.sendFile('./client/build/index.html');
 });
 
 let mockNextId = 1
