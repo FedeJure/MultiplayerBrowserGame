@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 import { Login } from './screens/Login/Login';
 import { Game } from './game/Game';

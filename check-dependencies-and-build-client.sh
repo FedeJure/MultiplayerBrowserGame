@@ -4,6 +4,6 @@ fi
 
 cd client/
 npm-check -ys
-npm run build
 npm link multiplayer-game-core
+npm run build
 cd ..

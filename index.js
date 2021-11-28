@@ -4,14 +4,15 @@ const bodyParser = require('body-parser');
 const app = express();
 const server = require('http').createServer(app);
 const { SetupServer } = require("./server/index");
+const PORT = process.env.PORT || 8080;
 
 app.use(express.static(__dirname + '/client/build'));
 app.use('/assets',express.static(__dirname + '/core/src/assets'));
 app.use(bodyParser.json({ extended: true }));
 
-app.get('/', function (_, res) {
+app.get('*', function (_, res) {
   //Serve client root file
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/client/build/index.html');
 });
 
 let mockNextId = 1
@@ -29,7 +30,8 @@ app.post('/login', function (req, res) {
   }
 });
 
+
 SetupServer(server)
-server.listen(8080, () => {
+server.listen(PORT, () => {
   console.log("[Server] :: Successfully started")
 })

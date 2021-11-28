@@ -1,1 +1,1 @@
-web: bash check-dependencies-and-build-core.sh && cd client && npm start
+web cd client && npm start

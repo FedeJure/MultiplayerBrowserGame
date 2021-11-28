@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { io } from "socket.io-client"
-import { InitClientGame } from "multiplayer-game-core/lib/index";
+import { InitClientGame } from "@fedejure/multiplayer-game-core/lib/index";
 
 
 export const Game = ({ playerId }: { playerId: string }) => {
@@ -29,7 +29,7 @@ export const Game = ({ playerId }: { playerId: string }) => {
             setConnected(false)
         })
 
-    }, [])
+    }, [playerId])
 
     return <div>
         {connected && <div id="gameContainer"></div>}

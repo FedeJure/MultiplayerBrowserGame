@@ -69,7 +69,7 @@ export const InitGame: (socket: Socket) => void = (socket: Socket) => {
   });
 };
 
-export const InitClientGame = (socket: ClientSocket, localPlayerId: string) => {
+export const InitClientGame = (socket: any, localPlayerId: string) => {
   const connectionWithServer = new SocketServerConnection(socket);
   ClientProvider.Init(
     connectionWithServer,
