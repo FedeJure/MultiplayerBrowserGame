@@ -7,9 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js",
     "start-prod": "node index.js",
-    "build": "bash check-dependencies-and-build-core.sh && bash check-dependencies-and-build-client.sh",
-    "build-client": "bash check-dependencies-and-build-client.sh",
-    "build-core": "bash check-dependencies-and-build-core.sh"
+    "build": "bash check-dependencies-and-build-client.sh",
+    "build-client": "bash check-dependencies-and-build-client.sh"
   },
   "author": "",
   "license": "ISC",
