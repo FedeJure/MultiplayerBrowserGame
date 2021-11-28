@@ -20,8 +20,8 @@
     "web-vitals": "^2.1.2"
   },
   "scripts": {
-    "start": "npm link multiplayer-game-core && react-scripts start",
-    "build": "react-scripts build",
+    "start": "npx react-scripts start",
+    "build": "npx react-scripts build",
     "watch": "npm-watch",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
