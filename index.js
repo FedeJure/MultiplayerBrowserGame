@@ -6,13 +6,13 @@ const server = require('http').createServer(app);
 const { SetupServer } = require("./server/index");
 const PORT = process.env.PORT || 8080;
 
-app.use(express.static(__dirname + '/client/build'));
+app.use(express.static(__dirname + '/build'));
 app.use('/assets',express.static(__dirname + '/core/src/assets'));
 app.use(bodyParser.json({ extended: true }));
 
 app.get('*', function (_, res) {
   //Serve client root file
-  res.sendFile(__dirname + '/client/build');
+  res.sendFile(__dirname + '/build');
 });
 
 let mockNextId = 1
