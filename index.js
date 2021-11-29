@@ -10,10 +10,10 @@ app.use(express.static(__dirname + '/build'));
 app.use('/assets',express.static(__dirname + '/core/src/assets'));
 app.use(bodyParser.json({ extended: true }));
 
-app.get('*', function (_, res) {
-  //Serve client root file
-  res.sendFile(__dirname + '/build');
-});
+// app.get('*', function (_, res) {
+//   //Serve client root file
+//   res.sendFile(__dirname + '/build');
+// });
 
 let mockNextId = 1
 
