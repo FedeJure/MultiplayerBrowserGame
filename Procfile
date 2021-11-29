@@ -1,1 +1,2 @@
-web: bin/boot && npm start
+web: bin/boot
+server: PORT=3001 && npm start

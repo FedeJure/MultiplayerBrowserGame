@@ -6,5 +6,5 @@ export function login(username: string, password: string) {
         },
         body: JSON.stringify({username, password})
     }
-    return fetch(`${document.location.origin}/login`, config).then(res => res.json())
+    return fetch(`${document.location.origin}:3001/login`, config).then(res => res.json())
 }
