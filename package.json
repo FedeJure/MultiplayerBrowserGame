@@ -5,10 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "",
-    "start-prod": "",
-    "build": "bash check-dependencies-and-build-client.sh",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build && echo 'PRINT LS:' && ls"
+    "build": "cd client && npm install --only=dev && npm install && npm run build && cd .. && echo 'PRINT LS:' && ls"
   },
   "author": "",
   "license": "ISC",
