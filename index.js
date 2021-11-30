@@ -7,7 +7,7 @@ const { SetupServer } = require("./server/index");
 const PORT = process.env.PORT || 8080;
 
 app.use(express.static(__dirname + '/app/build'));
-app.use('/assets',express.static(__dirname + '/core/src/assets'));
+app.use('/assets',express.static(__dirname + '/server/assets'));
 app.use(bodyParser.json({ extended: true }));
 
 app.get('*', function (_, res) {

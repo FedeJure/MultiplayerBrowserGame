@@ -22,7 +22,7 @@ export const Game = ({ playerId }: { playerId: string }) => {
         socket.on("connect", () => {
             console.log("[Game] :: Successfully connected :D")
             setConnected(true)
-            InitClientGame(socket, playerId)
+            InitClientGame(socket, playerId, document.location.origin)
         })
 
         socket.on("disconnect", () => {
