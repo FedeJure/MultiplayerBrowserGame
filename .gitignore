@@ -41,5 +41,5 @@ dist/**/*
 # ignore yarn.lock
 yarn.lock
 
-client/build/
+app/build/
 core/lib/
