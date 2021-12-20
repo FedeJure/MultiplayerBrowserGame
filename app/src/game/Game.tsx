@@ -8,7 +8,10 @@ export const Game = ({ playerId }: { playerId: string }) => {
     const [connected, setConnected] = useState(false)
 
     useEffect(() => {
-        var host = document.location.origin.replace(/^http/, 'ws')
+        const host =
+            process.env.NODE_ENV === "development"
+                ? `ws://${document.location.hostname}:8080`
+                : document.location.origin.replace(/^http/, 'ws');
         const socket = io(host, {
             auth: {
                 token: "1234"
@@ -22,7 +25,7 @@ export const Game = ({ playerId }: { playerId: string }) => {
         socket.on("connect", () => {
             console.log("[Game] :: Successfully connected :D")
             setConnected(true)
-            InitClientGame(socket, playerId, document.location.origin)
+            InitClientGame(socket, playerId, process.env.NODE_ENV === "development" ? `http://${document.location.hostname}:8080` : document.location.origin)
         })
 
         socket.on("disconnect", () => {

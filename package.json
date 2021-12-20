@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm install && cd app && npm install && npm run build",
+    "build": "NODE_ENV=production && npm install && cd app && npm install && npm run build",
+    "build:dev": "npm link @fedejure/multiplayer-game-core && cd app && npm run build && cd ..",
     "start": "node index.js"
   },
   "author": "",
@@ -16,6 +17,7 @@
     "body-parser": "1.19.0",
     "express": "4.17.1",
     "phaser": "3.55.2",
+    "prom-client": "^14.0.1",
     "socket.io": "4.2.0"
   },
   "devDependencies": {
