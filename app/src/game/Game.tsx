@@ -24,8 +24,8 @@ export const Game = ({ playerId }: { playerId: string }) => {
 
         socket.on("connect", () => {
             console.log("[Game] :: Successfully connected :D")
-            setConnected(true)
             InitClientGame(socket, playerId, process.env.NODE_ENV === "development" ? `http://${document.location.hostname}:8080` : document.location.origin)
+            setConnected(true)
         })
 
         socket.on("disconnect", () => {
