@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <object name="Objeto de prueba" type="Environment Object">
+  <properties>
+   <property name="id" type="int" value="1"/>
+  </properties>
+  <point/>
+ </object>
+</template>

@@ -30,11 +30,22 @@
          "encoding":"base64",
          "height":64,
          "id":5,
-         "name":"objects",
+         "name":"objects1",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
          "width":64,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":8,
+         "name":"objects",
+         "objects":[],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -86,7 +97,7 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":8,
+ "nextlayerid":9,
  "nextobjectid":93,
  "orientation":"orthogonal",
  "renderorder":"left-up",
@@ -96,7 +107,7 @@
         {
          "columns":16,
          "firstgid":1,
-         "image":"../../mapTiles/forest.png",
+         "image":"..\/..\/mapTiles\/forest.png",
          "imageheight":512,
          "imagewidth":512,
          "margin":0,
@@ -2414,7 +2425,7 @@
         {
          "columns":32,
          "firstgid":257,
-         "image":"../../mapStaticObjects/farm.png",
+         "image":"..\/..\/mapStaticObjects\/farm.png",
          "imageheight":1024,
          "imagewidth":1024,
          "margin":0,
