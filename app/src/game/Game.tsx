@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { io } from "socket.io-client"
-import { InitClientGame } from "@fedejure/multiplayer-game-core/lib/index";
+import { InitClientGame } from "@fedejure/multiplayer-game-core/lib/clientIndex";
 
 
 export const Game = ({ playerId }: { playerId: string }) => {

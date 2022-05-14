@@ -1,5 +1,5 @@
 const SetupSocketIo = require('socket.io')
-const { InitGame } = require("@fedejure/multiplayer-game-core/lib/index")
+const { InitGame } = require("@fedejure/multiplayer-game-core/lib/serverIndex")
 
 exports.SetupServer = (server, staticAddress) => {
     const io = SetupSocketIo(server, { pingInterval: 5000 })
