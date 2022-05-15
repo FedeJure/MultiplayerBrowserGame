@@ -1,7 +1,14 @@
-const SetupSocketIo = require('socket.io')
-const { InitGame } = require("@fedejure/multiplayer-game-core/lib/serverIndex")
+const {
+  InitGame,
+  InitGameStateSender,
+  InitServerDependencies,
+} = require("@fedejure/multiplayer-game-core/lib/serverIndex");
 
-exports.SetupServer = (server, staticAddress) => {
-    const io = SetupSocketIo(server, { pingInterval: 5000 })
-    InitGame(io, '../../../../server')
-}
+exports.SetupServer = (socket, r) => {
+  const provider = InitServerDependencies();
+  InitGame(socket, "../../../../server", provider);
+};
+
+exports.SetupServerStateManager = (socket) => {
+  InitGameStateSender(socket, provider);
+};
