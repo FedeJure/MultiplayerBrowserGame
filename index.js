@@ -6,7 +6,7 @@ const server = require("http").createServer(app);
 const { SetupServer } = require("./server/index");
 const client = require("prom-client");
 const register = new client.Registry();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8081;
 const SetupSocketIo = require("socket.io");
 const io = SetupSocketIo(server, { pingInterval: 5000 });
 register.setDefaultLabels({

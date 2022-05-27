@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { io } from "socket.io-client"
 import { InitClientGame } from "@fedejure/multiplayer-game-core/lib/clientIndex";
 
@@ -10,7 +10,7 @@ export const Game = ({ playerId }: { playerId: string }) => {
     useEffect(() => {
         const host =
             process.env.NODE_ENV === "development"
-                ? `ws://${document.location.hostname}:8080`
+                ? `ws://${document.location.hostname}:8081`
                 : document.location.origin.replace(/^http/, 'ws');
         const socket = io(host, {
             auth: {
@@ -24,7 +24,7 @@ export const Game = ({ playerId }: { playerId: string }) => {
 
         socket.on("connect", () => {
             console.log("[Game] :: Successfully connected :D")
-            InitClientGame(socket, playerId, process.env.NODE_ENV === "development" ? `http://${document.location.hostname}:8080` : document.location.origin)
+            InitClientGame(socket, playerId, process.env.NODE_ENV === "development" ? `http://${document.location.hostname}:8081` : document.location.origin)
             setConnected(true)
         })
 
