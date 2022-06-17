@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { io } from "socket.io-client"
 import { InitClientGame } from "@fedejure/multiplayer-game-core/lib/clientIndex";
 
@@ -6,6 +6,7 @@ import { InitClientGame } from "@fedejure/multiplayer-game-core/lib/clientIndex"
 export const Game = ({ playerId }: { playerId: string }) => {
 
     const [connected, setConnected] = useState(false)
+    const isConnectedRef = useRef(false)
 
     useEffect(() => {
         const host =
@@ -26,16 +27,23 @@ export const Game = ({ playerId }: { playerId: string }) => {
             console.log("[Game] :: Successfully connected :D")
             InitClientGame(socket, playerId, process.env.NODE_ENV === "development" ? `http://${document.location.hostname}:8081` : document.location.origin)
             setConnected(true)
+            isConnectedRef.current = true
         })
 
         socket.on("disconnect", () => {
             console.log("Disconnected from server")
             setConnected(false)
+            isConnectedRef.current = false
         })
 
     }, [playerId])
 
-    return <div>
-        {connected && <div id="gameContainer"></div>}
-    </div>
+    useEffect(() => {
+        if (!connected && isConnectedRef.current) {
+            window.location.reload()
+        }
+    }, [connected])
+
+    return <div id="gameContainer"></div>
+
 }
