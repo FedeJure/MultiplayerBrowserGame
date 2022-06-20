@@ -44,3 +44,4 @@ yarn.lock
 app/build/
 core/lib/
 core
+server/assets/spine/Source_*
