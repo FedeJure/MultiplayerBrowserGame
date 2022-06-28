@@ -1,0 +1,318 @@
+[
+    {
+        "name": "collider",
+        "type": "Rectangle",
+        "x": 1,
+        "y": 1697,
+        "depth": 0,
+        "scale": {
+            "x": 2052.681359110714,
+            "y": 358.81356416070133
+        },
+        "origin": {
+            "x": 0,
+            "y": 0
+        },
+        "rotation": 0,
+        "alpha": 1,
+        "visible": true,
+        "blendMode": 0,
+        "textureKey": "",
+        "frameKey": "",
+        "data": {
+            "up": false,
+            "down": false,
+            "left": false,
+            "right": false
+        }
+    },
+    {
+        "name": "collider",
+        "type": "Rectangle",
+        "x": 0,
+        "y": 1184,
+        "depth": 0,
+        "scale": {
+            "x": 3.003711237517988,
+            "y": 0.12244768649666016
+        },
+        "origin": {
+            "x": 0,
+            "y": 0
+        },
+        "rotation": 0,
+        "alpha": 1,
+        "visible": true,
+        "blendMode": 0,
+        "textureKey": "",
+        "frameKey": "",
+        "data": {
+            "up": true,
+            "down": false,
+            "left": false,
+            "right": false
+        }
+    },
+    {
+        "name": "",
+        "type": "Image",
+        "x": 820,
+        "y": 1627,
+        "depth": 0,
+        "scale": {
+            "x": 1,
+            "y": 1
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "flipX": false,
+        "flipY": false,
+        "rotation": 0,
+        "alpha": 1,
+        "visible": true,
+        "blendMode": 0,
+        "textureKey": "texture",
+        "frameKey": "tree2",
+        "data": {}
+    },
+    {
+        "name": "",
+        "type": "Image",
+        "x": 1005,
+        "y": 1614,
+        "depth": 0,
+        "scale": {
+            "x": 1,
+            "y": 1
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "flipX": false,
+        "flipY": false,
+        "rotation": 0,
+        "alpha": 1,
+        "visible": true,
+        "blendMode": 0,
+        "textureKey": "texture",
+        "frameKey": "tree1",
+        "data": {}
+    },
+    {
+        "name": "",
+        "type": "Image",
+        "x": 858,
+        "y": 1674,
+        "depth": 0,
+        "scale": {
+            "x": 1,
+            "y": 1
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "flipX": false,
+        "flipY": false,
+        "rotation": 0,
+        "alpha": 1,
+        "visible": true,
+        "blendMode": 0,
+        "textureKey": "texture",
+        "frameKey": "box",
+        "data": {}
+    },
+    {
+        "name": "",
+        "type": "Image",
+        "x": 737,
+        "y": 1592,
+        "depth": 0,
+        "scale": {
+            "x": 1.5,
+            "y": 1.5
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "flipX": false,
+        "flipY": false,
+        "rotation": 0,
+        "alpha": 1,
+        "visible": true,
+        "blendMode": 0,
+        "textureKey": "texture",
+        "frameKey": "tree2",
+        "data": {}
+    },
+    {
+        "name": "",
+        "type": "Image",
+        "x": 242,
+        "y": 1648,
+        "depth": 0,
+        "scale": {
+            "x": 1,
+            "y": 1
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "flipX": false,
+        "flipY": false,
+        "rotation": 0,
+        "alpha": 1,
+        "visible": true,
+        "blendMode": 0,
+        "textureKey": "texture",
+        "frameKey": "ladder",
+        "data": {}
+    },
+    {
+        "name": "",
+        "type": "Image",
+        "x": 242,
+        "y": 1554,
+        "depth": 0,
+        "scale": {
+            "x": 1,
+            "y": 1
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "flipX": false,
+        "flipY": false,
+        "rotation": 0,
+        "alpha": 1,
+        "visible": true,
+        "blendMode": 0,
+        "textureKey": "texture",
+        "frameKey": "ladder",
+        "data": {}
+    },
+    {
+        "name": "",
+        "type": "Image",
+        "x": 242,
+        "y": 1459,
+        "depth": 0,
+        "scale": {
+            "x": 1,
+            "y": 1
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "flipX": false,
+        "flipY": false,
+        "rotation": 0,
+        "alpha": 1,
+        "visible": true,
+        "blendMode": 0,
+        "textureKey": "texture",
+        "frameKey": "ladder",
+        "data": {}
+    },
+    {
+        "name": "",
+        "type": "Image",
+        "x": 241,
+        "y": 1364,
+        "depth": 0,
+        "scale": {
+            "x": 1,
+            "y": 1
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "flipX": false,
+        "flipY": false,
+        "rotation": 0,
+        "alpha": 1,
+        "visible": true,
+        "blendMode": 0,
+        "textureKey": "texture",
+        "frameKey": "ladder",
+        "data": {}
+    },
+    {
+        "name": "",
+        "type": "Image",
+        "x": 240,
+        "y": 1269,
+        "depth": 0,
+        "scale": {
+            "x": 1,
+            "y": 1
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "flipX": false,
+        "flipY": false,
+        "rotation": 0,
+        "alpha": 1,
+        "visible": true,
+        "blendMode": 0,
+        "textureKey": "texture",
+        "frameKey": "ladder",
+        "data": {}
+    },
+    {
+        "name": "",
+        "type": "Image",
+        "x": 240,
+        "y": 1236,
+        "depth": 0,
+        "scale": {
+            "x": 1,
+            "y": 1
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "flipX": false,
+        "flipY": false,
+        "rotation": 0,
+        "alpha": 1,
+        "visible": true,
+        "blendMode": 0,
+        "textureKey": "texture",
+        "frameKey": "ladder",
+        "data": {}
+    },
+    {
+        "name": "ladder",
+        "type": "Rectangle",
+        "x": 226,
+        "y": 1185,
+        "depth": 0,
+        "scale": {
+            "x": 0.24048457424385264,
+            "y": 3.995842206570253
+        },
+        "origin": {
+            "x": 0,
+            "y": 0
+        },
+        "rotation": 0,
+        "alpha": 1,
+        "visible": true,
+        "blendMode": 0,
+        "textureKey": "",
+        "frameKey": "",
+        "data": {}
+    }
+]

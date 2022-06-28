@@ -1,0 +1,92 @@
+{
+			"frames": [
+				{
+					"filename": "box",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 48,
+						"h": 47
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 1,
+						"w": 45,
+						"h": 45
+					},
+					"frame": {
+						"x": 0,
+						"y": 0,
+						"w": 45,
+						"h": 45
+					}
+				},
+				{
+					"filename": "ladder",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 34,
+						"h": 100
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 3,
+						"w": 32,
+						"h": 96
+					},
+					"frame": {
+						"x": 0,
+						"y": 45,
+						"w": 32,
+						"h": 96
+					}
+				},
+				{
+					"filename": "tree1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 155,
+						"h": 165
+					},
+					"spriteSourceSize": {
+						"x": 1,
+						"y": 3,
+						"w": 153,
+						"h": 161
+					},
+					"frame": {
+						"x": 45,
+						"y": 0,
+						"w": 153,
+						"h": 161
+					}
+				},
+				{
+					"filename": "tree2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 124,
+						"h": 140
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 3,
+						"w": 120,
+						"h": 137
+					},
+					"frame": {
+						"x": 198,
+						"y": 0,
+						"w": 120,
+						"h": 137
+					}
+				}
+	],
+	"meta": {
+		"app": "http://free-tex-packer.com",
+		"version": "0.6.7"
+	}
+}
