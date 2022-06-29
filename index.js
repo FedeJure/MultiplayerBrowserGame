@@ -12,7 +12,7 @@ const io = SetupSocketIo(server, { pingInterval: 5000 });
 register.setDefaultLabels({
   app: "multiplayer-game",
 });
-
+global.phaserOnNodeFPS = 30
 SetupServer(io);
 
 client.collectDefaultMetrics({ register });
