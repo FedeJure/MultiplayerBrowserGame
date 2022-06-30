@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "NODE_ENV=production && npm install && cd app && npm install && npm run build",
     "build:dev": "npm link @fedejure/multiplayer-game-core && cd app && npm run build && cd ..",
-    "start": "node index.js"
+    "start": "node index.js",
+    "editor": "phasereditor2d-launcher -project ./server/AssetManagerProject"
   },
   "author": "",
   "license": "ISC",
@@ -25,6 +26,7 @@
     "@types/socket.io": "^3.0.2",
     "nodemon": "^2.0.12",
     "parallel": "^1.2.0",
+    "phasereditor2d-launcher": "^3.33.2",
     "typescript": "4.3.5"
   }
 }

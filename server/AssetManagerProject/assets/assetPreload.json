@@ -1,0 +1,120 @@
+{
+    "section1": {
+        "files": [
+            {
+                "url": "assets/button.jpg",
+                "type": "image",
+                "key": "button"
+            },
+            {
+                "url": "src/components/Collider.js",
+                "type": "script",
+                "key": "Collider"
+            },
+            {
+                "url": "src/components/Component.js",
+                "type": "script",
+                "key": "Component"
+            },
+            {
+                "url": "src/components/Depth.js",
+                "type": "script",
+                "key": "Depth"
+            },
+            {
+                "url": "src/components/Entrance.js",
+                "type": "script",
+                "key": "Entrance"
+            },
+            {
+                "url": "src/components/Exit.js",
+                "type": "script",
+                "key": "Exit"
+            },
+            {
+                "url": "assets/tiles/farm.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "farm"
+            },
+            {
+                "url": "assets/tiles/forest.png",
+                "frameConfig": {
+                    "frameWidth": 32,
+                    "frameHeight": 32,
+                    "startFrame": 0,
+                    "endFrame": -1,
+                    "spacing": 0,
+                    "margin": 0
+                },
+                "type": "spritesheet",
+                "key": "forest"
+            },
+            {
+                "url": "assets/mapConfigs/forest/forest_0.json",
+                "type": "tilemapTiledJSON",
+                "key": "forest_0"
+            },
+            {
+                "url": "assets/tiledConfigs/forest_1.json",
+                "type": "tilemapTiledJSON",
+                "key": "forest_1"
+            },
+            {
+                "url": "assets/mapConfigs/forest/forest_1.json",
+                "type": "tilemapTiledJSON",
+                "key": "forest_2"
+            },
+            {
+                "url": "assets/mapConfigs/forest/forest_2_village.json",
+                "type": "tilemapTiledJSON",
+                "key": "forest_2_village"
+            },
+            {
+                "url": "src/maps/Forest0.js",
+                "type": "sceneFile",
+                "key": "Forest0"
+            },
+            {
+                "url": "src/maps/ForestVillage.js",
+                "type": "sceneFile",
+                "key": "ForestVillage"
+            },
+            {
+                "url": "src/components/Ladder.js",
+                "type": "script",
+                "key": "Ladder"
+            },
+            {
+                "url": "src/components/SceneExporter.js",
+                "type": "script",
+                "key": "SceneExporter"
+            },
+            {
+                "url": "src/components/UserComponent.js",
+                "type": "script",
+                "key": "UserComponent"
+            },
+            {
+                "atlasURL": "assets/atlas/forest/village.json",
+                "textureURL": "assets/atlas/forest/village.png",
+                "type": "atlas",
+                "key": "village"
+            }
+        ]
+    },
+    "meta": {
+        "app": "Phaser Editor 2D - Asset Pack Editor",
+        "contentType": "phasereditor2d.pack.core.AssetContentType",
+        "url": "https://phasereditor2d.com",
+        "version": 2,
+        "showAllFilesInBlocks": false
+    }
+}

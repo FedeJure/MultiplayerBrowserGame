@@ -1,0 +1,234 @@
+{
+    "id": "b32ac012-8709-4902-86e1-b291ae070910",
+    "sceneType": "SCENE",
+    "settings": {
+        "preloadPackFiles": [
+            "MultiplayerBrowserGameMaps/assets/forest.json"
+        ],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Forest0",
+        "borderWidth": 2048,
+        "borderHeight": 2048
+    },
+    "displayList": [
+        {
+            "type": "Rectangle",
+            "id": "ee48b8b6-41bb-4290-a1ec-a0ddb5c3733c",
+            "label": "groundCollider",
+            "components": [
+                "Collider"
+            ],
+            "x": 1,
+            "y": 1697,
+            "scaleX": 2052.681359110714,
+            "scaleY": 358.81356416070133,
+            "originX": 0,
+            "originY": 0,
+            "width": 128,
+            "height": 128
+        },
+        {
+            "type": "Rectangle",
+            "id": "75cde827-3564-4f7d-a8ec-36d13dcaf0ac",
+            "label": "rectangle_1",
+            "components": [
+                "Collider"
+            ],
+            "Collider.up": true,
+            "y": 1184,
+            "scaleX": 3.003711237517988,
+            "scaleY": 0.12244768649666016,
+            "originX": 0,
+            "originY": 0,
+            "width": 128,
+            "height": 128
+        },
+        {
+            "type": "TilemapLayer",
+            "id": "9179c8ed-a668-4826-bbdf-674f00214116",
+            "label": "ground_1",
+            "components": [],
+            "tilemapId": "476cd342-a3e1-43bb-9a9d-3b6073fc61b9",
+            "layerName": "ground",
+            "tilesets": [
+                "forest",
+                "farm"
+            ]
+        },
+        {
+            "type": "Image",
+            "id": "9ba51ae3-4982-408a-925b-ba2d66501728",
+            "label": "tree2",
+            "components": [],
+            "texture": {
+                "key": "texture",
+                "frame": "tree2"
+            },
+            "x": 820,
+            "y": 1627
+        },
+        {
+            "type": "Image",
+            "id": "35f19a86-0b20-4df6-b0b8-903f67681550",
+            "label": "tree1",
+            "components": [],
+            "texture": {
+                "key": "texture",
+                "frame": "tree1"
+            },
+            "x": 1005,
+            "y": 1614
+        },
+        {
+            "type": "Image",
+            "id": "3b0bed9d-ce3d-497a-9e2b-4d073071b611",
+            "label": "box",
+            "components": [],
+            "texture": {
+                "key": "texture",
+                "frame": "box"
+            },
+            "x": 858,
+            "y": 1674
+        },
+        {
+            "type": "Image",
+            "id": "535de87f-def3-4433-8d8a-894eb31f607e",
+            "label": "tree",
+            "components": [],
+            "texture": {
+                "key": "texture",
+                "frame": "tree2"
+            },
+            "x": 737,
+            "y": 1592,
+            "scaleX": 1.5,
+            "scaleY": 1.5
+        },
+        {
+            "type": "Image",
+            "id": "be730cd0-51c1-42be-a948-8d8fa5f92415",
+            "label": "ladder",
+            "components": [],
+            "texture": {
+                "key": "texture",
+                "frame": "ladder"
+            },
+            "x": 242,
+            "y": 1648
+        },
+        {
+            "type": "Image",
+            "id": "2c98788f-354e-40cf-b664-9c65e1a16352",
+            "label": "ladder_1",
+            "components": [],
+            "texture": {
+                "key": "texture",
+                "frame": "ladder"
+            },
+            "x": 242,
+            "y": 1554
+        },
+        {
+            "type": "Image",
+            "id": "63b551c6-c024-45e5-931f-b67d97004edc",
+            "label": "ladder_2",
+            "components": [],
+            "texture": {
+                "key": "texture",
+                "frame": "ladder"
+            },
+            "x": 242,
+            "y": 1459
+        },
+        {
+            "type": "Image",
+            "id": "a9976a5a-5b75-4691-8bb2-17dfdfcc51d4",
+            "label": "ladder_3",
+            "components": [],
+            "texture": {
+                "key": "texture",
+                "frame": "ladder"
+            },
+            "x": 241,
+            "y": 1364
+        },
+        {
+            "type": "Image",
+            "id": "34815a87-3234-4d9d-90d3-ec11c449114b",
+            "label": "ladder_4",
+            "components": [],
+            "texture": {
+                "key": "texture",
+                "frame": "ladder"
+            },
+            "x": 240,
+            "y": 1269
+        },
+        {
+            "type": "Image",
+            "id": "1fb1b1e1-2f46-4d75-a49f-5c4728cf8c1c",
+            "label": "ladder_5",
+            "components": [],
+            "texture": {
+                "key": "texture",
+                "frame": "ladder"
+            },
+            "x": 240,
+            "y": 1236
+        },
+        {
+            "type": "Image",
+            "id": "2854fe6c-6b9e-40b9-a21a-3e1944a57802",
+            "label": "button",
+            "components": [
+                "SceneExporter"
+            ],
+            "texture": {
+                "key": "button"
+            },
+            "x": 972,
+            "y": 1286
+        },
+        {
+            "type": "Rectangle",
+            "id": "c69ebceb-0b95-4a3d-83e4-5bba78420ecf",
+            "label": "rectangle_2",
+            "components": [
+                "Ladder"
+            ],
+            "x": 226,
+            "y": 1185,
+            "scaleX": 0.24048457424385264,
+            "scaleY": 3.995842206570253,
+            "originX": 0,
+            "originY": 0,
+            "width": 128,
+            "height": 128
+        }
+    ],
+    "plainObjects": [
+        {
+            "id": "476cd342-a3e1-43bb-9a9d-3b6073fc61b9",
+            "type": "Tilemap",
+            "label": "forest_1",
+            "key": "forest_1",
+            "tilesets": [
+                {
+                    "name": "forest",
+                    "imageKey": "forest"
+                },
+                {
+                    "name": "farm",
+                    "imageKey": "farm"
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 3
+    }
+}

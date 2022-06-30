@@ -1,0 +1,18 @@
+{
+    "id": "6f556dd4-77bf-4bb8-9b63-38dbb4625334",
+    "sceneType": "SCENE",
+    "settings": {
+        "compilerEnabled": false,
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Level"
+    },
+    "displayList": [],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 3
+    }
+}

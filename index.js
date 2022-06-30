@@ -18,7 +18,7 @@ SetupServer(io);
 client.collectDefaultMetrics({ register });
 
 app.use(express.static(__dirname + "/app/build"));
-app.use("/assets", express.static(__dirname + "/server/assets"));
+app.use("/AssetManagerProject/assets", express.static(__dirname + "/server/AssetManagerProject/assets"));
 app.use(bodyParser.json({ extended: true }));
 
 // app.get('*', function (_, res) {

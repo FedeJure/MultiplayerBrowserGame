@@ -1,0 +1,97 @@
+{
+    "components": [
+        {
+            "name": "Collider",
+            "baseClass": "",
+            "gameObjectType": "Phaser.GameObjects.Image",
+            "properties": [
+                {
+                    "name": "up",
+                    "label": "Up",
+                    "tooltip": "",
+                    "defValue": false,
+                    "customDefinition": false,
+                    "type": {
+                        "id": "boolean"
+                    }
+                },
+                {
+                    "name": "down",
+                    "label": "Down",
+                    "tooltip": "",
+                    "defValue": false,
+                    "customDefinition": false,
+                    "type": {
+                        "id": "boolean"
+                    }
+                },
+                {
+                    "name": "left",
+                    "label": "Left",
+                    "tooltip": "",
+                    "defValue": false,
+                    "customDefinition": false,
+                    "type": {
+                        "id": "boolean"
+                    }
+                },
+                {
+                    "name": "right",
+                    "label": "Right",
+                    "tooltip": "",
+                    "defValue": false,
+                    "customDefinition": false,
+                    "type": {
+                        "id": "boolean"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "SceneExporter",
+            "baseClass": "",
+            "gameObjectType": "Phaser.GameObjects.Image",
+            "properties": []
+        },
+        {
+            "name": "Ladder",
+            "baseClass": "",
+            "gameObjectType": "Phaser.GameObjects.Rectangle",
+            "properties": []
+        },
+        {
+            "name": "Entrance",
+            "baseClass": "",
+            "gameObjectType": "Phaser.GameObjects.Rectangle",
+            "properties": []
+        },
+        {
+            "name": "Exit",
+            "baseClass": "",
+            "gameObjectType": "Phaser.GameObjects.Rectangle",
+            "properties": []
+        },
+        {
+            "name": "Depth",
+            "baseClass": "",
+            "gameObjectType": "Phaser.GameObjects.Image",
+            "properties": [
+                {
+                    "name": "depth",
+                    "label": "Depth",
+                    "tooltip": "Depth",
+                    "defValue": 0,
+                    "customDefinition": false,
+                    "type": {
+                        "id": "number"
+                    }
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "app": "Phaser Editor 2D - Object Script Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType"
+    }
+}

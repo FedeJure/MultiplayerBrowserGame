@@ -1,0 +1,876 @@
+{
+    "id": "f61bbd77-ede0-4b08-9957-21313739cbfd",
+    "settings": {
+        "createMethodName": "",
+        "preloadMethodName": "",
+        "compilerOutputLanguage": "JAVA_SCRIPT",
+        "exportClass": false,
+        "autoImport": false,
+        "generateAwakeHandler": false,
+        "compilerInsertSpaces": false,
+        "compilerTabSize": 4,
+        "borderWidth": 2048,
+        "borderHeight": 2048,
+        "borderX": 0,
+        "borderY": 0
+    },
+    "sceneType": "PREFAB",
+    "displayList": [
+        {
+            "unlock": [
+                "x",
+                "y"
+            ],
+            "type": "Container",
+            "id": "7baf544a-c475-4dc0-80ac-59b44e8d582b",
+            "label": "container_1",
+            "components": [],
+            "x": 0,
+            "y": 0,
+            "scaleX": 0.75,
+            "scaleY": 0.75,
+            "list": [
+                {
+                    "type": "Image",
+                    "id": "f1964b49-c628-410e-aa64-59283eb465a1",
+                    "label": "_16",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "26"
+                    },
+                    "x": 237,
+                    "y": 363
+                },
+                {
+                    "type": "Image",
+                    "id": "239dbc4a-1b41-485f-aa61-38ec3a5221ae",
+                    "label": "_37",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "5"
+                    },
+                    "x": 603,
+                    "y": 403,
+                    "scaleX": 0.510375910060054,
+                    "scaleY": 0.7974303777798181,
+                    "originX": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "02dd14df-48e3-4f93-96af-cfb4791f3002",
+                    "label": "_38",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "5"
+                    },
+                    "x": 603,
+                    "y": 418,
+                    "scaleX": 0.510375910060054,
+                    "scaleY": 0.7974303777798282,
+                    "originX": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "43499801-c127-4774-b0e9-8f311340b7a1",
+                    "label": "_5",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "5"
+                    },
+                    "x": 603,
+                    "y": 433,
+                    "scaleX": 0.510375910060054,
+                    "scaleY": 0.7974303777798282,
+                    "originX": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "2d1b028a-7f18-44b2-9043-be65b4583d69",
+                    "label": "_39",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "5"
+                    },
+                    "x": 603,
+                    "y": 389,
+                    "scaleX": 0.510375910060054,
+                    "scaleY": 0.7974303777798282,
+                    "originX": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "bb872c38-8359-4f3d-b178-9123f4bbb18b",
+                    "label": "_17",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "26"
+                    },
+                    "x": 133,
+                    "y": 363
+                },
+                {
+                    "type": "Image",
+                    "id": "f1395ac2-3007-4025-b87f-fcf6108599e5",
+                    "label": "_40",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "5"
+                    },
+                    "x": 603,
+                    "y": 374,
+                    "scaleX": 0.510375910060054,
+                    "scaleY": 0.7974303777798282,
+                    "originX": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "c5dfc2cd-860f-4072-92db-dd1b811e8826",
+                    "label": "_41",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "5"
+                    },
+                    "x": 603,
+                    "y": 359,
+                    "scaleX": 0.510375910060054,
+                    "scaleY": 0.7974303777798181,
+                    "originX": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "e45816bb-7c45-43f3-9be9-0dca72f893ee",
+                    "label": "_46",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "5"
+                    },
+                    "x": 603,
+                    "y": 285,
+                    "scaleX": 0.510375910060054,
+                    "scaleY": 0.7974303777798282,
+                    "originX": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "59b0cc37-882f-4726-92ca-1692e98d05a1",
+                    "label": "_48",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "5"
+                    },
+                    "x": 603,
+                    "y": 299,
+                    "scaleX": 0.510375910060054,
+                    "scaleY": 0.7974303777798181,
+                    "originX": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "ccd1e836-9885-44eb-ad6e-9797027e9a86",
+                    "label": "_42",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "5"
+                    },
+                    "x": 603,
+                    "y": 344,
+                    "scaleX": 0.510375910060054,
+                    "scaleY": 0.7974303777798282,
+                    "originX": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "e382fe10-354b-4172-807c-f38116ecd770",
+                    "label": "_43",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "5"
+                    },
+                    "x": 603,
+                    "y": 329,
+                    "scaleX": 0.510375910060054,
+                    "scaleY": 0.7974303777798181,
+                    "originX": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "c96b7dde-6f29-4556-bc29-12ddf17966b7",
+                    "label": "_44",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "5"
+                    },
+                    "x": 603,
+                    "y": 314,
+                    "scaleX": 0.510375910060054,
+                    "scaleY": 0.7974303777798181,
+                    "originX": 0
+                },
+                {
+                    "type": "Image",
+                    "id": "86d62a11-223d-4cb6-a26a-aabaf4d3ab2c",
+                    "label": "_6",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "11"
+                    },
+                    "x": 256,
+                    "y": 356
+                },
+                {
+                    "type": "Image",
+                    "id": "911e2fd3-b82a-4b16-bf81-b874ff4c8567",
+                    "label": "_69",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "69"
+                    },
+                    "x": 457,
+                    "y": 310
+                },
+                {
+                    "type": "Image",
+                    "id": "39240606-eab6-4189-b3c0-fb4a0e332767",
+                    "label": "_51",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "32"
+                    },
+                    "x": 528,
+                    "y": 201
+                },
+                {
+                    "type": "Image",
+                    "id": "ecf938f0-04dc-4ef3-a8d6-cd6b642417b8",
+                    "label": "_7",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "13"
+                    },
+                    "x": 275,
+                    "y": 431,
+                    "scaleX": 0.5348463580196658,
+                    "scaleY": 0.5137216959198732
+                },
+                {
+                    "type": "Image",
+                    "id": "d198a647-b43e-4944-bd65-f9284b0cedd6",
+                    "label": "_52332",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "32"
+                    },
+                    "x": 594,
+                    "y": 201
+                },
+                {
+                    "type": "Image",
+                    "id": "b4767343-ef36-4603-aaaa-f760153e2296",
+                    "label": "_12",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "5"
+                    },
+                    "x": 119,
+                    "y": 280
+                },
+                {
+                    "type": "Image",
+                    "id": "4aeb4d96-8ca2-4bad-9fab-808977f99576",
+                    "label": "_14",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "21"
+                    },
+                    "x": 166,
+                    "y": 377,
+                    "scaleX": 0.5817672611069135,
+                    "scaleY": 0.7681783770051889
+                },
+                {
+                    "type": "Image",
+                    "id": "4d5d4ea3-ffca-44f1-bf10-f92d91ae7077",
+                    "label": "_15",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "50"
+                    },
+                    "x": 165,
+                    "y": 437,
+                    "scaleX": 0.5407706215176653,
+                    "scaleY": 0.7043407666418721
+                },
+                {
+                    "type": "Image",
+                    "id": "b19db13a-1718-42bd-bfc5-42002b22e2bd",
+                    "label": "_20",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "47"
+                    },
+                    "x": 346,
+                    "y": 305,
+                    "scaleX": 0.7912864545948788,
+                    "scaleY": 0.663417221114047,
+                    "angle": -130,
+                    "flipX": true
+                },
+                {
+                    "type": "Image",
+                    "id": "60e6c97b-3cba-4880-ab72-fb867b134b84",
+                    "label": "_9",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "47"
+                    },
+                    "x": 319,
+                    "y": 446,
+                    "scaleX": 0.9832863745893968,
+                    "scaleY": 1.5867898687164645,
+                    "originY": 1
+                },
+                {
+                    "type": "Image",
+                    "id": "701c5b52-4dc5-4107-95fa-5a96b4cd5d8f",
+                    "label": "_10",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "5"
+                    },
+                    "x": 256,
+                    "y": 280
+                },
+                {
+                    "type": "Image",
+                    "id": "9a8ab829-33b4-4200-b128-eef54b8fdf6b",
+                    "label": "_49",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "32"
+                    },
+                    "x": 391,
+                    "y": 201
+                },
+                {
+                    "type": "Image",
+                    "id": "3a147d59-fb1f-497c-9a5f-f57b8eec6fb9",
+                    "label": "_s",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "47"
+                    },
+                    "x": 56,
+                    "y": 445,
+                    "scaleX": 0.9832863745893968,
+                    "scaleY": 1.5867898687164645,
+                    "originY": 1
+                },
+                {
+                    "type": "Image",
+                    "id": "2d6e1b94-fd91-43a5-8dd6-f1a6d4d71fd5",
+                    "label": "_8",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "5"
+                    },
+                    "x": 396,
+                    "y": 281
+                },
+                {
+                    "type": "Image",
+                    "id": "4f35160b-bf7c-4b76-b4fd-8fcc2cba43ee",
+                    "label": "_472",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "47"
+                    },
+                    "x": 578,
+                    "y": 307,
+                    "scaleX": 0.7912864545948788,
+                    "scaleY": 0.663417221114047,
+                    "angle": -45.00000000000006
+                },
+                {
+                    "type": "Image",
+                    "id": "1b86cf9f-949e-41c2-98d7-01a230c7461c",
+                    "label": "_18",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "5"
+                    },
+                    "x": 536,
+                    "y": 281
+                },
+                {
+                    "type": "Image",
+                    "id": "fb529d41-af35-4ae0-a1b9-a8405c589f9a",
+                    "label": "_32232",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "32"
+                    },
+                    "x": 137,
+                    "y": 199
+                },
+                {
+                    "type": "Image",
+                    "id": "4b8d7794-829a-4cb2-8e86-d49385bf6ed7",
+                    "label": "_25",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "47"
+                    },
+                    "x": 54,
+                    "y": 278,
+                    "scaleX": 0.9832863745893968,
+                    "scaleY": 1.5867898687164645,
+                    "originY": 1
+                },
+                {
+                    "type": "Image",
+                    "id": "6d2a9e41-6a09-48f7-9577-a9aaf0743346",
+                    "label": "_24",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "32"
+                    },
+                    "x": 256,
+                    "y": 198
+                },
+                {
+                    "type": "Image",
+                    "id": "ccb3bb07-c916-4a15-b4a7-0ce775ec2bb6",
+                    "label": "_28",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "47"
+                    },
+                    "x": 319,
+                    "y": 275,
+                    "scaleX": 0.9832863745893968,
+                    "scaleY": 1.5867898687164645,
+                    "originY": 1,
+                    "flipX": true
+                },
+                {
+                    "type": "Image",
+                    "id": "c30f95ae-8e67-4bf2-8f03-8a97489c4767",
+                    "label": "_151",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "15"
+                    },
+                    "x": 386,
+                    "y": 230,
+                    "scaleX": 0.6210579411735648,
+                    "scaleY": 0.6194766279619738
+                },
+                {
+                    "type": "Image",
+                    "id": "cc23816f-7b6c-4761-88d4-01a3209b9d33",
+                    "label": "_58",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "47"
+                    },
+                    "x": 682,
+                    "y": 278,
+                    "scaleX": 0.9832863745893968,
+                    "scaleY": 1.5867898687164645,
+                    "originY": 1
+                },
+                {
+                    "type": "Image",
+                    "id": "708dd0c8-5a4f-4d9c-aa77-fd12432e5153",
+                    "label": "_1023",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "10"
+                    },
+                    "x": 124,
+                    "y": 80
+                },
+                {
+                    "type": "Image",
+                    "id": "bd4d1e42-6cac-481e-b509-e8a129fe3608",
+                    "label": "_29",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "10"
+                    },
+                    "x": 247,
+                    "y": 79
+                },
+                {
+                    "type": "Image",
+                    "id": "883324d6-8e7f-4ce0-8a23-7757ce018202",
+                    "label": "_9123",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "9"
+                    },
+                    "x": 52,
+                    "y": 80
+                },
+                {
+                    "type": "Image",
+                    "id": "2840d447-293c-42a6-8acf-5678f93e09e4",
+                    "label": "_36323",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "36"
+                    },
+                    "x": 272,
+                    "y": 178,
+                    "scaleX": 0.6884888894351264,
+                    "scaleY": 0.66111885138467
+                },
+                {
+                    "type": "Image",
+                    "id": "1f3f54f9-4cdc-4ba2-94c3-7a37707d539e",
+                    "label": "_31",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "36"
+                    },
+                    "x": 102,
+                    "y": 175,
+                    "scaleX": 0.6884888894351264,
+                    "scaleY": 0.66111885138467
+                },
+                {
+                    "type": "Image",
+                    "id": "d3ef1baf-1a57-4f79-84f3-c86812d0fb37",
+                    "label": "_4",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "4"
+                    },
+                    "x": 180,
+                    "y": 112
+                },
+                {
+                    "type": "Image",
+                    "id": "fc8a56b0-3944-4f90-9c77-27e083f25e85",
+                    "label": "_3522",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "35"
+                    },
+                    "x": 179,
+                    "y": 131,
+                    "scaleX": 0.48937680692732854,
+                    "scaleY": 0.43751767340977077
+                },
+                {
+                    "type": "Image",
+                    "id": "0382ba7e-0df7-4182-8b36-a5f54a2b2c76",
+                    "label": "_4023",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "40"
+                    },
+                    "x": 278
+                },
+                {
+                    "type": "Image",
+                    "id": "65e5e235-92b8-4566-a7fe-b930aa794a8f",
+                    "label": "_59323",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "59"
+                    },
+                    "x": 579,
+                    "y": 249
+                },
+                {
+                    "type": "Image",
+                    "id": "ecacb99d-8b90-4345-8bcf-3f20433d4d47",
+                    "label": "_32",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "59"
+                    },
+                    "x": 515,
+                    "y": 249
+                },
+                {
+                    "type": "Image",
+                    "id": "a26c6b28-7ad5-4c7d-b3ad-49c151a762ba",
+                    "label": "_33",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "59"
+                    },
+                    "x": 453,
+                    "y": 249
+                },
+                {
+                    "type": "Image",
+                    "id": "68a57994-69b7-4876-afc2-4bb388a6024f",
+                    "label": "_342323",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "59"
+                    },
+                    "x": 392,
+                    "y": 249
+                },
+                {
+                    "type": "Image",
+                    "id": "78137014-b55d-43b4-9ead-8c885ba5cf3b",
+                    "label": "_35",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "59"
+                    },
+                    "x": 327,
+                    "y": 249
+                },
+                {
+                    "type": "Image",
+                    "id": "b15cec19-2f0a-4c76-946a-1af5d35cd7c8",
+                    "label": "_62",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "62"
+                    },
+                    "x": 20,
+                    "y": 294
+                },
+                {
+                    "type": "Text",
+                    "id": "20824b11-8502-466a-bfb5-955ca5a6a326",
+                    "label": "text_1",
+                    "components": [],
+                    "y": 293,
+                    "text": "Tabern",
+                    "fontSize": "13px"
+                },
+                {
+                    "type": "Image",
+                    "id": "92a8b29a-469b-4256-87d7-a1c83840b673",
+                    "label": "_191",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "47"
+                    },
+                    "x": 598,
+                    "y": 445,
+                    "scaleX": 0.9832863745893968,
+                    "scaleY": 1.5867898687164645,
+                    "originY": 1
+                },
+                {
+                    "type": "Image",
+                    "id": "afe3e0dd-65c4-4510-bfae-187e16c0fdfc",
+                    "label": "_30",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "10"
+                    },
+                    "x": 397,
+                    "y": 79
+                },
+                {
+                    "type": "Image",
+                    "id": "612a3cb3-eb69-425e-a97d-22b8d8712e3a",
+                    "label": "_53",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "10"
+                    },
+                    "x": 547,
+                    "y": 79,
+                    "scaleX": 1.2593554741273
+                },
+                {
+                    "type": "Image",
+                    "id": "78bcb45e-bd03-4d73-8b72-d89bd082d0cb",
+                    "label": "_46312",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "46"
+                    },
+                    "x": 89,
+                    "y": 230
+                },
+                {
+                    "type": "Image",
+                    "id": "286d3a65-0131-45e4-9733-46003c75b1fa",
+                    "label": "_57",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "9"
+                    },
+                    "x": 680,
+                    "y": 79,
+                    "flipX": true
+                },
+                {
+                    "type": "Image",
+                    "id": "8dfb14de-3de4-4edf-afc1-3f85c027aac1",
+                    "label": "_34",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "34"
+                    },
+                    "x": 565,
+                    "y": 179,
+                    "scaleX": 0.805765366073853,
+                    "scaleY": 0.7747533330521025
+                },
+                {
+                    "type": "Image",
+                    "id": "e414497d-457b-4438-8f12-8459c9e326a8",
+                    "label": "_61",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "61"
+                    },
+                    "x": 524,
+                    "y": 308
+                },
+                {
+                    "type": "Image",
+                    "id": "51cdd82b-0ef6-419a-bb7c-bc71cfeb2e85",
+                    "label": "_411",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "41"
+                    },
+                    "x": 357,
+                    "y": 2,
+                    "scaleX": 0.794140364854895,
+                    "scaleY": 0.8130087050310227
+                },
+                {
+                    "type": "Image",
+                    "id": "0ba8d00f-8037-43fb-a9f8-11c7a303dfa1",
+                    "label": "_52",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "52"
+                    },
+                    "x": 54,
+                    "y": 278
+                },
+                {
+                    "type": "Image",
+                    "id": "940a325c-abc0-4cb1-bc6c-2a728aa69016",
+                    "label": "_59",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "52"
+                    },
+                    "x": 320,
+                    "y": 280
+                },
+                {
+                    "type": "Image",
+                    "id": "ffc02205-73e0-471c-a690-5ae45f8c917a",
+                    "label": "_22",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "46"
+                    },
+                    "x": 272,
+                    "y": 230,
+                    "flipX": true
+                },
+                {
+                    "type": "Image",
+                    "id": "60057cd8-4fee-4fb5-8f7c-966fa214fd44",
+                    "label": "_53123",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "53"
+                    },
+                    "x": 181,
+                    "y": 201,
+                    "angle": 45
+                },
+                {
+                    "type": "Image",
+                    "id": "747341e4-659b-43db-8ce9-f7d92d3cb73b",
+                    "label": "_231",
+                    "components": [],
+                    "texture": {
+                        "key": "village",
+                        "frame": "23"
+                    },
+                    "x": 181,
+                    "y": 240,
+                    "scaleX": 0.6337901504862209,
+                    "scaleY": 0.6567476538507682
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType"
+    }
+}
