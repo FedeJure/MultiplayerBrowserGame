@@ -1,1 +1,42 @@
-{"id":"bec6db24-dbaa-4ff4-a31e-6b23773129e8","sceneType":"SCENE","settings":{"preloadPackFiles":[],"createMethodName":"editorCreate","sceneKey":"Forest1","borderWidth":2048,"borderHeight":2048},"displayList":[],"plainObjects":[],"meta":{"app":"Phaser Editor 2D - Scene Editor","url":"https://phasereditor2d.com","contentType":"phasereditor2d.core.scene.SceneContentType","version":3}}
+{
+    "id": "bec6db24-dbaa-4ff4-a31e-6b23773129e8",
+    "sceneType": "SCENE",
+    "settings": {
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Forest1",
+        "borderWidth": 2048,
+        "borderHeight": 2048
+    },
+    "displayList": [
+        {
+            "type": "Rectangle",
+            "id": "1024f596-a852-41fc-8feb-654654fbac02",
+            "label": "rectangle_1",
+            "components": [],
+            "x": 1705,
+            "y": 1642,
+            "isFilled": true,
+            "width": 128,
+            "height": 128
+        },
+        {
+            "type": "Rectangle",
+            "id": "94a1d6d9-3c95-461d-8d3e-a2e46de42143",
+            "label": "rectangle_2",
+            "components": [],
+            "x": 933,
+            "y": 1305,
+            "isFilled": true,
+            "width": 128,
+            "height": 128
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 3
+    }
+}

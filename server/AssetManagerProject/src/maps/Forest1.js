@@ -16,6 +16,14 @@ class Forest1 extends Phaser.Scene {
 	/** @returns {void} */
 	editorCreate() {
 
+		// rectangle_1
+		const rectangle_1 = this.add.rectangle(1705, 1642, 128, 128);
+		rectangle_1.isFilled = true;
+
+		// rectangle_2
+		const rectangle_2 = this.add.rectangle(933, 1305, 128, 128);
+		rectangle_2.isFilled = true;
+
 		this.events.emit("scene-awake");
 	}
 

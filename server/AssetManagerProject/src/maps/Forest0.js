@@ -9,13 +9,8 @@ class Forest0 extends Phaser.Scene {
 		super("Forest0");
 
 		/* START-USER-CTR-CODE */
+		// Write your code here.
 		/* END-USER-CTR-CODE */
-	}
-
-	/** @returns {void} */
-	preload() {
-
-		this.load.pack("forest", "assets/forest.json");
 	}
 
 	/** @returns {void} */
@@ -25,77 +20,77 @@ class Forest0 extends Phaser.Scene {
 		const forest_0 = this.add.tilemap("forest_0");
 		forest_0.addTilesetImage("forest", "forest");
 
-		// button
-		const button = this.add.image(991, 389, "button");
+		// object_RaCsMXm
+		const object_RaCsMXm = this.add.image(991, 389, "button");
 
-		// background_1
+		// object_mJvpYVa
 		forest_0.createLayer("background", ["forest"], 0, -1);
 
-		// ground_1
-		forest_0.createLayer("ground", ["forest"], 0, -1);
+		// object_HrIrOLB
+		forest_0.createLayer("ground", ["forest"], 0, -2);
 
-		// rectangle_1
-		const rectangle_1 = this.add.rectangle(39, 1384, 128, 128);
-		rectangle_1.scaleX = 10.68626108394472;
-		rectangle_1.scaleY = 0.09690901094702309;
-		rectangle_1.setOrigin(0, 0.5);
+		// object_HwvGEMl
+		const object_HwvGEMl = this.add.rectangle(39, 1383, 128, 128);
+		object_HwvGEMl.scaleX = 10.68626108394472;
+		object_HwvGEMl.scaleY = 0.09690901094702309;
+		object_HwvGEMl.setOrigin(0, 0.5);
 
-		// rectangle_2
-		const rectangle_2 = this.add.rectangle(97, 1544, 128, 128);
-		rectangle_2.scaleX = 2.981174022935841;
-		rectangle_2.scaleY = 0.10398898654357956;
-		rectangle_2.setOrigin(0, 0.5);
+		// object_fGDxhMj
+		const object_fGDxhMj = this.add.rectangle(97, 1543, 128, 128);
+		object_fGDxhMj.scaleX = 2.981174022935841;
+		object_fGDxhMj.scaleY = 0.10398898654357956;
+		object_fGDxhMj.setOrigin(0, 0.5);
 
-		// rectangle
-		const rectangle = this.add.rectangle(288, 1479, 128, 128);
-		rectangle.scaleX = 0.24074522319938652;
-		rectangle.scaleY = -0.09519227595036016;
-		rectangle.setOrigin(0, 0.5);
+		// object_qoHmeUQ
+		const object_qoHmeUQ = this.add.rectangle(288, 1478, 128, 128);
+		object_qoHmeUQ.scaleX = 0.24074522319938652;
+		object_qoHmeUQ.scaleY = -0.09519227595036016;
+		object_qoHmeUQ.setOrigin(0, 0.5);
 
-		// rectangle_3
-		const rectangle_3 = this.add.rectangle(417, 1447, 128, 128);
-		rectangle_3.scaleX = 0.24074522319938652;
-		rectangle_3.scaleY = -0.09519227595036016;
-		rectangle_3.setOrigin(0, 0.5);
+		// object_uZXXcDN
+		const object_uZXXcDN = this.add.rectangle(417, 1446, 128, 128);
+		object_uZXXcDN.scaleX = 0.24074522319938652;
+		object_uZXXcDN.scaleY = -0.09519227595036016;
+		object_uZXXcDN.setOrigin(0, 0.5);
 
-		// rectangle_4
-		const rectangle_4 = this.add.rectangle(446.49263650980174, 1509.9982761127053, 128, 128);
-		rectangle_4.scaleX = 0.24074522319938652;
-		rectangle_4.scaleY = -0.09519227595036016;
-		rectangle_4.setOrigin(0, 0.5);
+		// object_JchqctV
+		const object_JchqctV = this.add.rectangle(446.49263650980174, 1508.9982761127053, 128, 128);
+		object_JchqctV.scaleX = 0.24074522319938652;
+		object_JchqctV.scaleY = -0.09519227595036016;
+		object_JchqctV.setOrigin(0, 0.5);
 
-		// rectangle_5
-		const rectangle_5 = this.add.rectangle(1.551687653380621, 1698.808022687891, 128, 128);
-		rectangle_5.scaleX = 15.988322102918316;
-		rectangle_5.scaleY = -0.03783660010527591;
-		rectangle_5.setOrigin(0, 0.5);
+		// object_gQbRDhk
+		const object_gQbRDhk = this.add.rectangle(1.551687653380621, 1699.808022687891, 128, 128);
+		object_gQbRDhk.scaleX = 15.988322102918316;
+		object_gQbRDhk.scaleY = 0.07245906185043288;
+		object_gQbRDhk.setOrigin(0, 0.5);
 
-		// button (components)
-		new SceneExporter(button);
+		// object_RaCsMXm (components)
+		new SceneExporter(object_RaCsMXm);
 
-		// rectangle_1 (components)
-		const rectangle_1Collider = new Collider(rectangle_1);
-		rectangle_1Collider.up = true;
+		// object_HwvGEMl (components)
+		const object_HwvGEMlCollider = new Collider(object_HwvGEMl);
+		object_HwvGEMlCollider.up = true;
 
-		// rectangle_2 (components)
-		const rectangle_2Collider = new Collider(rectangle_2);
-		rectangle_2Collider.up = true;
+		// object_fGDxhMj (components)
+		const object_fGDxhMjCollider = new Collider(object_fGDxhMj);
+		object_fGDxhMjCollider.up = true;
 
-		// rectangle (components)
-		const rectangleCollider = new Collider(rectangle);
-		rectangleCollider.up = true;
+		// object_qoHmeUQ (components)
+		const object_qoHmeUQCollider = new Collider(object_qoHmeUQ);
+		object_qoHmeUQCollider.up = true;
 
-		// rectangle_3 (components)
-		const rectangle_3Collider = new Collider(rectangle_3);
-		rectangle_3Collider.up = true;
+		// object_uZXXcDN (components)
+		const object_uZXXcDNCollider = new Collider(object_uZXXcDN);
+		object_uZXXcDNCollider.up = true;
 
-		// rectangle_4 (components)
-		const rectangle_4Collider = new Collider(rectangle_4);
-		rectangle_4Collider.up = true;
+		// object_JchqctV (components)
+		const object_JchqctVCollider = new Collider(object_JchqctV);
+		object_JchqctVCollider.up = true;
 
-		// rectangle_5 (components)
-		const rectangle_5Collider = new Collider(rectangle_5);
-		rectangle_5Collider.up = true;
+		// object_gQbRDhk (components)
+		const object_gQbRDhkCollider = new Collider(object_gQbRDhk);
+		object_gQbRDhkCollider.up = true;
 
 		this.forest_0 = forest_0;
 
@@ -110,6 +105,7 @@ class Forest0 extends Phaser.Scene {
 	// Write your code here
 
 	create() {
+
 		this.editorCreate();
 	}
 

@@ -1,1 +1,166 @@
-{"id":"b32ac012-8709-4902-86e1-b291ae070910","sceneType":"SCENE","settings":{"preloadPackFiles":["MultiplayerBrowserGameMaps/assets/forest.json"],"createMethodName":"editorCreate","sceneKey":"Forest0","borderWidth":2048,"borderHeight":2048},"displayList":[{"type":"Image","id":"2854fe6c-6b9e-40b9-a21a-3e1944a57802","label":"object_RaCsMXm","components":["SceneExporter"],"texture":{"key":"button"},"x":991,"y":389},{"type":"TilemapLayer","id":"e7a60e40-49c0-480f-9ca7-90e2e9b9ae22","label":"object_mJvpYVa","components":[],"y":-1,"tilemapId":"e19be4fb-dd24-4b96-a869-918e7a4adfdf","layerName":"background","tilesets":["forest"]},{"type":"TilemapLayer","id":"25498699-f861-4ea5-b03b-4dbb77009355","label":"object_HrIrOLB","components":[],"y":-1,"tilemapId":"e19be4fb-dd24-4b96-a869-918e7a4adfdf","layerName":"ground","tilesets":["forest"]},{"type":"Rectangle","id":"b8ed2e1e-377f-4bbe-b1ae-c132a39df357","label":"object_HwvGEMl","components":["Collider"],"Collider.up":true,"x":39,"y":1384,"scaleX":10.68626108394472,"scaleY":0.09690901094702309,"originX":0,"width":128,"height":128},{"type":"Rectangle","id":"251ef7fe-ce5a-4ec2-96ce-2e221a14eb8c","label":"object_fGDxhMj","components":["Collider"],"Collider.up":true,"x":97,"y":1544,"scaleX":2.981174022935841,"scaleY":0.10398898654357956,"originX":0,"width":128,"height":128},{"type":"Rectangle","id":"cabc5a7b-ca63-4733-a09b-6c4aa3c68c65","label":"object_qoHmeUQ","components":["Collider"],"Collider.up":true,"x":288,"y":1479,"scaleX":0.24074522319938652,"scaleY":-0.09519227595036016,"originX":0,"width":128,"height":128},{"type":"Rectangle","id":"89c8969c-fc99-4af7-a4cd-f040f003681d","label":"object_uZXXcDN","components":["Collider"],"Collider.up":true,"x":417,"y":1447,"scaleX":0.24074522319938652,"scaleY":-0.09519227595036016,"originX":0,"width":128,"height":128},{"type":"Rectangle","id":"3df22ae7-dbfe-45cc-8932-d9e087b30581","label":"object_JchqctV","components":["Collider"],"Collider.up":true,"x":446.49263650980174,"y":1509.9982761127053,"scaleX":0.24074522319938652,"scaleY":-0.09519227595036016,"originX":0,"width":128,"height":128},{"type":"Rectangle","id":"5b1ff72f-c502-4da2-8d1b-1ec4163b7353","label":"object_gQbRDhk","components":["Collider"],"Collider.up":true,"x":1.551687653380621,"y":1698.808022687891,"scaleX":15.988322102918316,"scaleY":-0.03783660010527591,"originX":0,"width":128,"height":128}],"plainObjects":[{"id":"e19be4fb-dd24-4b96-a869-918e7a4adfdf","type":"Tilemap","label":"forest_0","key":"forest_0","tilesets":[{"name":"forest","imageKey":"forest"}]}],"meta":{"app":"Phaser Editor 2D - Scene Editor","url":"https://phasereditor2d.com","contentType":"phasereditor2d.core.scene.SceneContentType","version":3}}
+{
+    "id": "b32ac012-8709-4902-86e1-b291ae070910",
+    "sceneType": "SCENE",
+    "settings": {
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "Forest0",
+        "borderWidth": 2048,
+        "borderHeight": 2048
+    },
+    "displayList": [
+        {
+            "type": "Image",
+            "id": "2854fe6c-6b9e-40b9-a21a-3e1944a57802",
+            "label": "object_RaCsMXm",
+            "components": [
+                "SceneExporter"
+            ],
+            "texture": {
+                "key": "button"
+            },
+            "x": 991,
+            "y": 389
+        },
+        {
+            "type": "TilemapLayer",
+            "id": "e7a60e40-49c0-480f-9ca7-90e2e9b9ae22",
+            "label": "object_mJvpYVa",
+            "components": [],
+            "y": -1,
+            "tilemapId": "e19be4fb-dd24-4b96-a869-918e7a4adfdf",
+            "layerName": "background",
+            "tilesets": [
+                "forest"
+            ]
+        },
+        {
+            "type": "TilemapLayer",
+            "id": "25498699-f861-4ea5-b03b-4dbb77009355",
+            "label": "object_HrIrOLB",
+            "components": [],
+            "y": -2,
+            "tilemapId": "e19be4fb-dd24-4b96-a869-918e7a4adfdf",
+            "layerName": "ground",
+            "tilesets": [
+                "forest"
+            ]
+        },
+        {
+            "type": "Rectangle",
+            "id": "b8ed2e1e-377f-4bbe-b1ae-c132a39df357",
+            "label": "object_HwvGEMl",
+            "components": [
+                "Collider"
+            ],
+            "Collider.up": true,
+            "x": 39,
+            "y": 1383,
+            "scaleX": 10.68626108394472,
+            "scaleY": 0.09690901094702309,
+            "originX": 0,
+            "width": 128,
+            "height": 128
+        },
+        {
+            "type": "Rectangle",
+            "id": "251ef7fe-ce5a-4ec2-96ce-2e221a14eb8c",
+            "label": "object_fGDxhMj",
+            "components": [
+                "Collider"
+            ],
+            "Collider.up": true,
+            "x": 97,
+            "y": 1543,
+            "scaleX": 2.981174022935841,
+            "scaleY": 0.10398898654357956,
+            "originX": 0,
+            "width": 128,
+            "height": 128
+        },
+        {
+            "type": "Rectangle",
+            "id": "cabc5a7b-ca63-4733-a09b-6c4aa3c68c65",
+            "label": "object_qoHmeUQ",
+            "components": [
+                "Collider"
+            ],
+            "Collider.up": true,
+            "x": 288,
+            "y": 1478,
+            "scaleX": 0.24074522319938652,
+            "scaleY": -0.09519227595036016,
+            "originX": 0,
+            "width": 128,
+            "height": 128
+        },
+        {
+            "type": "Rectangle",
+            "id": "89c8969c-fc99-4af7-a4cd-f040f003681d",
+            "label": "object_uZXXcDN",
+            "components": [
+                "Collider"
+            ],
+            "Collider.up": true,
+            "x": 417,
+            "y": 1446,
+            "scaleX": 0.24074522319938652,
+            "scaleY": -0.09519227595036016,
+            "originX": 0,
+            "width": 128,
+            "height": 128
+        },
+        {
+            "type": "Rectangle",
+            "id": "3df22ae7-dbfe-45cc-8932-d9e087b30581",
+            "label": "object_JchqctV",
+            "components": [
+                "Collider"
+            ],
+            "Collider.up": true,
+            "x": 446.49263650980174,
+            "y": 1508.9982761127053,
+            "scaleX": 0.24074522319938652,
+            "scaleY": -0.09519227595036016,
+            "originX": 0,
+            "width": 128,
+            "height": 128
+        },
+        {
+            "type": "Rectangle",
+            "id": "5b1ff72f-c502-4da2-8d1b-1ec4163b7353",
+            "label": "object_gQbRDhk",
+            "components": [
+                "Collider"
+            ],
+            "Collider.up": true,
+            "x": 1.551687653380621,
+            "y": 1699.808022687891,
+            "scaleX": 15.988322102918316,
+            "scaleY": 0.07245906185043288,
+            "originX": 0,
+            "width": 128,
+            "height": 128
+        }
+    ],
+    "plainObjects": [
+        {
+            "id": "e19be4fb-dd24-4b96-a869-918e7a4adfdf",
+            "type": "Tilemap",
+            "label": "forest_0",
+            "key": "forest_0",
+            "tilesets": [
+                {
+                    "name": "forest",
+                    "imageKey": "forest"
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "app": "Phaser Editor 2D - Scene Editor",
+        "url": "https://phasereditor2d.com",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 3
+    }
+}

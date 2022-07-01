@@ -63,7 +63,7 @@
                 "key": "forest_0"
             },
             {
-                "url": "assets/tiledConfigs/forest_1.json",
+                "url": "assets/mapConfigs/forest/forest_1.json",
                 "type": "tilemapTiledJSON",
                 "key": "forest_1"
             },
@@ -81,6 +81,11 @@
                 "url": "src/maps/Forest0.js",
                 "type": "sceneFile",
                 "key": "Forest0"
+            },
+            {
+                "url": "src/maps/Forest1.js",
+                "type": "sceneFile",
+                "key": "Forest1"
             },
             {
                 "url": "src/maps/ForestVillage.js",
