@@ -15,6 +15,7 @@ class Entrance {
 		/* START-USER-CTR-CODE */
 		gameObject.scene.events.once(Phaser.Scenes.Events.UPDATE, () => {
 			gameObject.setName('entrance')
+			gameObject.setData('id', this.id)
 		}, this);
 		/* END-USER-CTR-CODE */
 	}
@@ -26,6 +27,8 @@ class Entrance {
 
 	/** @type {Phaser.GameObjects.Rectangle} */
 	gameObject;
+	/** @type {string} */
+	id = "";
 
 	/* START-USER-CODE */
 

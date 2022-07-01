@@ -63,13 +63,65 @@
             "name": "Entrance",
             "baseClass": "",
             "gameObjectType": "Phaser.GameObjects.Rectangle",
-            "properties": []
+            "properties": [
+                {
+                    "name": "id",
+                    "label": "Id",
+                    "tooltip": "Id",
+                    "defValue": "",
+                    "customDefinition": false,
+                    "type": {
+                        "id": "string"
+                    }
+                }
+            ]
         },
         {
             "name": "Exit",
             "baseClass": "",
             "gameObjectType": "Phaser.GameObjects.Rectangle",
-            "properties": []
+            "properties": [
+                {
+                    "name": "id",
+                    "label": "Id",
+                    "tooltip": "Id",
+                    "defValue": "",
+                    "customDefinition": false,
+                    "type": {
+                        "id": "string"
+                    }
+                },
+                {
+                    "name": "action_required",
+                    "label": "ActionRequired",
+                    "tooltip": "ActionRequired",
+                    "defValue": false,
+                    "customDefinition": false,
+                    "type": {
+                        "id": "boolean"
+                    }
+                },
+                {
+                    "name": "destination_map_id",
+                    "label": "DestinationMapId",
+                    "tooltip": "DestinationMapId",
+                    "defValue": "",
+                    "customDefinition": false,
+                    "type": {
+                        "id": "number"
+                    }
+                },
+                {
+                    "name": "destination_entrance_id",
+                    "label": "DestinationEntranceId",
+                    "tooltip": "DestinationEntranceId",
+                    "defValue": "",
+                    "customDefinition": false,
+                    "type": {
+                        "id": "string"
+                    }
+                }
+            ]
         },
         {
             "name": "Depth",
