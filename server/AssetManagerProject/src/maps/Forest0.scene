@@ -141,6 +141,74 @@
             "originX": 0,
             "width": 128,
             "height": 128
+        },
+        {
+            "type": "Rectangle",
+            "id": "a9a5a8fa-796b-46a3-adb0-155a6353f826",
+            "label": "rectangle_1",
+            "components": [
+                "EnemySpawner"
+            ],
+            "EnemySpawner.enemyModelId": "spider",
+            "EnemySpawner.maxEnemies": 2,
+            "EnemySpawner.minInterval": 5000,
+            "x": 322,
+            "y": 1348,
+            "scaleX": 0.06665368990587373,
+            "scaleY": 0.05728857228202444,
+            "width": 128,
+            "height": 128
+        },
+        {
+            "type": "Rectangle",
+            "id": "bf26b501-e69a-4f0c-be75-7299acf00862",
+            "label": "rectangle",
+            "components": [
+                "EnemySpawner"
+            ],
+            "EnemySpawner.enemyModelId": "spider",
+            "EnemySpawner.maxEnemies": 2,
+            "EnemySpawner.minInterval": 5000,
+            "x": 1163.0687441002233,
+            "y": 1337.609785445011,
+            "scaleX": 0.06665368990587373,
+            "scaleY": 0.05728857228202444,
+            "width": 128,
+            "height": 128
+        },
+        {
+            "type": "Rectangle",
+            "id": "5c416463-cc78-4a7a-8e11-e43ff64359fc",
+            "label": "rectangle_2",
+            "components": [
+                "EnemySpawner"
+            ],
+            "EnemySpawner.enemyModelId": "spider",
+            "EnemySpawner.maxEnemies": 2,
+            "EnemySpawner.minInterval": 5000,
+            "x": 1176.878180122916,
+            "y": 1641.4173779442528,
+            "scaleX": 0.06665368990587373,
+            "scaleY": 0.05728857228202444,
+            "width": 128,
+            "height": 128
+        },
+        {
+            "type": "Rectangle",
+            "id": "5763cad3-cc1d-428e-a929-e382e135ce84",
+            "label": "rectangle_3",
+            "components": [
+                "EnemySpawner"
+            ],
+            "EnemySpawner.enemyModelId": "spider",
+            "EnemySpawner.maxEnemies": 2,
+            "EnemySpawner.minInterval": 5000,
+            "x": 326.6114764399729,
+            "y": 1655.2268139669457,
+            "scaleX": 0.06665368990587373,
+            "scaleY": 0.05728857228202444,
+            "width": 128,
+            "height": 128
         }
     ],
     "plainObjects": [

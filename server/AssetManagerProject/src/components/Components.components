@@ -156,6 +156,53 @@
                     }
                 }
             ]
+        },
+        {
+            "name": "EnemySpawner",
+            "baseClass": "",
+            "gameObjectType": "Phaser.GameObjects.Rectangle",
+            "properties": [
+                {
+                    "name": "enemyModelId",
+                    "label": "EnemyModelId",
+                    "tooltip": "EnemyModelId",
+                    "defValue": "",
+                    "customDefinition": false,
+                    "type": {
+                        "id": "string"
+                    }
+                },
+                {
+                    "name": "maxEnemies",
+                    "label": "MaxEnemies",
+                    "tooltip": "MaxEnemies",
+                    "defValue": 1,
+                    "customDefinition": false,
+                    "type": {
+                        "id": "number"
+                    }
+                },
+                {
+                    "name": "minInterval",
+                    "label": "MinInterval",
+                    "tooltip": "MinInterval",
+                    "defValue": 500,
+                    "customDefinition": false,
+                    "type": {
+                        "id": "number"
+                    }
+                },
+                {
+                    "name": "maxInterval",
+                    "label": "MaxInterval",
+                    "tooltip": "MaxInterval",
+                    "defValue": 10000,
+                    "customDefinition": false,
+                    "type": {
+                        "id": "number"
+                    }
+                }
+            ]
         }
     ],
     "meta": {

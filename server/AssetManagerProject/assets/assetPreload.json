@@ -22,6 +22,11 @@
                 "key": "Depth"
             },
             {
+                "url": "src/components/EnemySpawner.js",
+                "type": "script",
+                "key": "EnemySpawner"
+            },
+            {
                 "url": "src/components/Entrance.js",
                 "type": "script",
                 "key": "Entrance"

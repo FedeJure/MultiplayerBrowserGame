@@ -65,6 +65,26 @@ class Forest0 extends Phaser.Scene {
 		object_gQbRDhk.scaleY = 0.07245906185043288;
 		object_gQbRDhk.setOrigin(0, 0.5);
 
+		// rectangle_1
+		const rectangle_1 = this.add.rectangle(322, 1348, 128, 128);
+		rectangle_1.scaleX = 0.06665368990587373;
+		rectangle_1.scaleY = 0.05728857228202444;
+
+		// rectangle
+		const rectangle = this.add.rectangle(1163.0687441002233, 1337.609785445011, 128, 128);
+		rectangle.scaleX = 0.06665368990587373;
+		rectangle.scaleY = 0.05728857228202444;
+
+		// rectangle_2
+		const rectangle_2 = this.add.rectangle(1176.878180122916, 1641.4173779442528, 128, 128);
+		rectangle_2.scaleX = 0.06665368990587373;
+		rectangle_2.scaleY = 0.05728857228202444;
+
+		// rectangle_3
+		const rectangle_3 = this.add.rectangle(326.6114764399729, 1655.2268139669457, 128, 128);
+		rectangle_3.scaleX = 0.06665368990587373;
+		rectangle_3.scaleY = 0.05728857228202444;
+
 		// object_RaCsMXm (components)
 		new SceneExporter(object_RaCsMXm);
 
@@ -91,6 +111,30 @@ class Forest0 extends Phaser.Scene {
 		// object_gQbRDhk (components)
 		const object_gQbRDhkCollider = new Collider(object_gQbRDhk);
 		object_gQbRDhkCollider.up = true;
+
+		// rectangle_1 (components)
+		const rectangle_1EnemySpawner = new EnemySpawner(rectangle_1);
+		rectangle_1EnemySpawner.enemyModelId = "spider";
+		rectangle_1EnemySpawner.maxEnemies = 2;
+		rectangle_1EnemySpawner.minInterval = 5000;
+
+		// rectangle (components)
+		const rectangleEnemySpawner = new EnemySpawner(rectangle);
+		rectangleEnemySpawner.enemyModelId = "spider";
+		rectangleEnemySpawner.maxEnemies = 2;
+		rectangleEnemySpawner.minInterval = 5000;
+
+		// rectangle_2 (components)
+		const rectangle_2EnemySpawner = new EnemySpawner(rectangle_2);
+		rectangle_2EnemySpawner.enemyModelId = "spider";
+		rectangle_2EnemySpawner.maxEnemies = 2;
+		rectangle_2EnemySpawner.minInterval = 5000;
+
+		// rectangle_3 (components)
+		const rectangle_3EnemySpawner = new EnemySpawner(rectangle_3);
+		rectangle_3EnemySpawner.enemyModelId = "spider";
+		rectangle_3EnemySpawner.maxEnemies = 2;
+		rectangle_3EnemySpawner.minInterval = 5000;
 
 		this.forest_0 = forest_0;
 
