@@ -3192,6 +3192,21 @@
             "originX": 0,
             "width": 128,
             "height": 128
+        },
+        {
+            "type": "Rectangle",
+            "id": "fc42ca7c-e1e7-42e5-867c-4a711325a6aa",
+            "label": "rectangle_3",
+            "components": [
+                "SpawnPosition"
+            ],
+            "SpawnPosition.default": true,
+            "x": 1827,
+            "y": 1586,
+            "scaleX": 0.10697514614298564,
+            "scaleY": 0.0829984957054718,
+            "width": 128,
+            "height": 128
         }
     ],
     "plainObjects": [

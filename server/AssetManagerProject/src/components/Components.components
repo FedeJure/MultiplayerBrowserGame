@@ -139,6 +139,23 @@
                     }
                 }
             ]
+        },
+        {
+            "name": "SpawnPosition",
+            "baseClass": "",
+            "gameObjectType": "Phaser.GameObjects.Rectangle",
+            "properties": [
+                {
+                    "name": "default",
+                    "label": "Default",
+                    "tooltip": "Property 1",
+                    "defValue": false,
+                    "customDefinition": false,
+                    "type": {
+                        "id": "boolean"
+                    }
+                }
+            ]
         }
     ],
     "meta": {

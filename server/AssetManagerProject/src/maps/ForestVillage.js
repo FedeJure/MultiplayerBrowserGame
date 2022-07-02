@@ -1397,6 +1397,11 @@ class ForestVillage extends Phaser.Scene {
 		rectangle_2.scaleY = 0.07148436172305088;
 		rectangle_2.setOrigin(0, 0.5);
 
+		// rectangle_3
+		const rectangle_3 = this.add.rectangle(1827, 1586, 128, 128);
+		rectangle_3.scaleX = 0.10697514614298564;
+		rectangle_3.scaleY = 0.0829984957054718;
+
 		// object_pmmxZLP (components)
 		new SceneExporter(object_pmmxZLP);
 
@@ -1463,6 +1468,10 @@ class ForestVillage extends Phaser.Scene {
 		rectangle_2Collider.up = true;
 		rectangle_2Collider.left = true;
 		rectangle_2Collider.right = true;
+
+		// rectangle_3 (components)
+		const rectangle_3SpawnPosition = new SpawnPosition(rectangle_3);
+		rectangle_3SpawnPosition.default = true;
 
 		this.forest_2_village = forest_2_village;
 

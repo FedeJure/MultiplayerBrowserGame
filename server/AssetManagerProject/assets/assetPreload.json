@@ -103,6 +103,11 @@
                 "key": "SceneExporter"
             },
             {
+                "url": "src/components/SpawnPosition.js",
+                "type": "script",
+                "key": "SpawnPosition"
+            },
+            {
                 "url": "src/components/UserComponent.js",
                 "type": "script",
                 "key": "UserComponent"
