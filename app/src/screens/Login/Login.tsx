@@ -3,12 +3,12 @@ import { login } from "../../services/apiGateway"
 
 export const Login = ({ onLogin }: { onLogin: (loggedPlayerId: string) => void }) => {
 
-    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
     const [pass, setPass] = useState("")
     const [loading, setLoading] = useState(false)
 
-    const handleUsername = (evnt: React.ChangeEvent<HTMLInputElement>) => {
-        setUsername(evnt.currentTarget.value)
+    const handleEmail = (evnt: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(evnt.currentTarget.value)
     }
 
     const handlePassword = (evnt: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,12 +17,13 @@ export const Login = ({ onLogin }: { onLogin: (loggedPlayerId: string) => void }
 
     const handleSubmit = (evnt: React.FormEvent) => {
         evnt.preventDefault()
-        console.log(`Submitted user: ${username} and pass: ${pass}`)
+        console.log(`Submitted user: ${email} and pass: ${pass}`)
         setLoading(true)
-        login(username, pass)
+        login(email, pass)
             .then(response => {
                 setLoading(false)
                 if (response.ok && response.playerId) onLogin(response.playerId)
+                else alert(response.message)
             })
             .catch(() => {
                 setLoading(false)
@@ -31,7 +32,7 @@ export const Login = ({ onLogin }: { onLogin: (loggedPlayerId: string) => void }
 
     return <div>
         <form onSubmit={handleSubmit}>
-            <input disabled={loading} type="text" onChange={handleUsername} placeholder="Username" />
+            <input disabled={loading} type="text" onChange={handleEmail} placeholder="Email" />
             <input disabled={loading} type="password" onChange={handlePassword} placeholder="Password" />
             <button disabled={loading} type="submit">Login</button>
         </form>

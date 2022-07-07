@@ -1,12 +1,10 @@
 const {
   InitGame,
   InitGameStateSender,
-  InitServerDependencies,
 } = require("@fedejure/multiplayer-game-core/lib/serverIndex");
 
 exports.SetupServer = (socket) => {
-  const provider = InitServerDependencies();
-  InitGame(socket, "../../../../server", provider);
+  return InitGame(socket, "../../../../server");
 };
 
 exports.SetupServerStateManager = (socket) => {

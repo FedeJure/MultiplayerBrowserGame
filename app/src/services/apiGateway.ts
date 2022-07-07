@@ -1,10 +1,10 @@
-export function login(username: string, password: string) {
+export function login(email: string, password: string) {
   const config = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ email, password }),
   };
   const url =
     process.env.NODE_ENV === "development"
